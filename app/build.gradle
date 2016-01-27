@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
+
+    defaultConfig {
+        applicationId "com.sms.within30"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+//page viewer auto scroll at home page
+   // compile 'com.viewpagerindicator:library:2.4.1@aar'
+    //ARC library
+
+   // compile 'com.ogaclejapan.arclayout.library:1.0.0@aar'
+    compile 'com.ogaclejapan.arclayout:library:1.0.1@aar'
+
+   // compile 'com.nineoldandroids:library:2.4.0+'
+}

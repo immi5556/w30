@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="siArrowPosition">
+        <enum name="left" value="0" />
+        <enum name="right" value="1" />
+    </attr>
+    <attr name="siBorderType">
+        <enum name="stroke" value="0" />
+        <enum name="fill" value="1" />
+    </attr>
+    <attr name="siStrokeCap">
+        <enum name="butt" value="0" />
+        <enum name="round" value="1" />
+        <enum name="square" value="2" />
+    </attr>
+    <attr name="siStrokeJoin">
+        <enum name="bevel" value="0" />
+        <enum name="miter" value="1" />
+        <enum name="round" value="2" />
+    </attr>
+
+    <declare-styleable name="ShaderImageView">
+        <attr name="siSquare" format="boolean" />
+        <attr name="siBorderColor" format="color" />
+        <attr name="siBorderWidth" format="dimension" />
+        <attr name="siBorderAlpha" format="float" />
+        <attr name="siForeground" format="integer|reference" />
+        <!-- Rounded Image View -->
+        <attr name="siRadius" format="dimension" />
+        <!-- BubbleImageView -->
+        <attr name="siArrowPosition" />
+        <attr name="siTriangleHeight" format="dimension" />
+        <!-- PorterImageView -->
+        <attr name="siShape" format="integer|reference" />
+        <!-- ShaderImageView -->
+        <attr name="siBorderType" />
+        <attr name="siStrokeCap" />
+        <attr name="siStrokeJoin" />
+        <attr name="siStrokeMiter" format="dimension" />
+    </declare-styleable>
+    <!-- Shimmer Effect -->
+    <declare-styleable name="ShimmerFrameLayout">
+        <attr name="auto_start" format="boolean" />
+        <attr name="base_alpha" format="float" />
+        <attr name="duration" format="integer" />
+        <attr name="repeat_count" format="integer" />
+        <attr name="repeat_delay" format="integer" />
+        <attr name="repeat_mode" format="enum">
+            <enum name="restart" value="1" />
+            <enum name="reverse" value="2" />
+        </attr>
+        <attr name="angle" format="enum">
+            <enum name="cw_0" value="0" />
+            <enum name="cw_90" value="90" />
+            <enum name="cw_180" value="180" />
+            <enum name="cw_270" value="270" />
+        </attr>
+        <attr name="dropoff" format="float" />
+        <attr name="fixed_width" format="dimension" />
+        <attr name="fixed_height" format="dimension" />
+        <attr name="intensity" format="float" />
+        <attr name="relative_width" format="float" />
+        <attr name="relative_height" format="float" />
+        <attr name="shape" format="enum">
+            <enum name="linear" value="0" />
+            <enum name="radial" value="1" />
+        </attr>
+        <attr name="tilt" format="float" />
+    </declare-styleable>
+    <!-- rippleview.xml -->
+    <declare-styleable name="RippleView">
+        <attr name="rv_alpha" format="integer" />
+        <attr name="rv_framerate" format="integer" />
+        <attr name="rv_rippleDuration" format="integer" />
+        <attr name="rv_zoomDuration" format="integer" />
+        <attr name="rv_color" format="color" />
+        <attr name="rv_centered" format="boolean" />
+        <attr name="rv_type" format="enum">
+            <enum name="simpleRipple" value="0" />
+            <enum name="doubleRipple" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+        <attr name="rv_ripplePadding" format="dimension" />
+        <attr name="rv_zoom" format="boolean" />
+        <attr name="rv_zoomScale" format="float" />
+    </declare-styleable>
+    <declare-styleable name="MaterialProgressBar">
+        <attr name="inner_radius" format="dimension" />
+        <attr name="background_color" format="color" />
+        <attr name="progress_color" format="color" />
+        <attr name="progress_stoke_width" format="dimension" />
+        <attr name="show_arrow" format="boolean" />
+        <attr name="enable_circle_background" format="boolean" />
+        <attr name="arrow_width" format="dimension" />
+        <attr name="arrow_height" format="dimension" />
+        <attr name="progress" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
+
+        <!-- <attr name="mlpb_progress_text_offset" format="dimension"/> -->
+
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+    <!-- floating_action_button -->
+    <declare-styleable name="FloatingActionButton">
+        <attr name="fab_colorPressed" format="color" />
+        <attr name="fab_colorDisabled" format="color" />
+        <attr name="fab_colorNormal" format="color" />
+        <attr name="fab_icon" format="reference" />
+        <attr name="fab_size" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+        <attr name="fab_title" format="string" />
+        <attr name="fab_stroke_visible" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="AddFloatingActionButton">
+        <attr name="fab_plusIconColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="FloatingActionsMenu">
+        <attr name="fab_addButtonColorPressed" format="color" />
+        <attr name="fab_addButtonColorNormal" format="color" />
+        <attr name="fab_addButtonSize" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+        <attr name="fab_addButtonPlusIconColor" format="color" />
+        <attr name="fab_addButtonStrokeVisible" format="boolean" />
+        <attr name="fab_labelStyle" format="reference" />
+        <attr name="fab_labelsPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="fab_expandDirection" format="enum">
+            <enum name="up" value="0" />
+            <enum name="down" value="1" />
+            <enum name="left" value="2" />
+            <enum name="right" value="3" />
+        </attr>
+    </declare-styleable>
+    
+    <attr name="arc_origin">
+    <!-- Value same as the android:gravity -->
+    <flag name="top" value="0x30"/>
+    <flag name="bottom" value="0x50"/>
+    <flag name="left" value="0x03"/>
+    <flag name="right" value="0x05"/>
+    <flag name="center_vertical" value="0x10"/>
+    <flag name="center_horizontal" value="0x01"/>
+    <flag name="center" value="0x11"/>
+    <flag name="start" value="0x00800003"/>
+    <flag name="end" value="0x00800005"/>
+  </attr>
+
+  <declare-styleable name="arc_ArcLayout">
+    <attr name="arc_origin"/>
+    <attr name="arc_color" format="color"/>
+    <attr name="arc_radius" format="dimension"/>
+    <attr name="arc_axisRadius" format="dimension"/>
+    <attr name="arc_freeAngle" format="boolean"/>
+    <attr name="arc_reverseAngle" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="arc_ArcLayout_Layout">
+    <attr name="arc_origin"/>
+    <attr name="arc_angle" format="float"/>
+  </declare-styleable>
+    <declare-styleable name="FloatLabeledEditText">
+        <attr name="fletTextAppearance" format="reference" />
+        <attr name="fletPadding" format="reference|dimension" />
+        <attr name="fletPaddingLeft" format="reference|dimension" />
+        <attr name="fletPaddingTop" format="reference|dimension" />
+        <attr name="fletPaddingRight" format="reference|dimension" />
+        <attr name="fletPaddingBottom" format="reference|dimension" />
+        <attr name="fletBackground" format="reference|color" />
+    </declare-styleable>
+</resources>

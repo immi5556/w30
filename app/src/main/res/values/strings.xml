@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Within 30</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="filter">filter</string>
+    <string name="open">Search</string>
+    <string name="close">filter</string>
+    <string name="category">Category</string>
+    <string name="im_looking_for">I\'m looking for...</string>
+    <string name="login_to">Login To</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgotpassword">Forgot Password</string>
+    <string name="login_with">LOGIN\nWITH</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="google">GOOGLE+</string>
+    <string name="or">or</string>
+    <string name="register">Register</string>
+    <string name="user">User</string>
+    <string name="business">Business</string>
+    <string name="account_details">Account Details</string>
+    <string name="email_id">Email-ID</string>
+    <string name="your_name">Your Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="onebyfour">1/4</string>
+    <string name="twobyfour">2/4</string>
+    <string name="threebyfour">3/4</string>
+    <string name="fourbyfour">4/4</string>
+    <string name="create_account">Create Account</string>
+    <string name="company_name">Company Name </string>
+    <string name="business_type">Business Type </string>
+    <string name="phone_no">Phone No </string>
+    <string name="company_email_id">Company Email-ID</string>
+    <string name="logo">Logo</string>
+    <string name="no_item_found">No item found</string>
+    <string name="business_owner">Business Owner</string>
+    <string name="services_offered">Services Offered</string>
+    <string name="schedule_my_booking">Schedule my booking</string>
+
+
+
+
+
+</resources>

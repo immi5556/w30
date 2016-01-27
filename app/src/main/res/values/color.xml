@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background_tab_pressed">#CCCCCC</color>
+    <color name="transparent">#80000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#1b2a30</color>
+    <color name="gray_light">#808080</color>
+    <color name="grey_light">#EBEBEB</color>
+    <color name="brown_dark">#595959</color>
+    <color name="black_dark">#414141</color>
+    <color name="light_blue">#065CA5</color>
+    <color name="divider_line_grey">#B1B1B1</color>
+    <color name="store_check_tab_text_color">#989898</color>
+    <color name="red_color">#EC3024</color>
+    <color name="gray_dark">#353434</color>
+    <color name="thick_ash_color">#505050</color>
+    <color name="base_blue_color">#183577</color>
+    <color name="text_color_dark">#353434</color>
+    <color name="dark_grey">#5F5F61</color>
+    <color name="very_light_grey">#EDEDED</color>
+    <color name="very_dark_black">#1b2a30</color>
+    <color name="dark_blue">#005cad</color>
+    <color name="very_dark_grey">#343434</color>
+    <color name="very_dark_cyan">#1e424e</color>
+    <color name="bright_red">#E83F3C</color>
+    <color name="very_light_gray">#BCBCBC</color>
+    <color name="dark_lime_green">#008b21</color>
+    <color name="light_grayish_magenta">#efe8ef</color>
+    <color name="red_dark">#D32809</color>
+    <color name="greenText">#005dab</color>
+    <color name="header_red">#F02E25</color>
+    <color name="blue">#005DAB</color>
+    <color name="ratingcolor">#fff4f4f4</color>
+    <color name="paper_line">#77A88236</color>
+    <color name="rippelColor">#FFFFFF</color>
+    <color name="red">#990000</color>
+    <color name="green">#009900</color>
+    <color name="orange">#FF9900</color>
+    <color name="light_black">#484848</color>
+    <color name="order_history_bg">#ECECEC</color>
+    <color name="dark_red">#E21C52</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="order_history_button">#e91e63</color>
+    <color name="order_history_button_h">#bd275a</color>
+    <!--  arc laout -->
+      <color name="path_primary">#E62F17</color>
+       <color name="scrim">#42000000</color>
+        <color name="path_orange">#FF9500</color>
+  <color name="path_blue">#1774E6</color>
+  <color name="path_black">#403B36</color>
+  <color name="path_green">#5FB336</color>
+  <color name="path_purple">#49098A</color>
+    <color name="im_looking_for">#e19345</color>
+
+</resources>

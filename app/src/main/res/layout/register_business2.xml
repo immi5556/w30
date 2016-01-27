@@ -1,0 +1,75 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/ll_register2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/company_name"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/size12"
+                android:background="@drawable/textbx"
+                android:gravity="center_vertical|center|center_horizontal" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/business_type"
+                android:inputType="textPersonName"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/size12"
+                android:background="@drawable/textbx"
+                android:gravity="center_vertical|center|center_horizontal" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/phone_no"
+                android:inputType="textEmailAddress"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/size12"
+                android:background="@drawable/textbx"
+                android:gravity="center_vertical|center|center_horizontal" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/company_email_id"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/size12"
+                android:background="@drawable/textbx"
+                android:gravity="center_vertical|center|center_horizontal" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/logo"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/size12"
+                android:background="@drawable/textbx"
+                android:gravity="center_vertical|center|center_horizontal" />
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>

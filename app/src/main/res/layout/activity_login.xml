@@ -1,0 +1,170 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:float="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:text="@string/login_to"
+                android:textSize="@dimen/size20"
+                android:textColor="@color/gray_light"
+                android:gravity="center_horizontal"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginLeft="130dp"
+                android:layout_marginRight="130dp"
+                android:background="@color/im_looking_for"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:layout_margin="10dp"
+
+                />
+            <com.sms.within30.lib.FloatLabeledEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                float:fletPadding="10dp">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="@string/username"
+                    android:layout_margin="10dp"
+                    android:textSize="@dimen/size12"
+                    android:background="@drawable/textbx"
+                    android:gravity="center_vertical|center|center_horizontal" />
+
+            </com.sms.within30.lib.FloatLabeledEditText>
+            <com.sms.within30.lib.FloatLabeledEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                float:fletPadding="10dp">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:layout_margin="10dp"
+                    android:textSize="@dimen/size12"
+                    android:background="@drawable/textbx"
+                    android:gravity="center_vertical|center|center_horizontal"
+                    android:layout_gravity="center_horizontal" />
+
+
+            </com.sms.within30.lib.FloatLabeledEditText>
+           <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="@string/forgotpassword"
+                android:textSize="@dimen/size12"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textSize="@dimen/size14"
+                android:layout_margin="10dp"
+                android:background="@color/im_looking_for"
+                android:textColor="@color/white"
+                android:gravity="center_vertical|center|center_horizontal"
+                android:layout_gravity="center" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/im_looking_for"
+                android:layout_height="1dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_with"
+                        android:textSize="@dimen/size10"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/facebook"
+                        android:textSize="@dimen/size10"
+                        android:textColor="@color/im_looking_for"
+                        android:gravity="center_horizontal" />
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="125dp"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/fb_and_g">
+                    <TextView
+                        android:id="@+id/facebook"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        </TextView>
+                    <TextView
+                        android:id="@+id/gmail"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_with"
+                        android:textSize="@dimen/size10"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/google"
+                        android:textSize="@dimen/size10"
+                        android:textColor="@color/im_looking_for"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

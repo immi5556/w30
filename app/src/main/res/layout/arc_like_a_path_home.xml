@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top">
+
+  <FrameLayout
+      android:id="@+id/menu_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      android:visibility="invisible"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true">
+
+    <com.ogaclejapan.arclayout.ArcLayout
+        android:id="@id/arc_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        app:arc_axisRadius="@dimen/layout_child_offset_large1"
+        app:arc_freeAngle="true"
+        app:arc_origin="bottom"
+        app:arc_radius="@dimen/layout_radius_large1"
+        >
+        <LinearLayout
+            android:id="@+id/category_1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:arc_angle="30"
+            >
+
+            <ImageView
+                style="@style/Item.Path"
+                android:src="@drawable/salon"
+                android:layout_gravity="center"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Salon"
+                android:textSize="@dimen/size12"
+                android:layout_margin="2dp"
+                android:textColor="@color/im_looking_for"
+                />
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/category_2"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:arc_angle="60"
+            >
+
+            <ImageView
+                style="@style/Item.Path"
+                android:src="@drawable/spa_and_massage"
+                android:layout_gravity="center"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Spa"
+                android:textSize="@dimen/size12"
+                android:layout_margin="2dp"
+                android:textColor="@color/im_looking_for"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/category_3"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:arc_angle="90"
+            >
+
+            <ImageView
+                style="@style/Item.Path"
+                android:src="@drawable/dentist"
+                android:layout_gravity="center"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Dentist"
+                android:textSize="@dimen/size12"
+                android:layout_margin="2dp"
+                android:textColor="@color/im_looking_for"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/category_4"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:arc_angle="120"
+            >
+
+            <ImageView
+                style="@style/Item.Path"
+                android:src="@drawable/law"
+                android:layout_gravity="center"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Legal Services"
+                android:textSize="@dimen/size12"
+                android:layout_margin="2dp"
+                android:textColor="@color/im_looking_for"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/category_5"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:arc_angle="150"
+            >
+
+            <ImageView
+                style="@style/Item.Path"
+                android:src="@drawable/autoservices"
+                android:layout_gravity="center"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Car Mainteance"
+                android:textSize="@dimen/size12"
+                android:layout_margin="2dp"
+                android:textColor="@color/im_looking_for"
+                />
+        </LinearLayout>
+
+    </com.ogaclejapan.arclayout.ArcLayout>
+
+  </FrameLayout>
+        <LinearLayout
+            android:id="@+id/ll_more"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="visible"
+
+            >
+            </LinearLayout>
+  <Button
+      android:id="@+id/fab"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:gravity="center_horizontal"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="8dp"
+      android:background="@drawable/plus_button"
+      android:layout_centerHorizontal="true" />
+</RelativeLayout>
+</RelativeLayout>

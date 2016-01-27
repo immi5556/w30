@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+   <!-- <TextView
+        android:id="@+id/tvCurrentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/dropdown_item_fixed"
+        android:gravity="center"
+        android:text="Wednesday Sept 23"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />-->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+    </android.support.v4.view.ViewPager>
+
+    <TextView
+        android:id="@+id/tvCurrentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f3f3f3"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Wednesday Sept 23"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+   <!-- <TextView
+        android:id="@+id/tvTiming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/dropdown_item_bottom"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="15dp"
+        android:text="Timing"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />-->
+
+    <ListView
+        android:id="@+id/lvTiming"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/etMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:hint="Enter your mobile number"
+        android:inputType="textPhonetic|numberSigned"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:paddingRight="5dp"
+        android:paddingTop="3dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_grey"
+        android:textSize="@dimen/size18" />
+
+    <TextView
+        android:id="@+id/tvConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@mipmap/schedule_booking"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
+        android:text="@string/schedule_my_booking"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+
+</LinearLayout>
