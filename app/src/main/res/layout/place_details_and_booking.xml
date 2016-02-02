@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/tvComapanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lakshmi Dental Services"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_20"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center_horizontal|center"
+                android:layout_centerHorizontal="true" />
+
+
+
+            <RatingBar
+                android:id="@+id/ratingbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvComapanyName"
+                style="?android:attr/ratingBarStyleSmall"
+                android:stepSize="1.0"
+                android:numStars="5"
+                android:clickable="false"
+                android:progressTint="@color/rating_bar_star_filled"
+                android:progressBackgroundTint="@color/rating_bar_star_filled"
+                android:secondaryProgressTint="@color/rating_bar_star_filled"
+                android:layout_alignStart="@+id/tvComapanyName" />
+            <TextView
+                android:id="@+id/tvcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(64)"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 miles"
+
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/size12"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@+id/tvcount"
+                android:id="@+id/tvmiles"
+                android:layout_alignTop="@+id/tvcount"
+                android:layout_alignEnd="@+id/tvComapanyName"
+                android:gravity="right" />
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#333333">
+
+        </View>
+
+        <TextView
+            android:id="@+id/tvaddress1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plot No 123,Neas ram nagar square,shivaji nagar"
+            android:drawableLeft="@mipmap/address"
+            android:drawablePadding="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/size14"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|center" />
+
+        <TextView
+            android:id="@+id/tvaddress2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hyderabad,Telangana,India 50007"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/size14"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|center"/>
+
+        <TextView
+            android:id="@+id/tvtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Estimated time: 12 min"
+            android:textColor="@color/estimated_time"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/bt_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/book"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:background="@mipmap/book_buttn"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/travel_car_img"
+        android:layout_gravity="right"
+        android:layout_marginTop="-20dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignTop="@+id/llmain"
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</LinearLayout>

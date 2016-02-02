@@ -5,6 +5,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:visibility="visible"
    >
 
     <RelativeLayout
@@ -41,7 +42,8 @@
             >
             <ImageView
                 android:id="@+id/img_category_1"
-                style="@style/Item.Path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/salon"
                 android:layout_gravity="center"/>
             <TextView
@@ -68,7 +70,8 @@
 
             <ImageView
                 android:id="@+id/img_category_2"
-                style="@style/Item.Path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/spa_and_massage"
                 android:layout_gravity="center"
 
@@ -96,7 +99,8 @@
 
             <ImageView
                 android:id="@+id/img_category_3"
-                style="@style/Item.Path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/dentist"
                 android:layout_gravity="center"
 
@@ -124,7 +128,8 @@
 
             <ImageView
                 android:id="@+id/img_category_4"
-                style="@style/Item.Path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/law"
                 android:layout_gravity="center"
 
@@ -152,7 +157,8 @@
 
             <ImageView
                 android:id="@+id/img_category_5"
-                style="@style/Item.Path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/autoservices"
                 android:layout_gravity="center"
 
@@ -181,7 +187,7 @@
       android:layout_marginTop="-40dp"
       android:layout_below="@+id/menu_layout"
       android:layout_centerHorizontal="true"
-      android:background="@drawable/plus_button"
+      android:background="@mipmap/menu_open"
       />
 </RelativeLayout>
 </RelativeLayout>

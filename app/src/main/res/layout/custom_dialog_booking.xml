@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/booked_popup_icon"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/im_looking_for"
+        android:text="@string/appointment_confirmed"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/image"
+        android:textSize="@dimen/size16"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:id="@+id/textDone1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="Hope to see you in 12 min"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/text"
+        android:textSize="@dimen/size14"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:background="@mipmap/done_button"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/white"
+
+        android:textSize="@dimen/size14"
+
+
+        />
+
+</LinearLayout>

@@ -66,7 +66,7 @@ public class SplashActivity extends Activity {
 		if("".equalsIgnoreCase(preference.getStringFromPreference(PreferenceUtils.USER_NAME, "")))
 		{
 			// New User
-			Intent splashActivty = new Intent(getApplicationContext(), LandingActivity.class);
+			Intent splashActivty = new Intent(getApplicationContext(), LandingActivity1.class);
 			startActivity(splashActivty);
 		}
 		else

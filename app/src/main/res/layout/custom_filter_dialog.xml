@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background="@android:color/transparent"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+   >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingTop="5dp"
+
+        android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/tvComapanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_options"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center_horizontal|center"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@mipmap/filte_icon_on_popup"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#333333">
+
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tvcount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="By Distance"
+                    android:layout_weight="3"
+                    android:layout_toRightOf="@+id/ratingbar"
+                    android:color="@color/black"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tvComapanyName"
+                    android:layout_toEndOf="@+id/ratingbar" />
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text=": "
+                    android:layout_weight="1"
+                    android:layout_toRightOf="@+id/ratingbar"
+                    android:color="@color/black"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tvComapanyName"
+                    android:layout_toEndOf="@+id/ratingbar" />
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0 to "
+                    android:layout_weight="1"
+                    android:layout_toRightOf="@+id/ratingbar"
+                    android:textColor="@color/light_blue"
+                    android:textSize="12sp"
+                    android:layout_below="@+id/tvComapanyName"
+                    android:layout_toEndOf="@+id/ratingbar" />
+                <EditText
+                    android:id="@+id/et_to_minutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="5 Miles"
+                    android:layout_weight="2"
+                    android:layout_toRightOf="@+id/ratingbar"
+                    android:color="@color/black"
+                    android:textSize="12sp"
+                    android:textColorHint="@color/light_blue"
+                    android:inputType="phone"
+                    android:textColor="@color/light_blue"
+                    android:layout_below="@+id/tvComapanyName"
+                    android:layout_toEndOf="@+id/ratingbar" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0 Mi"
+                android:layout_weight="4"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+            <TextView
+                android:id="@+id/tv_miles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="5 Mi"
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:gravity="right"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+
+        </LinearLayout>
+        <SeekBar
+            android:id="@+id/seek_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:progress="100" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#333333">
+
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="By Distance"
+                android:layout_weight="3"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=": "
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0 to "
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:textColor="@color/light_blue"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+            <EditText
+                android:id="@+id/et_to_miles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="5 Miles"
+                android:layout_weight="2"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:inputType="phone"
+                android:textColor="@color/light_blue"
+                android:textColorHint="@color/light_blue"
+
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="0 Mi"
+                android:layout_weight="4"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+            <TextView
+                android:id="@+id/tv_minutes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="5 Mi"
+                android:layout_weight="1"
+                android:layout_toRightOf="@+id/ratingbar"
+                android:color="@color/black"
+                android:textSize="12sp"
+                android:gravity="right"
+                android:layout_below="@+id/tvComapanyName"
+                android:layout_toEndOf="@+id/ratingbar" />
+
+        </LinearLayout>
+        <SeekBar
+            android:id="@+id/seek_minutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:progress="100" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:weightSum="2">
+            <Button
+                android:id="@+id/bt_apply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/apply"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@mipmap/apply_button"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/bt_reset"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/reset"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@mipmap/reset_button"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/popup_close_button"
+        android:layout_gravity="right"
+        android:layout_marginTop="-10dp"
+
+        android:layout_alignTop="@+id/llmain"
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</LinearLayout>

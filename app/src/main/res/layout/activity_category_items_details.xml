@@ -50,10 +50,10 @@
             android:id="@+id/AutoCompleteTV_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_text_box"
+            android:background="@drawable/search_box"
             android:completionThreshold="1"
             android:layout_margin="10dp"
-            android:drawableLeft="@drawable/gps"
+
             android:layout_below="@+id/tvaddress"
             android:drawablePadding="10dp"
             android:ems="2"

@@ -4,27 +4,50 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     >
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/business_owner"
             android:layout_margin="10dp"
-            android:textSize="@dimen/size15"
-            android:textColor="@color/gray_light"
-            android:gravity="right"
-            android:layout_gravity="right" />
+            >
+
+            <ImageView
+                android:id="@+id/img_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/filte_icon_on_popup"
+                android:gravity="left"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal|left"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/business_owner"
+                android:layout_margin="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray_light"
+                android:gravity="center_horizontal|right"
+                android:layout_alignParentRight="true" />
+
+         </RelativeLayout>
+
         <ImageView
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
+
             android:src="@drawable/logo"
-            android:textColor="@color/im_looking_for"
+
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -59,52 +82,56 @@
                 android:textColor="@color/black"
                 android:gravity="center_horizontal" />
         </LinearLayout>
-        <include
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            android:orientation="vertical">
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                layout="@layout/wheel_view"></include>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_marginTop="0dp"
-            layout="@layout/arc_like_a_path"></include>
-
-
-        <!--<FrameLayout
-            android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <TextView
+            android:orientation="vertical"
+            android:layout_marginTop="-25dp"
+            android:id="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal">
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/arrow"
+                android:layout_centerHorizontal="true" />
+            <ImageView
+                android:id="@+id/btmenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/menu_open"
                 android:layout_gravity="center"
-                android:text="@string/hello_world" />
-        </FrameLayout>-->
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:text="@string/im_looking_for"
-            android:textSize="@dimen/size18"
-            android:textColor="@color/im_looking_for"
-            android:gravity="center_horizontal" />
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
         <com.sms.within30.lib.ClearableAutoCompleteTextView
             android:id="@+id/autoCompleted_categorysearch"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_below="@+id/textView1"
-            android:background="@drawable/search_text_box"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/search_box"
+            android:layout_marginTop="50dp"
             android:ems="2"
             android:textSize="@dimen/size13"
             android:imeOptions="actionSearch"
-            android:hint="@string/category"
-            android:drawablePadding="5dp"
+            android:hint="@string/im_looking_for"
+            android:drawablePadding="20dp"
             android:gravity="center|center_horizontal" />
-
-
     </LinearLayout>
-
+</ScrollView>
 </RelativeLayout>

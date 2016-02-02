@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="rating_bar_star_filled">#faca51</color>
+    <color name="backgroung_map_marker">#79cdd2</color>
+    <color name="backgroung_map_markaer_click">#384260</color>
+    <color name="backgroung_actionbar">#384260</color>
     <color name="background_tab_pressed">#CCCCCC</color>
     <color name="transparent">#80000000</color>
     <color name="white">#ffffff</color>
@@ -59,5 +62,5 @@
   <color name="path_green">#5FB336</color>
   <color name="path_purple">#49098A</color>
     <color name="im_looking_for">#e19345</color>
-
+<color name="estimated_time">#f49878</color>
 </resources>

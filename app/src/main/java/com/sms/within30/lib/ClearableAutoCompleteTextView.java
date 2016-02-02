@@ -32,6 +32,9 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView {
     // The image we defined for the clear button
     public Drawable imgClearButton = getResources().getDrawable(
             android.R.drawable.ic_delete);
+    // The image we defined for the clear button
+    public Drawable imgSearchButton = getResources().getDrawable(
+            R.drawable.search_icon);
 
     public interface OnClearListener {
         void onClear();
@@ -58,7 +61,7 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView {
     void init() {
         // Set the bounds of the button
         this.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                imgClearButton, null);
+                imgSearchButton, null);
 
         // if the clear button is pressed, fire up the handler. Otherwise do nothing
         this.setOnTouchListener(new OnTouchListener() {
@@ -76,6 +79,11 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView {
                 if (event.getX() > et.getWidth() - et.getPaddingRight()	- imgClearButton.getIntrinsicWidth()) {
                     onClearListener.onClear();
                     justCleared = true;
+                    setCompoundDrawablesWithIntrinsicBounds(null, null,
+                            imgSearchButton, null);
+                }else{
+                    setCompoundDrawablesWithIntrinsicBounds(null, null,
+                            imgClearButton, null);
                 }
                 return false;
             }

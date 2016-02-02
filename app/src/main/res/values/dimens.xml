@@ -19,6 +19,7 @@
     <dimen name="text_size_extra_large_39">39sp</dimen>
     <dimen name="text_size_extra_large_30">30sp</dimen>
     <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
 
     <!-- Icon -->
     <dimen name="icon_width">25dip</dimen>

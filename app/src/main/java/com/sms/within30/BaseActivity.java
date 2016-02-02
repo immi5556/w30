@@ -24,6 +24,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,6 +35,7 @@ import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -218,6 +220,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 			bottomBarNullifier.setVisibility(View.VISIBLE);
 		}
 		initialize();
+	//	this.getWindow().setStatusBarColor(getResources().getColor(R.color.backgroung_actionbar));
 	}
 	
 	protected SearchView searchView;
@@ -226,12 +229,12 @@ public abstract class BaseActivity extends AppCompatActivity{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_search));
+		/*searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_search));
 	    searchView.setQueryHint(this.getString(R.string.search));
 	    
 	    ((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
         .setHintTextColor(getResources().getColor(R.color.white));	    
-	    searchView.setOnQueryTextListener(OnQuerySearchView);
+	    searchView.setOnQueryTextListener(OnQuerySearchView);*/
 
 	    menu.findItem(R.id.menu_filter).setVisible(false);
 
@@ -648,7 +651,37 @@ public abstract class BaseActivity extends AppCompatActivity{
       super.onResume();
 
   }
+/*	public void setStatusBarColor(){
+		*//*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			Window w = getWindow();
+			w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			//status bar height
+			int actionBarHeight = getActionBarHeight();
+			int statusBarHeight = getStatusBarHeight();
+			//action bar height
+			statusBar.getLayoutParams().height = actionBarHeight + statusBarHeight;
+			statusBar.setBackgroundColor(color);
+		}*//*
 
-  
+
+	}*/
+	public int getActionBarHeight() {
+		int actionBarHeight = 0;
+		TypedValue tv = new TypedValue();
+		if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+		{
+			actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+		}
+		return actionBarHeight;
+	}
+
+	public int getStatusBarHeight() {
+		int result = 0;
+		int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
+	}
 
 }

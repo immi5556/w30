@@ -40,7 +40,7 @@ public class CategoryItemsActivity extends BaseActivity implements View.OnClickL
     ArcLayout arcLayout;
     private CategoryItemsAdapter categoryItemsAdapter;
     public void initialize(){
-        homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_category_items, null);
+        homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_maps, null);
         // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
         llBody.addView(homeLayout);
         vecCatgories = new Vector<CategoriesDO>();

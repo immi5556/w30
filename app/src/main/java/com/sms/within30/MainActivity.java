@@ -55,7 +55,7 @@ public void initialize(){
         inflater.inflate(R.menu.main, menu);
 
         menu.findItem(R.id.menu_filter).setVisible(true);
-        menu.findItem(R.id.menu_search).setVisible(true);
+      //  menu.findItem(R.id.menu_search).setVisible(true);
 
         mSearchCheck = false;
         return true;
