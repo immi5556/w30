@@ -24,7 +24,7 @@
         android:layout_marginRight="10dp"
         android:paddingTop="5dp"
 
-        android:background="@android:color/white">
+        android:background="@drawable/rounded_bg_filter">
 
             <TextView
                 android:id="@+id/tvComapanyName"
@@ -92,7 +92,7 @@
                     android:id="@+id/et_to_minutes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="5 Miles"
+                    android:hint="3 Miles"
                     android:layout_weight="2"
                     android:layout_toRightOf="@+id/ratingbar"
                     android:color="@color/black"
@@ -159,7 +159,7 @@
 
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="By Distance"
+                android:text="Wait Time"
                 android:layout_weight="3"
                 android:layout_toRightOf="@+id/ratingbar"
                 android:color="@color/black"
@@ -192,7 +192,7 @@
                 android:id="@+id/et_to_miles"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="5 Miles"
+                android:hint="2 Minutes"
                 android:layout_weight="2"
                 android:layout_toRightOf="@+id/ratingbar"
                 android:color="@color/black"
@@ -200,7 +200,6 @@
                 android:inputType="phone"
                 android:textColor="@color/light_blue"
                 android:textColorHint="@color/light_blue"
-
                 android:layout_below="@+id/tvComapanyName"
                 android:layout_toEndOf="@+id/ratingbar" />
         </LinearLayout>

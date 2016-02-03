@@ -9,16 +9,16 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.sms.within30.adapters.CategoriesSearchAdapter;
@@ -43,7 +43,11 @@ public class LandingActivity1 extends BaseActivity implements View.OnClickListen
     ImageView btmenu;
     WheelView wheelView;
     ImageView img_filter;
+    LinearLayout llmenu;
     HashMap<Integer,String> categories = new HashMap<Integer,String>();
+
+    Animation wheelOpen;
+    Animation wheelClose;
    // com.ogaclejapan.arclayout.ArcLayout arc_layout;
     int currentlocation = 0;
     ArrayList<String> searchArrayList = new ArrayList<String>();
@@ -68,10 +72,11 @@ public class LandingActivity1 extends BaseActivity implements View.OnClickListen
 
     private  void intilizeControls() {
         btmenu = (ImageView) findViewById(R.id.btmenu);
+        llmenu = (LinearLayout) homeLayout.findViewById(R.id.llmenu);
         wheelView = (WheelView) findViewById(R.id.wheelview);
         wheelView.setActivity(this);
-
-
+        wheelClose = AnimationUtils.loadAnimation(this, R.anim.wheel_close);
+        wheelOpen = AnimationUtils.loadAnimation(this,R.anim.wheel_open);
         setCategoriesList();
         CategoriesSearchAdapter adapter = new CategoriesSearchAdapter(this,
                 R.layout.category_list_item, R.id.tv_category, searchArrayList);
@@ -111,28 +116,28 @@ public class LandingActivity1 extends BaseActivity implements View.OnClickListen
              //   Toast.makeText(LandingActivity1.this, msg, Toast.LENGTH_SHORT).show();
                 Intent mapsIntent = new Intent(LandingActivity1.this,MapsActivity.class);
                 mapsIntent.putExtra("actionbar_title","Dentist");
+                mapsIntent.putExtra("category_type","hospitals");
                 startActivity(mapsIntent);
             }
         });
 
         //initialise the selection drawable with the first contrast color
         wheelView.setSelectionColor(getContrastColor(entries.get(0)));
-        btmenu.setOnClickListener(new View.OnClickListener() {
+        llmenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* wheelView.animate()
+                if (wheelView.getVisibility() == View.VISIBLE) {
+                    wheelView.startAnimation(wheelClose);
+                    wheelView.setVisibility(View.INVISIBLE);
+                    btmenu.setImageResource(R.mipmap.menu_open);
+                   // btmenu.setBackground(getResources().getDrawable(R.mipmap.menu_open));
+                }else{
+                    wheelView.startAnimation(wheelOpen);
+                    wheelView.setVisibility(View.VISIBLE);
+                    btmenu.setImageResource(R.mipmap.menu_close);
+                   // btmenu.setBackground(getResources().getDrawable(R.mipmap.menu_close));
+                }
 
-                        .rotation(100.0f)
-                        .translationX(50)
-                        .translationY(100)
-                        .alpha(0.0f)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                wheelView.setVisibility(View.INVISIBLE);
-                            }
-                        });*/
             }
         });
 

@@ -29,7 +29,7 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"
+                android:src="@mipmap/logo"
                 android:layout_margin="10dp"
 
                 />
@@ -45,7 +45,7 @@
                     android:hint="@string/username"
                     android:layout_margin="10dp"
                     android:textSize="@dimen/size12"
-                    android:background="@drawable/textbx"
+                    android:background="@mipmap/textbx"
                     android:gravity="center_vertical|center|center_horizontal" />
 
             </com.sms.within30.lib.FloatLabeledEditText>
@@ -60,7 +60,7 @@
                     android:inputType="textPassword"
                     android:layout_margin="10dp"
                     android:textSize="@dimen/size12"
-                    android:background="@drawable/textbx"
+                    android:background="@mipmap/textbx"
                     android:gravity="center_vertical|center|center_horizontal"
                     android:layout_gravity="center_horizontal" />
 
@@ -121,7 +121,7 @@
                     android:layout_width="125dp"
                     android:layout_height="75dp"
                     android:orientation="horizontal"
-                    android:background="@drawable/fb_and_g">
+                    android:background="@mipmap/fb_and_g">
                     <TextView
                         android:id="@+id/facebook"
                         android:layout_width="0dp"

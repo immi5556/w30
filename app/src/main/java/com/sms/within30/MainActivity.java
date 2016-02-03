@@ -22,7 +22,7 @@ import com.sms.within30.dataobjects.CitiesDO;
 import java.util.Vector;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  {
  RelativeLayout homeLayout;
     private Spinner spinner;
     private CityAdapter adapter;

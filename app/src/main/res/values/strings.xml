@@ -8,7 +8,7 @@
     <string name="open">Search</string>
     <string name="close">filter</string>
     <string name="category">Category</string>
-    <string name="im_looking_for">I\'m looking for...</string>
+    <string name="im_looking_for">I\'m looking for</string>
     <string name="login_to">Login To</string>
     <string name="login">Login</string>
     <string name="username">Username</string>
@@ -45,6 +45,8 @@
     <string name="filter_options">Filter Options</string>
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
+    <string name="Unable_to_connect_server_please_try_again">There seems to be some data connectivity issue with your network. Please check connection and try again.</string>
+    <string name="server_error_please_try_again">There seems to be some data connectivity issue with your network.</string>
 
 
 

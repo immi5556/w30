@@ -21,7 +21,7 @@
                 android:layout_width="125dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"/>
+                android:src="@mipmap/logo"/>
 
             <TextView
                 android:layout_marginTop="2dp"

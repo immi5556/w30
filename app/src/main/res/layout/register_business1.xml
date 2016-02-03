@@ -21,7 +21,7 @@
             android:layout_margin="10dp"
             android:textSize="@dimen/size12"
 
-            android:background="@drawable/textbx"
+            android:background="@mipmap/textbx"
             android:gravity="center_vertical|center|center_horizontal" />
         <EditText
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:inputType="textPersonName"
             android:layout_margin="10dp"
             android:textSize="@dimen/size12"
-            android:background="@drawable/textbx"
+            android:background="@mipmap/textbx"
             android:gravity="center_vertical|center|center_horizontal"  />
         <EditText
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:inputType="textEmailAddress"
             android:layout_margin="10dp"
             android:textSize="@dimen/size12"
-            android:background="@drawable/textbx"
+            android:background="@mipmap/textbx"
             android:gravity="center_vertical|center|center_horizontal"  />
         <EditText
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:inputType="textPassword"
             android:layout_margin="10dp"
             android:textSize="@dimen/size12"
-            android:background="@drawable/textbx"
+            android:background="@mipmap/textbx"
             android:gravity="center_vertical|center|center_horizontal" />
         <EditText
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
             android:inputType="textPassword"
             android:layout_margin="10dp"
             android:textSize="@dimen/size12"
-            android:background="@drawable/textbx"
+            android:background="@mipmap/textbx"
             android:gravity="center_vertical|center|center_horizontal"  />
 
     </LinearLayout>

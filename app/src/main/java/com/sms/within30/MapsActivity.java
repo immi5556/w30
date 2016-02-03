@@ -49,6 +49,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.lib.GPSTracker;
+import com.sms.within30.utilities.NetworkUtility;
+import com.sms.within30.webservices.Response;
+import com.sms.within30.webservices.businesslayer.CommonBL;
+import com.sms.within30.webservices.businesslayer.DataListener;
+
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,7 +66,7 @@ import java.util.List;
 
 import static android.graphics.Color.TRANSPARENT;
 
-public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, LocationListener {
+public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, LocationListener ,DataListener{
 
     private GoogleMap mMap;
 
@@ -99,7 +104,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         bt_book = (Button)homeLayout.findViewById(R.id.bt_book);
         // Getting place reference from the map
         if ( getIntent()!=null) {
-           // category_type = getIntent().getStringExtra("category_type");
+            category_type = getIntent().getStringExtra("category_type");
             actionbarTitle = getIntent().getStringExtra("actionbar_title");
             tvTitle.setText(actionbarTitle);
         }
@@ -217,12 +222,24 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         sb.append("&key=");
         sb.append(browser_key);
         System.out.println("url----->"+sb.toString());
-
+        int radius = 500;
         // Creating a new non-ui thread task to download Google place json data
-        PlacesTask placesTask = new PlacesTask();
+    //    PlacesTask placesTask = new PlacesTask();
 
         // Invokes the "doInBackground()" method of the class PlaceTask
-        placesTask.execute(sb.toString());
+      //  placesTask.execute(sb.toString());
+
+        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)){
+            if(new CommonBL(MapsActivity.this, MapsActivity.this).getMapInfo(mLatitude, mLongitude,radius,browser_key,category_type)){
+
+            }else{
+            Toast.makeText(MapsActivity.this,R.string.Unable_to_connect_server_please_try_again,Toast.LENGTH_SHORT).show();
+
+            }
+        }else{
+            Toast.makeText(MapsActivity.this,R.string.Unable_to_connect_server_please_try_again,Toast.LENGTH_SHORT).show();
+        }
+
     }
     private void  showCustomFilterDialog(Context context){
         // custom dialog
@@ -357,6 +374,63 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         return data;
     }
 
+    @Override
+    public void dataRetreived(Response data) {
+       // llLoader.setVisibility(View.GONE);
+        if(data != null && data.data != null) {
+            hideLoader();
+            switch (data.method) {
+                case WS_MAP_INFO:
+                    if(data.data!=null && data.data instanceof List<?>)
+                    {
+                        List<HashMap<String, String>> placesList = (List<HashMap<String, String>>)data.data;
+                        // Clears all the existing markers
+                        mMap.clear();
+
+                        for (int i = 0; i < placesList.size(); i++) {
+
+                            // Creating a marker
+                            MarkerOptions markerOptions = new MarkerOptions();
+
+                            // Getting a place from the places list
+                            HashMap<String, String> hmPlace = placesList.get(i);
+
+                            // Getting latitude of the place
+                            double lat = Double.parseDouble(hmPlace.get("lat"));
+
+                            // Getting longitude of the place
+                            double lng = Double.parseDouble(hmPlace.get("lng"));
+
+                            LatLng latLng = new LatLng(lat, lng);
+
+                            // Setting the position for the marker
+                            markerOptions.position(latLng);
+
+                            // Setting the title for the marker.
+                            //This will be displayed on taping the marker
+                            markerOptions.title("3 OPen Slots");
+
+                            View custom_marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
+                            TextView numTxt = (TextView) custom_marker.findViewById(R.id.tvtitle);
+                            numTxt.setText("3\nOpen slots");
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapsActivity.this, custom_marker)));
+
+                            // Placing a marker on the touched position
+
+
+                            Marker m = mMap.addMarker(markerOptions);
+
+                            // Linking Marker id and place reference
+                            mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     /** A class, to download Google Places */
     private class PlacesTask extends AsyncTask<String, Integer, String>{
 
@@ -453,23 +527,23 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
             }
         }
-        // Convert a view to bitmap
-        public  Bitmap createDrawableFromView(Context context, View view) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-            view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-            view.buildDrawingCache();
-            Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
-            Canvas canvas = new Canvas(bitmap);
-            view.draw(canvas);
-
-            return bitmap;
-        }
     }
+    // Convert a view to bitmap
+    public  Bitmap createDrawableFromView(Context context, View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
     @Override
     public void onLocationChanged(Location location) {
         mLatitude = location.getLatitude();

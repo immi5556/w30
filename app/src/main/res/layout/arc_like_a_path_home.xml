@@ -45,7 +45,7 @@
 
             <ImageView
                 style="@style/Item.Path"
-                android:src="@drawable/salon"
+                android:src="@mipmap/salon"
                 android:layout_gravity="center"
 
                 />
@@ -72,7 +72,7 @@
 
             <ImageView
                 style="@style/Item.Path"
-                android:src="@drawable/spa_and_massage"
+                android:src="@mipmap/spa_and_massage"
                 android:layout_gravity="center"
 
                 />
@@ -98,7 +98,7 @@
 
             <ImageView
                 style="@style/Item.Path"
-                android:src="@drawable/dentist"
+                android:src="@mipmap/dentist"
                 android:layout_gravity="center"
 
                 />
@@ -124,7 +124,7 @@
 
             <ImageView
                 style="@style/Item.Path"
-                android:src="@drawable/law"
+                android:src="@mipmap/law"
                 android:layout_gravity="center"
 
                 />
@@ -150,7 +150,7 @@
 
             <ImageView
                 style="@style/Item.Path"
-                android:src="@drawable/autoservices"
+                android:src="@mipmap/autoservices"
                 android:layout_gravity="center"
 
                 />

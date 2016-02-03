@@ -202,7 +202,7 @@ public class WheelView extends View {
                     break; */
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WheelView, defStyle, 0);
-        Drawable d =getResources().getDrawable(R.drawable.salon);
+        Drawable d =getResources().getDrawable(R.mipmap.salon);
        // Drawable d = a.getDrawable(R.styleable.WheelView_emptyItemDrawable);
         if (d != null) {
             setEmptyItemDrawable(d);
@@ -1235,13 +1235,13 @@ public class WheelView extends View {
     private void drawWheelItems(Canvas canvas) {
         // drawables items array
         ArrayList<Integer> categoryDrawablesList = new ArrayList<Integer>();
-        categoryDrawablesList.add(R.drawable.salon);
-        categoryDrawablesList.add(R.drawable.spa_and_massage);
-        categoryDrawablesList.add(R.drawable.dentist);
-        categoryDrawablesList.add(R.drawable.law);
-        categoryDrawablesList.add(R.drawable.autoservices);
-        categoryDrawablesList.add(R.drawable.diagnostics);
-        categoryDrawablesList.add(R.drawable.photographers);
+        categoryDrawablesList.add(R.mipmap.salon);
+        categoryDrawablesList.add(R.mipmap.spa_and_massage);
+        categoryDrawablesList.add(R.mipmap.dentist);
+        categoryDrawablesList.add(R.mipmap.law);
+        categoryDrawablesList.add(R.mipmap.autoservices);
+        categoryDrawablesList.add(R.mipmap.diagnostics);
+        categoryDrawablesList.add(R.mipmap.photographers);
 
 
         ArrayList<String> categoryItemNames = new ArrayList<String>();
@@ -1312,8 +1312,8 @@ public class WheelView extends View {
                     mSelectionDrawable.draw(canvas);
                 }*/
 
-               // Drawable drawable = cacheItem.mDrawable;
-            //    Drawable drawable = categoryDrawablesList.get(adapterPosition);
+              //  Drawable drawable = cacheItem.mDrawable;
+               // Drawable drawable = categoryDrawablesList.get(adapterPosition);
                 Drawable drawable = getResources().getDrawable(categoryDrawablesList.get(adapterPosition));
 
                 if (drawable != null) {
@@ -1321,10 +1321,11 @@ public class WheelView extends View {
                     drawable.draw(canvas);
                     Paint imagePaint = new Paint();
                     imagePaint.setTextAlign(Paint.Align.CENTER);
-                    imagePaint.setTextSize(25f);
+                    imagePaint.setTextSize(20f);
                     Rect rect = drawable.getBounds();
                    // canvas.drawText("Salon",rect.bottom,rect.bottom,imagePaint);
-                    canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);
+                  //  canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);
+                    canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
                 }
 
                /* Paint paint = new Paint();

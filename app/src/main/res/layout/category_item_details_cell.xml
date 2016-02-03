@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
-                android:src="@drawable/dentist" />
+                android:src="@mipmap/dentist" />
 
             <ProgressBar
                 android:id="@+id/pBar"

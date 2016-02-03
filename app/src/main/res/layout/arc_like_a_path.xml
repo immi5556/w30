@@ -44,7 +44,7 @@
                 android:id="@+id/img_category_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/salon"
+                android:src="@mipmap/salon"
                 android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/tv_category_1"
@@ -72,7 +72,7 @@
                 android:id="@+id/img_category_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/spa_and_massage"
+                android:src="@mipmap/spa_and_massage"
                 android:layout_gravity="center"
 
                 />
@@ -101,7 +101,7 @@
                 android:id="@+id/img_category_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/dentist"
+                android:src="@mipmap/dentist"
                 android:layout_gravity="center"
 
                 />
@@ -130,7 +130,7 @@
                 android:id="@+id/img_category_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/law"
+                android:src="@mipmap/law"
                 android:layout_gravity="center"
 
                 />
@@ -159,7 +159,7 @@
                 android:id="@+id/img_category_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/autoservices"
+                android:src="@mipmap/autoservices"
                 android:layout_gravity="center"
 
                 />
