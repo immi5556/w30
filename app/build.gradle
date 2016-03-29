@@ -21,19 +21,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.squareup.picasso:picasso:2.5.2'
-// Google maps
+
+    // Google maps
     compile 'com.google.android.gms:play-services:8.4.0'
-//page viewer auto scroll at home page
-   // compile 'com.viewpagerindicator:library:2.4.1@aar'
-    //ARC library
 
-   // compile 'com.ogaclejapan.arclayout.library:1.0.0@aar'
-    compile 'com.ogaclejapan.arclayout:library:1.0.1@aar'
-
-   // compile 'com.nineoldandroids:library:2.4.0+'
-
-
+    //JSON parsing
+    compile 'com.google.code.gson:gson:1.7.2'
 }

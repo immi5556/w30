@@ -5,19 +5,64 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/frameLayout">
+        <LinearLayout
+            android:id="@+id/llfilters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal">
+            <Button
+                android:id="@+id/btfilterdistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.5 M"
+                android:layout_margin="10dp"
+                android:textSize="13sp"
+                android:textColor="@color/gray_light"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_dashed"/>
+            <Button
+                android:id="@+id/btfiltertime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.5 M"
+                android:layout_margin="10dp"
+                android:textSize="13sp"
+                android:textColor="@color/gray_light"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_dashed"/>
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
 
+        >
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:map="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+         <com.sms.within30.lib.VerticalSeekBar
+          android:id="@+id/sbfilter"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+             android:max="10000"
 
-
-                />
-
+          />
+        </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

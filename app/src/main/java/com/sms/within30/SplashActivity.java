@@ -66,7 +66,7 @@ public class SplashActivity extends Activity {
 		if("".equalsIgnoreCase(preference.getStringFromPreference(PreferenceUtils.USER_NAME, "")))
 		{
 			// New User
-			Intent splashActivty = new Intent(getApplicationContext(), LandingActivity1.class);
+			Intent splashActivty = new Intent(getApplicationContext(), LandingActivity.class);
 			startActivity(splashActivty);
 		}
 		else
@@ -78,8 +78,8 @@ public class SplashActivity extends Activity {
 			startActivity(splashActivty);*/
 		/*	Intent splashActivty = new Intent(getApplicationContext(), HomeScreenSweetSheetActivty.class);
 			startActivity(splashActivty);*/
-			Intent splashActivty = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(splashActivty);
+			/*Intent splashActivty = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(splashActivty);*/
 		}
 		finish();
 

@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/very_light_grey"
-        android:orientation="vertical" >
+    <com.sms.within30.sidemenu.animation.RevealFrameLayout
 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_actionbar"
             android:layout_width="match_parent"
@@ -32,10 +34,7 @@
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+
 
             <LinearLayout
                 android:id="@+id/llBody"
@@ -51,13 +50,24 @@
                 android:layout_height="@dimen/navigation_bar_height"
                 android:visibility="gone" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/listDrawer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:orientation="vertical" />
+    </com.sms.within30.sidemenu.animation.RevealFrameLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|bottom">
+
+        <LinearLayout
+            android:id="@+id/left_drawer"
+            android:orientation="vertical"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:background="@android:color/transparent">
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.v4.widget.DrawerLayout>

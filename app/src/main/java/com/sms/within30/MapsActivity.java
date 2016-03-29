@@ -3,6 +3,7 @@ package com.sms.within30;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -32,6 +33,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,11 +46,18 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.lib.GPSTracker;
+import com.sms.within30.sidemenu.fragment.ContentFragment;
+import com.sms.within30.sidemenu.fragment.MyLInearLayout;
+import com.sms.within30.sidemenu.interfaces.Resourceble;
+import com.sms.within30.sidemenu.interfaces.ScreenShotable;
+import com.sms.within30.sidemenu.util.ViewAnimator;
 import com.sms.within30.utilities.NetworkUtility;
 import com.sms.within30.webservices.Response;
 import com.sms.within30.webservices.businesslayer.CommonBL;
@@ -66,7 +75,7 @@ import java.util.List;
 
 import static android.graphics.Color.TRANSPARENT;
 
-public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, LocationListener ,DataListener{
+public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, LocationListener ,DataListener, ScreenShotable,View.OnClickListener,SeekBar.OnSeekBarChangeListener {
 
     private GoogleMap mMap;
 
@@ -82,16 +91,17 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     String category_type = "";
     String actionbarTitle = "";
     ActionBar actionBar;
+    com.sms.within30.lib.VerticalSeekBar sbfilter;
+    Button btfilterdistance;
+    Button btfiltertime;
+
     public void initialize(){
         homeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_maps, null);
         // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
         llBody.addView(homeLayout);
 
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-       // actionBar.setTitle("Dentist");
 
-      //  actionBar.setDisplayShowTitleEnabled(false);
         intilizeControls();
     }
 
@@ -102,6 +112,15 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         bottomUp = AnimationUtils.loadAnimation(this,R.anim.bottom_up);
         bottomDown = AnimationUtils.loadAnimation(this,R.anim.bottom_down);
         bt_book = (Button)homeLayout.findViewById(R.id.bt_book);
+        btfiltertime = (Button)homeLayout.findViewById(R.id.btfiltertime);
+        btfilterdistance = (Button)homeLayout.findViewById(R.id.btfilterdistance);
+        sbfilter = (com.sms.within30.lib.VerticalSeekBar)homeLayout.findViewById(R.id.sbfilter);
+        btfilterdistance.setOnClickListener(this);
+        btfiltertime.setOnClickListener(this);
+        sbfilter.setOnSeekBarChangeListener(this);
+        sbfilter.setVisibility(View.GONE);
+       // myLInearLayout = new MyLInearLayout(MapsActivity.this).newInstance();
+      //  viewAnimator = new ViewAnimator<>(MapsActivity.this, list, myLInearLayout, mLayoutDrawer, this);
         // Getting place reference from the map
         if ( getIntent()!=null) {
             category_type = getIntent().getStringExtra("category_type");
@@ -130,6 +149,8 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                 double latitude = gpsTracker.getLatitude();
                 double longitude = gpsTracker.getLongitude();
+                mLatitude = latitude;
+                mLongitude = longitude;
                 // create marker
                 MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
 
@@ -145,14 +166,14 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 @Override
                 public void onMapClick(LatLng latLng) {
                     System.out.println("Clicked on map...");
-
+                    sbfilter.setVisibility(View.GONE);
                     if(llbooking.getVisibility() == View.VISIBLE){
                         llbooking.startAnimation(bottomDown);
                         llbooking.setVisibility(View.INVISIBLE);
                     }
-
                 }
             });
+
 
             // Getting Google Play availability status
             int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
@@ -164,7 +185,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 dialog.show();
 
             }else {
-                // Getting LocationManager object from System Service LOCATION_SERVICE
+              /*  // Getting LocationManager object from System Service LOCATION_SERVICE
                 LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
                 // Creating a criteria object to retrieve provider
@@ -178,31 +199,34 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                 if(location!=null){
                     onLocationChanged(location);
-                }
+                }*/
 
-                locationManager.requestLocationUpdates(provider, 20000, 0, this);
+// check if GPS enabled
+
+             //   locationManager.requestLocationUpdates(provider, 20000, 0, this);
 
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
                     @Override
                     public void onInfoWindowClick(Marker arg0) {
 
-                        if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
+                       /* if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
                             llbooking.startAnimation(bottomUp);
                             llbooking.setVisibility(View.VISIBLE);
-                        }
+                        }*/
 
                     }
                 });
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-
+                        sbfilter.setVisibility(View.GONE);
                         if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
                             llbooking.startAnimation(bottomUp);
                             llbooking.setVisibility(View.VISIBLE);
                         }
-                        return false;
+                        marker.hideInfoWindow();
+                        return true;
                     }
                 });
 
@@ -221,15 +245,15 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         sb.append("&sensor=true");
         sb.append("&key=");
         sb.append(browser_key);
-        System.out.println("url----->"+sb.toString());
+        System.out.println("url----->" + sb.toString());
         int radius = 500;
         // Creating a new non-ui thread task to download Google place json data
-    //    PlacesTask placesTask = new PlacesTask();
+        PlacesTask placesTask = new PlacesTask();
 
         // Invokes the "doInBackground()" method of the class PlaceTask
-      //  placesTask.execute(sb.toString());
+        placesTask.execute(sb.toString());
 
-        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)){
+       /* if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)){
             if(new CommonBL(MapsActivity.this, MapsActivity.this).getMapInfo(mLatitude, mLongitude,radius,browser_key,category_type)){
 
             }else{
@@ -238,7 +262,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
             }
         }else{
             Toast.makeText(MapsActivity.this,R.string.Unable_to_connect_server_please_try_again,Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
     }
     private void  showCustomFilterDialog(Context context){
@@ -288,7 +312,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
        window.setAttributes(lp);
        window.setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
      //  window.setsty
-       Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+       TextView dialogButton = (TextView) dialog.findViewById(R.id.dialogButtonOK);
        // if button is clicked, close the custom dialog
        dialogButton.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -431,6 +455,103 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         }
     }
 
+    @Override
+    public void takeScreenShot() {
+
+
+    }
+
+    @Override
+    public Bitmap getBitmap() {
+        return null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btfiltertime) {
+            System.out.println("clicked on btfiltertime");
+            sbfilter.setVisibility(View.VISIBLE);
+
+            btfilterdistance.setAlpha(0.5f);
+            btfiltertime.setAlpha(1.0f);
+            if(llbooking.getVisibility() == View.VISIBLE){
+                llbooking.startAnimation(bottomDown);
+                llbooking.setVisibility(View.INVISIBLE);
+            }
+        }else if (v.getId() == R.id.btfilterdistance) {
+            System.out.println("clicked on btfilterdistance");
+            sbfilter.setVisibility(View.VISIBLE);
+
+            btfilterdistance.setAlpha(1.0f);
+            btfiltertime.setAlpha(0.5f);
+            if(llbooking.getVisibility() == View.VISIBLE){
+                llbooking.startAnimation(bottomDown);
+                llbooking.setVisibility(View.INVISIBLE);
+            }
+        }
+
+    }
+
+/**
+ * add circle to map
+ *
+ */
+Circle circle;
+   private void addCircleToMap(int radius){
+      // mMap.
+
+       System.out.println("adding circle to map..........................." + mLatitude + " " + mLongitude);
+       if (circle!=null) {
+           circle.remove();
+         //  circle = null;
+       }
+       CircleOptions circleOptions = new CircleOptions()
+               .center(new LatLng(17.4119848, 78.4200735))
+               .radius(radius)
+               .strokeColor(getResources().getColor(R.color.w30_blue))
+              // .fillColor(getResources().getColor(R.color.map_circle_fill))
+               .fillColor(0x55ffffff)
+               .strokeWidth(3f)
+               .visible(true);
+
+       circle =  mMap.addCircle(circleOptions);
+       //circle.al
+      //
+      // mMap.an
+       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(),getZoomLevel(circle)));
+
+   }
+
+
+    public int getZoomLevel(Circle circle) {
+        int zoomLevel = 11;
+        if (circle != null) {
+            double radius = circle.getRadius() + circle.getRadius() / 2;
+            double scale = radius / 500;
+            zoomLevel = (int) (16 - Math.log(scale) / Math.log(2));
+        }
+        return zoomLevel;
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        System.out.println("seek bar on progress changed....."+progress);
+        addCircleToMap(progress);
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+
     /** A class, to download Google Places */
     private class PlacesTask extends AsyncTask<String, Integer, String>{
 
@@ -489,6 +610,8 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
             // Clears all the existing markers
             mMap.clear();
+        if (list !=null  && list.size()>0) {
+
 
             for (int i = 0; i < list.size(); i++) {
 
@@ -511,7 +634,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                 // Setting the title for the marker.
                 //This will be displayed on taping the marker
-                markerOptions.title("3 OPen Slots");
+             //   markerOptions.title("3 OPen Slots");
 
                 View custom_marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
                 TextView numTxt = (TextView) custom_marker.findViewById(R.id.tvtitle);
@@ -522,12 +645,12 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
 
                 Marker m = mMap.addMarker(markerOptions);
-
+                m.hideInfoWindow();
                 // Linking Marker id and place reference
                 mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
             }
         }
-
+        }
     }
     // Convert a view to bitmap
     public  Bitmap createDrawableFromView(Context context, View view) {
@@ -575,10 +698,15 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+      /*  if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }*/
         switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+            /*case android.R.id.home:
+               *//*Intent menuIntent = new Intent(this,AppMenuActivity.class);
+                startActivity(menuIntent);
+                overridePendingTransition(R.anim.app_menu_in, 0);*//*
+                return true;*/
 
             case R.id.menu_filter:
                 showCustomFilterDialog(MapsActivity.this);
@@ -595,10 +723,38 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         menu.findItem(R.id.menu_filter).setVisible(true);
-       // menu.findItem(R.id.menu_search).setVisible(true);
+        menu.findItem(R.id.menu_home).setVisible(false);
 
         mSearchCheck = true;
         return true;
     }
+    @Override
+    public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+        switch (slideMenuItem.getName()) {
+            case ContentFragment.CLOSE:
+                return screenShotable;
+            default:
+                return replaceFragment(screenShotable, position);
+        }
+    }
+
+    @Override
+    public void disableHomeButton() {
+        getSupportActionBar().setHomeButtonEnabled(false);
+
+    }
+
+    @Override
+    public void enableHomeButton() {
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mLayoutDrawer.closeDrawers();
+
+    }
+
+    @Override
+    public void addViewToContainer(View view) {
+        linearLayout.addView(view);
+    }
+
 
 }

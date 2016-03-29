@@ -269,13 +269,33 @@ public class StringUtils
 		}
 		return value;
 	}
-	
+	public static String convertStreamToString(InputStream is) {
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		StringBuilder sb = new StringBuilder();
+
+		String line = null;
+		try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return sb.toString();
+	}
 	/**
 	 * method to convert Stream to String
 	 * @param inputStream
 	 * @return String
 	 * @throws IOException
-	 */
+	 *//*
 	public static String convertStreamToString(InputStream inputStream) throws IOException
 	{
 		//Initialize variables
@@ -310,7 +330,7 @@ public class StringUtils
 		{       
 			return "";
 		}
-    }
+    }*/
 	
 	public static String getUniqueUUID()
 	{

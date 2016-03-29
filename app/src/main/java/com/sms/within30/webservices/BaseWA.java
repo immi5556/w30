@@ -123,7 +123,9 @@ public class BaseWA implements HttpListener
 					if (payload.equals("IMAGE_URL")) {
 						//isResponse = new RestClient().sendRequest(method, parameters, empNo, userDO);
 					}else{
+						System.out.println("----------------------------------------  -1");
 						isResponse = new RestClient().sendRequest(method,parameters,empNo);
+						System.out.println("----------------------------------------6");
 					}
 
 
@@ -220,6 +222,7 @@ public class BaseWA implements HttpListener
 						handler.parse(responseStr, method);
 						response.messageCode=handler.getMessageCode();
 						response.data = handler.getData();
+
 					}
 					
 				}

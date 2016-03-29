@@ -19,8 +19,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -50,6 +53,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,9 +69,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.sms.within30.sidemenu.fragment.ContentFragment;
+import com.sms.within30.sidemenu.fragment.MyLInearLayout;
+import com.sms.within30.sidemenu.interfaces.Resourceble;
+import com.sms.within30.sidemenu.interfaces.ScreenShotable;
+import com.sms.within30.sidemenu.model.SlideMenuItem;
+import com.sms.within30.sidemenu.util.ViewAnimator;
 import com.sms.within30.utilities.AppConstants;
 
-public abstract class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity implements ViewAnimator.ViewAnimatorListener{
 
 	public LinearLayout llBaseMenuLeft,llBody;
 	public TextView tvTitle;
@@ -75,14 +85,19 @@ public abstract class BaseActivity extends AppCompatActivity{
 	private Toast toast;
 
 	public boolean mSearchCheck;
-	private DrawerLayout mLayoutDrawer;
-	private ActionBarDrawerToggleCompat mDrawerToggle;
+	public DrawerLayout mLayoutDrawer;
+	//private ActionBarDrawerToggleCompat mDrawerToggle;
 	private View bottomBarNullifier;
 	public Toolbar mToolbar;
 	protected Dialog dialog;
 	protected ProgressDialog progressDialog;
-	
+	public ProgressDialog pd;
 
+	//side menu
+	public ViewAnimator viewAnimator;
+	public LinearLayout linearLayout;
+	public List<SlideMenuItem> list = new ArrayList<>();
+	public ActionBarDrawerToggle drawerToggle;
 //	public Spinner navSpinner;
 	
 	public ImageLoader initImageLoader(Context context, int resId)
@@ -108,12 +123,6 @@ public abstract class BaseActivity extends AppCompatActivity{
         .build();
 		return defaultOptions;
 	}
-	
-
-
-	
-
-	
 	/** Google+ Code */
 	protected boolean mIntentInProgress;
 
@@ -130,27 +139,6 @@ public abstract class BaseActivity extends AppCompatActivity{
     // until the user clicks 'sign in'.
 	protected int mSignInError;
 
-    
-
-
-
-	
-
-	
-
-	
-
-	
-
-				
-
-
-
-	
-
-
-
-	
 	@Override
 	protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
 		super.onActivityResult(requestCode, requestCode, intent);
@@ -175,7 +163,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 	    return (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
 	}
-	
+	MyLInearLayout myLInearLayout ;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -207,8 +195,8 @@ public abstract class BaseActivity extends AppCompatActivity{
 		bottomBarNullifier			= (View) findViewById(R.id.bottomBarNullifier);
 
 		mLayoutDrawer = (DrawerLayout) findViewById(R.id.layoutDrawer);
-		mDrawerToggle = new ActionBarDrawerToggleCompat(this, mLayoutDrawer);
-		mLayoutDrawer.setDrawerListener(mDrawerToggle);
+	//	mDrawerToggle = new ActionBarDrawerToggleCompat(this, mLayoutDrawer);
+
 		
 		inflater = this.getLayoutInflater();
 
@@ -220,11 +208,90 @@ public abstract class BaseActivity extends AppCompatActivity{
 			bottomBarNullifier.setVisibility(View.VISIBLE);
 		}
 		initialize();
+
+		mLayoutDrawer.setScrimColor(Color.TRANSPARENT);
+		linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
+		linearLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mLayoutDrawer.closeDrawers();
+			}
+		});
+		myLInearLayout = new MyLInearLayout(BaseActivity.this).newInstance();
+
+		setActionBar();
+		//mLayoutDrawer.setDrawerListener(drawerToggle);
+		createMenuList();
+		viewAnimator = new ViewAnimator<>(BaseActivity.this, list, myLInearLayout, mLayoutDrawer, this);
 	//	this.getWindow().setStatusBarColor(getResources().getColor(R.color.backgroung_actionbar));
 	}
 	
 	protected SearchView searchView;
-	
+	private void setActionBar() {
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		drawerToggle = new ActionBarDrawerToggle(
+				this,                  /* host Activity */
+				mLayoutDrawer,         /* DrawerLayout object */
+				toolbar,  /* nav drawer icon to replace 'Up' caret */
+				R.string.drawer_open,  /* "open drawer" description */
+				R.string.drawer_close  /* "close drawer" description */
+		) {
+
+			/** Called when a drawer has settled in a completely closed state. */
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				linearLayout.removeAllViews();
+				linearLayout.invalidate();
+			}
+
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				super.onDrawerSlide(drawerView, slideOffset);
+				if (slideOffset > 0.6 && linearLayout.getChildCount() == 0)
+					viewAnimator.showMenuContent();
+			}
+
+			/** Called when a drawer has settled in a completely open state. */
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+			}
+		};
+		mLayoutDrawer.setDrawerListener(drawerToggle);
+	}
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		drawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		drawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	private void createMenuList() {
+		SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
+		list.add(menuItem0);
+		SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.SALON, R.mipmap.menu_salon);
+		list.add(menuItem);
+		SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.SPA, R.mipmap.menu_spa);
+		list.add(menuItem2);
+		SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.DENTIST, R.mipmap.menu_dentist);
+		list.add(menuItem3);
+		SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.LEGAL_SERVICES, R.mipmap.menu_law);
+		list.add(menuItem4);
+		SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.CAR_MAINTENANCE, R.mipmap.menu_car_maintainence);
+		list.add(menuItem5);
+		SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.DIAGNOSTICKS, R.mipmap.menu_diagnostics);
+		list.add(menuItem6);
+		SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PHOTOGRAPHERS, R.mipmap.menu_photographers);
+		list.add(menuItem7);
+
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -265,6 +332,9 @@ public abstract class BaseActivity extends AppCompatActivity{
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if (drawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
 		/*switch (item.getItemId()) {
 		case android.R.id.home:
 			resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
@@ -295,25 +365,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 	
 
-	public String getGenderString(int gender)
-	{
-		String genderString = "NA";
-		if(gender == 0)
-			genderString = "Male";
-		else if(gender == 1)
-			genderString = "Female";
-		return genderString;
-	}
-	
-	public int getGender(String genderString)
-	{
-		int gender = -1;
-		if("Male".equalsIgnoreCase(genderString))
-			gender = 1;
-		else if("Female".equalsIgnoreCase(genderString))
-			gender = 0;
-		return gender;
-	}
+
 	
 	public abstract void initialize();
 
@@ -556,13 +608,13 @@ public abstract class BaseActivity extends AppCompatActivity{
 		startActivityForResult(it, requestCode);
 	}
 	
-	@SuppressWarnings("deprecation")
+/*	@SuppressWarnings("deprecation")
 	private class ActionBarDrawerToggleCompat extends ActionBarDrawerToggle {
 
 		public ActionBarDrawerToggleCompat(Activity mActivity, DrawerLayout mDrawerLayout){
             super(mActivity,mDrawerLayout,R.string.open,R.string.close);
            // super(mActivity, mDrawerLayout, R.drawable.ic_action_navigation_drawer, R.drawable.ic_action_navigation_drawer);
-			//super(mActivity, mDrawerLayout, "open","close"/*R.mipmap.ic_action_navigation_drawer, R.mipmap.ic_action_navigation_drawer*/);
+			//super(mActivity, mDrawerLayout, "open","close"*//*R.mipmap.ic_action_navigation_drawer, R.mipmap.ic_action_navigation_drawer*//*);
 //			//super(
 //			    mActivity,
 //			    mDrawerLayout,
@@ -580,7 +632,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 		public void onDrawerOpened(View drawerView) {	
 			supportInvalidateOptionsMenu();			
 		}		
-	}
+	}*/
 	
 	/*protected void showNoInternetDialog(Context context)
 	{
@@ -651,20 +703,7 @@ public abstract class BaseActivity extends AppCompatActivity{
       super.onResume();
 
   }
-/*	public void setStatusBarColor(){
-		*//*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			Window w = getWindow();
-			w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			//status bar height
-			int actionBarHeight = getActionBarHeight();
-			int statusBarHeight = getStatusBarHeight();
-			//action bar height
-			statusBar.getLayoutParams().height = actionBarHeight + statusBarHeight;
-			statusBar.setBackgroundColor(color);
-		}*//*
 
-
-	}*/
 	public int getActionBarHeight() {
 		int actionBarHeight = 0;
 		TypedValue tv = new TypedValue();
@@ -683,5 +722,49 @@ public abstract class BaseActivity extends AppCompatActivity{
 		}
 		return result;
 	}
+	public ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
+		/*this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
+		View view = findViewById(R.id.content_frame);
+		int finalRadius = Math.max(view.getWidth(), view.getHeight());
+		SupportAnimator animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
+		animator.setInterpolator(new AccelerateInterpolator());
+		animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
 
+		findViewById(R.id.content_overlay).setBackgroundDrawable(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
+		animator.start();
+		ContentFragment contentFragment = ContentFragment.newInstance(this.res);
+		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();*/
+		MyLInearLayout myLInearLayout = new MyLInearLayout(BaseActivity.this);
+		return myLInearLayout;
+	}
+
+
+
+	@Override
+	public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+		switch (slideMenuItem.getName()) {
+			case ContentFragment.CLOSE:
+				return screenShotable;
+			default:
+				return replaceFragment(screenShotable, position);
+		}
+	}
+
+	@Override
+	public void disableHomeButton() {
+		getSupportActionBar().setHomeButtonEnabled(false);
+
+	}
+
+	@Override
+	public void enableHomeButton() {
+		getSupportActionBar().setHomeButtonEnabled(true);
+		mLayoutDrawer.closeDrawers();
+
+	}
+
+	@Override
+	public void addViewToContainer(View view) {
+		linearLayout.addView(view);
+	}
 }

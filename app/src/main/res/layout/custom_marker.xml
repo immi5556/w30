@@ -15,14 +15,14 @@
             android:text="3 \nOpen Slots"
             android:textColor="@android:color/black"
             android:textSize="12sp"
-            android:background="@mipmap/defult_box"
+            android:background="@mipmap/info_window"
             android:layout_margin="2dp"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/default_map_pointer"
+            android:src="@mipmap/map_marker"
             android:layout_below="@+id/tvtitle"
             android:layout_centerHorizontal="true" />
 

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="w30_red">#cb2027</color>
+    <color name="w30_blue">#39425f</color>
+    <color name="map_circle_fill">#f3f1ee</color>
+    <color name="reset">#d9d6d6</color>
     <color name="rating_bar_star_filled">#faca51</color>
     <color name="backgroung_map_marker">#79cdd2</color>
     <color name="backgroung_map_markaer_click">#384260</color>

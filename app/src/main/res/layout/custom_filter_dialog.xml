@@ -254,7 +254,7 @@
                 android:text="@string/apply"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@mipmap/apply_button"
+                android:background="@drawable/customised_apply_button"
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/bt_reset"
@@ -264,7 +264,7 @@
                 android:text="@string/reset"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@mipmap/reset_button"
+                android:background="@drawable/customised_reset_button"
                 />
 
 

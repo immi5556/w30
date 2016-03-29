@@ -38,7 +38,7 @@ public abstract class BaseParser extends DefaultHandler
 		switch (wsMethod) 
 		{
 			case WS_MAP_INFO:
-
+			case WS_SERVICES:
 			return new CommonParser(context);
 		
 		}

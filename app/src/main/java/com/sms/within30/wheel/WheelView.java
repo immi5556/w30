@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 
 
 import com.sms.within30.R;
+import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.wheel.transformer.FadingSelectionTransformer;
 import com.sms.within30.wheel.transformer.ScalingItemTransformer;
 import com.sms.within30.wheel.transformer.WheelItemTransformer;
@@ -115,7 +116,7 @@ public class WheelView extends View {
 
     private boolean mIsRepeatable;
     private boolean mIsWheelDrawableRotatable = true;
-
+    List<ServicesDO> servicesDOList;
     /**
      * The item angle is the angle covered per item on the wheel and is in degrees.
      * The {@link #mItemAnglePadding} is included in the item angle.
@@ -1240,18 +1241,18 @@ public class WheelView extends View {
         categoryDrawablesList.add(R.mipmap.dentist);
         categoryDrawablesList.add(R.mipmap.law);
         categoryDrawablesList.add(R.mipmap.autoservices);
-        categoryDrawablesList.add(R.mipmap.diagnostics);
-        categoryDrawablesList.add(R.mipmap.photographers);
+        categoryDrawablesList.add(R.mipmap.diagntcs);
+        categoryDrawablesList.add(R.mipmap.phtography);
 
 
-        ArrayList<String> categoryItemNames = new ArrayList<String>();
+       /* ArrayList<String> categoryItemNames = new ArrayList<String>();
         categoryItemNames.add("Salon");
         categoryItemNames.add("Spa");
         categoryItemNames.add("Dentist");
         categoryItemNames.add("Legal Services");
         categoryItemNames.add("Car Maintenance");
         categoryItemNames.add("Diagnostics");
-        categoryItemNames.add("Photographers");
+        categoryItemNames.add("Photographers");*/
 
 
 
@@ -1314,6 +1315,7 @@ public class WheelView extends View {
 
               //  Drawable drawable = cacheItem.mDrawable;
                // Drawable drawable = categoryDrawablesList.get(adapterPosition);
+
                 Drawable drawable = getResources().getDrawable(categoryDrawablesList.get(adapterPosition));
 
                 if (drawable != null) {
@@ -1325,7 +1327,8 @@ public class WheelView extends View {
                     Rect rect = drawable.getBounds();
                    // canvas.drawText("Salon",rect.bottom,rect.bottom,imagePaint);
                   //  canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);
-                    canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
+                  System.out.println("adapterPosition->"+adapterPosition);
+                    canvas.drawText(servicesDOList.get(adapterPosition).getDisplay(),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
                 }
 
                /* Paint paint = new Paint();
@@ -1462,5 +1465,9 @@ public class WheelView extends View {
         public String toString() {
             return "Vector: (" + this.x + ", " + this.y + ")";
         }
+    }
+
+    public  void setSetvices(List<ServicesDO> servicesDOList){
+        this.servicesDOList = servicesDOList;
     }
 }

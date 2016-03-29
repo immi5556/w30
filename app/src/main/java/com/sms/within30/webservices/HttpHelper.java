@@ -1,16 +1,27 @@
 package com.sms.within30.webservices;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpCookie;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -75,103 +86,7 @@ public class HttpHelper
 		return defaultHttpClient;
 	}
 	
-	/**
-	 * 
-	 * @param strPostURL
-	 * @param strParamToPost
-	 * @param headers
-	 * @return
-	 */
-	public InputStream sendPOSTRequest(String strPostURL, 
-			String strParamToPost, 
-			String userId,
-			ServiceMethods methods) 
-	{
-		strPostURL += methods.getValue() + strParamToPost;
-		strPostURL = strPostURL.replace(" ", "%20");
-		if(AppConstants.DEBUG)
-			Log.e("strGetURL", strPostURL);
-		DefaultHttpClient defaultHttpClient = getHttpClient();
-		HttpPost httpPost = new HttpPost(strPostURL);
-//		httpPost.addHeader("Content-Type", "text/xml");
-//		httpPost.addHeader("SOAPAction",ServiceURLs.SOAPAction+methods.getValue());
-		InputStream inputStream = null;
-		
-		try 
-		{
-			if(strParamToPost != null && strParamToPost.length() > 0)
-				httpPost.setEntity(new StringEntity(strParamToPost)); 
-		    
-		    
-			HttpResponse response = defaultHttpClient.execute(httpPost);
-			
-			
-			HttpEntity entity = response.getEntity();
-			inputStream = entity.getContent();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return inputStream;
-	}
-	
 
-	
-	
-	
-	public InputStream sendRequestForSurvey(String strPostURL, String strParamToPost) 
-	{
-		strPostURL = strPostURL.replace(" ", "%20");
-		DefaultHttpClient defaultHttpClient = getHttpClient();
-		HttpGet httpGet = new HttpGet(strPostURL);
-		InputStream inputStream = null;
-		
-		try 
-		{
-			HttpResponse response = defaultHttpClient.execute(httpGet);
-			HttpEntity entity = response.getEntity();
-			inputStream = entity.getContent();			
-		}
-		catch (Exception e)
-		{
-		}
-		return inputStream;
-	}
-	
-	/**
-	 * 
-	 * @param strGetURL
-	 * @param headers
-	 * @return 
-	 */
-	public InputStream sendGETRequest(String strGetURL) 
-	{
-		strGetURL = strGetURL.replace(" ", "%20");
-		
-		DefaultHttpClient defaultHttpClient = getHttpClient();
-		HttpGet httpGet = new HttpGet(strGetURL);
-		if(AppConstants.DEBUG)
-			Log.e("strGetURL", strGetURL);
-//		addRequestHeaders(httpGet, headers);
-		
-		InputStream inputStream = null;
-		
-		try 
-		{
-			HttpResponse response = defaultHttpClient.execute(httpGet);
-			
-			HttpEntity entity = response.getEntity();
-			inputStream = entity.getContent();
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return inputStream;
-	}
-	
 	
 	public InputStream sendGETRequest(String strGetURL, 
 			String strParamToGet, 
@@ -181,50 +96,49 @@ public class HttpHelper
 		strGetURL += methods.getValue() + strParamToGet;
 		strGetURL = strGetURL.replace(" ", "%20");
 		if(AppConstants.DEBUG)
-			Log.e("strGetURL", strGetURL);
-		DefaultHttpClient defaultHttpClient = getHttpClient();
-		HttpGet httpGet = new HttpGet(strGetURL);
-		
-		InputStream inputStream = null;
-		
-		try 
-		{
-			HttpResponse response = defaultHttpClient.execute(httpGet);
-			
-			HttpEntity entity = response.getEntity();
-			inputStream = entity.getContent();
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return inputStream;
-	}
-	
-	public InputStream sendPOSTRequestForSurvey(String strPostURL, String strParamToPost) 
-	{
-		strPostURL = strPostURL.replace(" ", "%20");
-		DefaultHttpClient defaultHttpClient = getHttpClient();
-		HttpPost httpPost = new HttpPost(strPostURL);
-		httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+			Log.e("sendGETRequest strGetURL", strGetURL);
 
 		InputStream inputStream = null;
 		
 		try 
 		{
-			if(strParamToPost != null)
-				httpPost.setEntity(new StringEntity(strParamToPost)); 
-			HttpResponse response = defaultHttpClient.execute(httpPost);
-			HttpEntity entity = response.getEntity();
-			
-			
-			inputStream = entity.getContent();
-			
-		}
+
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+
+			HttpGet httpGetRequest = new HttpGet(strGetURL.toString());
+			  /* headers */
+
+			httpGetRequest.setHeader("Accept", "application/json/text/plain");
+			httpGetRequest.setHeader("Content-Type", "application/json/text/plain");
+			httpGetRequest.setHeader(HTTP.CONTENT_TYPE,
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			// Add your data
+		//	List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			//httpPostRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+
+			HttpResponse response = (HttpResponse) httpClient.execute(httpGetRequest);
+
+			StatusLine statusLine = response.getStatusLine();
+			System.out.println("Status code->"+statusLine.getStatusCode());
+			HttpEntity entity1 = response.getEntity();
+
+			if (entity1 != null) {
+
+				// Read the content stream
+				inputStream = entity1.getContent();
+
+
+			}
+		} 
 		catch (Exception e)
 		{
+
+			e.printStackTrace();
 		}
+		
 		return inputStream;
 	}
+
+
+
 }

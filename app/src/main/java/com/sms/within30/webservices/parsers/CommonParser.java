@@ -13,7 +13,10 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sms.within30.R;
+import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.webservices.ServiceMethods;
 
@@ -54,6 +57,9 @@ public class CommonParser extends BaseParser{
 			/*if(jsonString.contains("status")) parseStatus(jsonString);
 			else parseCategories(jsonString);*/
 			break;
+			case WS_SERVICES:
+				parseServies(jsonString);
+				break;
 
 		default:
 			break;
@@ -73,6 +79,32 @@ public class CommonParser extends BaseParser{
 					List<HashMap<String, String>> places = null;
 					places = placeJsonParser.parse(jObject);
 					responseObject = places;
+				}catch(Exception e){
+					Log.d("Exception", e.toString());
+					responseObject = context.getString(R.string.server_error_please_try_again);
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				responseObject = context.getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+
+	private void parseServies(String jsonString)
+	{
+
+		if(jsonString!=null && jsonString.length()>0)
+		{
+			try {
+				try{
+				//	JSONObject jObject = new JSONObject(jsonString);
+					JSONArray  jsonArray = new JSONArray(jsonString);
+					/** Getting the parsed data as a List construct */
+					Type listType = new TypeToken<List<ServicesDO>>() {}.getType();
+					List<ServicesDO> servicesList = new Gson().fromJson(jsonArray.toString(), listType);
+					responseObject = servicesList;
 				}catch(Exception e){
 					Log.d("Exception", e.toString());
 					responseObject = context.getString(R.string.server_error_please_try_again);

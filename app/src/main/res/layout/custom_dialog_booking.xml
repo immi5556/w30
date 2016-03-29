@@ -41,18 +41,20 @@
         android:textSize="@dimen/size14"
         android:layout_margin="10dp"/>
 
-    <Button
+
+
+    <TextView
         android:id="@+id/dialogButtonOK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:layout_weight="1"
-        android:background="@mipmap/done_button"
+        android:padding="8dp"
+style="@android:style/Widget.Button.Small"
+        android:background="@drawable/customised_done_button"
         android:gravity="center|center_horizontal"
         android:textColor="@color/white"
 android:layout_gravity="center_horizontal"
         android:textSize="@dimen/size14"
-        android:layout_margin="-15dp"
 
 
         />

@@ -56,31 +56,16 @@
             android:name=".MainActivity"
             android:label="@string/app_name" ></activity>
         <activity
-            android:name=".LandingActivity1"
+            android:name=".LandingActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name" ></activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:label="@string/app_name" ></activity>
-        <activity
-        android:name=".CategoryItemsActivity"
-        android:label="@string/app_name" ></activity>
-        <activity
-            android:name=".CategoryItemDetailsActivity"
-            android:label="@string/app_name" ></activity>
-        <activity
-            android:name="com.sms.within30.calender.BookingTimeSelectionActivity"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden"></activity>
+
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/app_name" ></activity>
 
-        <activity android:name=".App_Menu"
+        <activity android:name=".AppMenuActivity"
             android:label="With 30"></activity>
     </application>
 
