@@ -87,7 +87,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     Animation bottomUp;
     Animation bottomDown;
     Button bt_book;
-    RelativeLayout homeLayout;
+    LinearLayout homeLayout;
     String category_type = "";
     String actionbarTitle = "";
     ActionBar actionBar;
@@ -96,7 +96,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     Button btfiltertime;
 
     public void initialize(){
-        homeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_maps, null);
+        homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_maps, null);
         // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
         llBody.addView(homeLayout);
 
