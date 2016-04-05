@@ -13,6 +13,8 @@ public class ServiceURLs
 	public static String Mapinfo 				= "nearbysearch/json?";
 	public static String GETMYSERVICES 			= "/api/getmyservices";
 	public static String GETMYCUSTOMERS 		= "/api/getmycustomers";
+	public static String BOOKSLOT 				= "/api/bookslot";
+
 
 	
 
@@ -23,7 +25,7 @@ public class ServiceURLs
 			case WS_MAP_INFO:
 			case WS_SERVICES:
 			case WS_CUSTOMERS:
-
+			case WS_BOOKSLOT:
 			method = "POST";
 				break;
 

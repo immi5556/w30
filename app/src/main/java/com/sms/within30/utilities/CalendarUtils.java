@@ -42,7 +42,7 @@ public class CalendarUtils
 	public static final String SURVEY_PATTERN = "dd-MM-yyyy HH:mm:ss a";
 
 	public static final String DATE_TIME_STD_PATTERN_TO_SOHW = "dd MMM, yyyy HH:mm:ss";
-
+	public static final String W30_DATE_PATTERN = "yyyy-MM-dd HH:mm";
 	//26 Dec, 2014 at 15:39
 
 	public static final String ADD_CUSTOMER_DATE_TIME_PATTERN = "MM/dd/yyyy HH:mm:ss a";
@@ -1020,12 +1020,23 @@ public class CalendarUtils
 	 * Method to get current date to post all the orders. Date format - 2012-01-01
 	 * @return String
 	 */
-	public static String getCurrentPostDate()
+	public static String getCurrentPostDate(long estimatedTime)
 	{
+		//
+		 final long ONE_MINUTE_IN_MILLIS = 60000;
+		Calendar calendar = Calendar.getInstance();
+		long tempTime = calendar.getTimeInMillis();
+		Date afterAddedEstTime = new Date(tempTime +(estimatedTime * ONE_MINUTE_IN_MILLIS));
+		/*static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+
+		Calendar date = Calendar.getInstance();
+		long t= date.getTimeInMillis();
+		Date afterAddingTenMins=new Date(t + (10 * ONE_MINUTE_IN_MILLIS));*/
+
 		String dateStr = null;
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_STD_PATTERN);
-		dateStr = sdf.format(date);
+		SimpleDateFormat sdf = new SimpleDateFormat(W30_DATE_PATTERN);
+		dateStr = sdf.format(afterAddedEstTime);
 		return dateStr;
 	}
 	

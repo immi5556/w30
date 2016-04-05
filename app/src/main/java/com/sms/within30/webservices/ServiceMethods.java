@@ -4,7 +4,8 @@ public enum ServiceMethods
 {
 	WS_MAP_INFO(ServiceURLs.Mapinfo),
     WS_SERVICES(ServiceURLs.GETMYSERVICES),
-    WS_CUSTOMERS(ServiceURLs.GETMYCUSTOMERS);
+    WS_CUSTOMERS(ServiceURLs.GETMYCUSTOMERS),
+    WS_BOOKSLOT(ServiceURLs.BOOKSLOT);
 	
 	private final String value;
     private ServiceMethods(String value) {

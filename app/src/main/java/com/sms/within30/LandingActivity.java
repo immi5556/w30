@@ -374,8 +374,8 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                             wheelView.refreshDrawableState();
                         }
                     }else if(data.data instanceof String){
-
-                        showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+                        String str = (String)data.data;
+                        showToast(str);
                     }
                     break;
                 default:

@@ -33,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -52,6 +53,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sms.within30.dataobjects.BookSlotDO;
 import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.lib.GPSTracker;
@@ -60,6 +62,8 @@ import com.sms.within30.sidemenu.fragment.MyLInearLayout;
 import com.sms.within30.sidemenu.interfaces.Resourceble;
 import com.sms.within30.sidemenu.interfaces.ScreenShotable;
 import com.sms.within30.sidemenu.util.ViewAnimator;
+import com.sms.within30.utilities.AppConstants;
+import com.sms.within30.utilities.CalendarUtils;
 import com.sms.within30.utilities.NetworkUtility;
 import com.sms.within30.utilities.W30Constants;
 import com.sms.within30.webservices.Response;
@@ -85,7 +89,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     double mLatitude=0;
     double mLongitude=0;
 
-    HashMap<String, String> mMarkerPlaceLink = new HashMap<String, String>();
+    HashMap<String, CustomerDO> mMarkerPlaceLink = new HashMap<String, CustomerDO>();
     LinearLayout llbooking;
     Animation bottomUp;
     Animation bottomDown;
@@ -98,6 +102,13 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     com.sms.within30.lib.VerticalSeekBar sbfilter;
     Button btfilterdistance;
     Button btfiltertime;
+    TextView tvComapanyName;
+    RatingBar ratingbar;
+    TextView tvcount;
+    TextView tvmiles;
+    TextView tvtime;
+    TextView tvaddress1;
+    TextView tvaddress2;
 
     public void initialize(){
         homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_maps, null);
@@ -105,10 +116,8 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         llBody.addView(homeLayout);
 
         actionBar = getSupportActionBar();
-
         intilizeControls();
     }
-
 
     private void intilizeControls() {
 
@@ -123,6 +132,13 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         btfiltertime.setOnClickListener(this);
         sbfilter.setOnSeekBarChangeListener(this);
         sbfilter.setVisibility(View.GONE);
+        tvComapanyName  = (TextView)homeLayout.findViewById(R.id.tvComapanyName);
+        ratingbar = (RatingBar)homeLayout.findViewById(R.id.ratingbar);
+        tvcount = (TextView)homeLayout.findViewById(R.id.tvcount);
+        tvmiles = (TextView)homeLayout.findViewById(R.id.tvmiles);
+        tvtime = (TextView) homeLayout.findViewById(R.id.tvtime);
+        tvaddress1 = (TextView) homeLayout.findViewById(R.id.tvaddress1);
+        tvaddress2 = (TextView)homeLayout.findViewById(R.id.tvaddress2);
        // myLInearLayout = new MyLInearLayout(MapsActivity.this).newInstance();
       //  viewAnimator = new ViewAnimator<>(MapsActivity.this, list, myLInearLayout, mLayoutDrawer, this);
         // Getting place reference from the map
@@ -141,7 +157,10 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         bt_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(MapsActivity.this);
+                CustomerDO customerDO =(CustomerDO) bt_book.getTag();
+                bookSlot(customerDO);
+
+
             }
         });
         if (mMap!=null) {
@@ -226,7 +245,11 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         sbfilter.setVisibility(View.GONE);
-                        marker.getId();
+                       // marker..getId();
+                       ;
+                        CustomerDO marker_customerInfo = mMarkerPlaceLink.get(marker.getId());
+                      //  Log.d("selected_marker_customer_info",  marker_customerInfo.toString());
+                        setCustomerInfo(marker_customerInfo);
                         if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
                             llbooking.startAnimation(bottomUp);
                             llbooking.setVisibility(View.VISIBLE);
@@ -241,6 +264,52 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
             }
         }
     }
+    private void setCustomerInfo(CustomerDO customerDO){
+      /*  TextView tvComapanyName;
+        RatingBar ratingbar;
+        TextView tvcount;
+        TextView tvmiles;
+        TextView tvtime;
+        TextView tvaddress1;
+        TextView tvaddress2;*/
+        try{
+
+            tvComapanyName.setText(customerDO.getCompanyName());
+            tvaddress1.setText(customerDO.getGeo().getCity()+" "+customerDO.getGeo().getCountry());
+            tvtime.setText("Estimated time:"+" "+customerDO.getExpectedTime()+" "+"MIN");
+            tvmiles.setText(customerDO.getDestinationDistance()+" "+"Miles");
+            bt_book.setTag(customerDO);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bookSlot( CustomerDO customerDO ){
+
+        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
+            BookSlotDO bookSlotDO = new BookSlotDO();
+            //TODO: construct current data here
+            String currentDate = CalendarUtils.getCurrentPostDate((long)customerDO.getExpectedTime());
+            bookSlotDO.setDate(currentDate);
+            bookSlotDO.setSubDomain(customerDO.getSubdomain());
+            bookSlotDO.setEmail("");
+            bookSlotDO.setMobile("");
+            Log.d("Book slot toString()",bookSlotDO.toString());
+            if(new CommonBL(MapsActivity.this, MapsActivity.this).bookSlot(bookSlotDO)){
+                if (pd == null) {
+                    pd =  new ProgressDialog(MapsActivity.this);
+                    pd.setProgressStyle(android.R.attr.progressBarStyleSmall);
+                    pd.setMessage("Loading...");
+                    pd.show();
+                }
+            }else{
+                showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+            }
+        }else{
+            showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+        }
+    }
+
     private void getServices(){
         if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
             CustomerDO customerDO = new CustomerDO();
@@ -446,7 +515,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                         List<CustomerDO> placesList = (List<CustomerDO>)data.data;
                         // Clears all the existing markers
                         mMap.clear();
-
+                        Log.d("places list.size",""+placesList.size());
                         for (int i = 0; i < placesList.size(); i++) {
 
                             // Creating a marker
@@ -454,13 +523,14 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                             // Getting a place from the places list
                             CustomerDO  customerDO= (CustomerDO) placesList.get(i);
-
+                            Log.d("customerDO",customerDO.toString());
                             // Getting latitude of the place
                             double[] coordinates = customerDO.getGeo().getCoordinates();
                             double lat = coordinates[0];
                             double lng = coordinates[1];
                            // double lat = Double.parseDouble(hmPlace.get("lat"));
-
+                            Log.d("lat",""+lat);
+                            Log.d("lng",""+lng);
                             // Getting longitude of the place
                            // double lng = Double.parseDouble(hmPlace.get("lng"));
 
@@ -476,14 +546,17 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                             View custom_marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
                             TextView numTxt = (TextView) custom_marker.findViewById(R.id.tvtitle);
-
-                            if (customerDO.getSlotsAvailable() == 0) {
-                                markerOptions.title("Fully Booked");
-                                numTxt.setText("Fully Booked");
-                            }else{
-                                markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
-                                numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                            Log.d("open slots",""+customerDO.getSlotsAvailable());
+                            if (customerDO.getSlotsAvailable()!=null) {
+                                if (customerDO.getSlotsAvailable() == 0) {
+                                    markerOptions.title("Fully Booked");
+                                    numTxt.setText("Fully Booked");
+                                }else{
+                                    markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
+                                    numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                                }
                             }
+
                             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapsActivity.this, custom_marker)));
 
                             // Placing a marker on the touched position
@@ -492,13 +565,33 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                             Marker m = mMap.addMarker(markerOptions);
 
                             // Linking Marker id and place reference
-                            mMarkerPlaceLink.put(m.getId(), customerDO.getServiceId());
+
+                          //  mMarkerPlaceLink.put(m.getId(), customerDO.getServiceId()); mMarkerPlaceLink.put("_clientid",customerDO.get_clientid());
+                            /*HashMap<String,String> marker_customerInfo = new HashMap<String,String>();
+                            marker_customerInfo.put("subDomain",customerDO.getSubDomain());
+                            marker_customerInfo.put("companyName",customerDO.getCompanyName());
+                            marker_customerInfo.put("city",customerDO.getGeo().getCity());
+                            marker_customerInfo.put("country",customerDO.getGeo().getCountry());
+                            marker_customerInfo.put("expectedTime",Double.toString(customerDO.getExpectedTime()));*/
+                            mMarkerPlaceLink.put(m.getId(),customerDO);
+
                             //TODO: put all values here
 
                         }
                     }else if(data.data!=null && data.data instanceof String ){
                         String str = (String)data.data;
                         showToast(str);
+                    }
+                    break;
+                case WS_BOOKSLOT:
+                    if(data.data!=null && data.data instanceof String ){
+                        String str = (String)data.data;
+                        if (str.equals(AppConstants.OK)) {
+                            showCustomDialog(MapsActivity.this);
+                        }else{
+                            showToast(str);
+                        }
+
                     }
                     break;
                 default:
@@ -699,7 +792,7 @@ Circle circle;
                 Marker m = mMap.addMarker(markerOptions);
                 m.hideInfoWindow();
                 // Linking Marker id and place reference
-                mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
+             //   mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
             }
         }
         }

@@ -40,6 +40,7 @@ public abstract class BaseParser extends DefaultHandler
 			case WS_MAP_INFO:
 			case WS_SERVICES:
 			case WS_CUSTOMERS:
+			case WS_BOOKSLOT:
 			return new CommonParser(context);
 		
 		}

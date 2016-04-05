@@ -4,6 +4,7 @@ package com.sms.within30.dataobjects;
  * Created by SR Lakhsmi on 4/1/2016.
  */
 public class CustomerDO {
+    private String _clientid;
     private double latitude;
     private double longitude;
     private String serviceId;
@@ -18,8 +19,20 @@ public class CustomerDO {
     private String companyEmail;
     private String companyCity;
     private GeoDO geo;
-    Integer slotsAvailable;
-    private double expectedTime;
+    Integer slotsAvailable = 0;
+    private int expectedTime;
+    public String subdomain;
+    public int destinationDistance;
+
+
+
+    public String getSubdomain() {
+        return subdomain;
+    }
+
+    public void setSubdomain(String subdomain) {
+        this.subdomain = subdomain;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -101,12 +114,20 @@ public class CustomerDO {
         this.slotsAvailable = slotsAvailable;
     }
 
-    public double getExpectedTime() {
+    public int getExpectedTime() {
         return expectedTime;
     }
 
-    public void setExpectedTime(double expectedTime) {
+    public void setExpectedTime(int expectedTime) {
         this.expectedTime = expectedTime;
+    }
+
+    public int getDestinationDistance() {
+        return destinationDistance;
+    }
+
+    public void setDestinationDistance(int destinationDistance) {
+        this.destinationDistance = destinationDistance;
     }
 
     public double getLatitude() {
@@ -145,7 +166,40 @@ public class CustomerDO {
         return minutes;
     }
 
+    public String get_clientid() {
+        return _clientid;
+    }
+
+    public void set_clientid(String _clientid) {
+        this._clientid = _clientid;
+    }
+
     public void setMinutes(int minutes) {
         this.minutes = minutes;
+
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDO{" +
+                "_clientid='" + _clientid + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", serviceId='" + serviceId + '\'' +
+                ", miles=" + miles +
+                ", minutes=" + minutes +
+                ", companyName='" + companyName + '\'' +
+                ", logoPath='" + logoPath + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", businessType='" + businessType + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", companyEmail='" + companyEmail + '\'' +
+                ", companyCity='" + companyCity + '\'' +
+                ", geo=" + geo +
+                ", slotsAvailable=" + slotsAvailable +
+                ", expectedTime=" + expectedTime +
+                ", subDomain='" + subdomain + '\'' +
+                '}';
     }
 }

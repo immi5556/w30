@@ -19,6 +19,7 @@ import com.sms.within30.R;
 import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
+import com.sms.within30.utilities.AppConstants;
 import com.sms.within30.webservices.ServiceMethods;
 
 
@@ -63,7 +64,10 @@ public class CommonParser extends BaseParser{
 				break;
 			case WS_CUSTOMERS:
 				parseCustomers(jsonString);
-
+				break;
+			case WS_BOOKSLOT:
+				parseBookSlot(jsonString);
+				break;
 		default:
 			break;
 		}
@@ -107,11 +111,18 @@ public class CommonParser extends BaseParser{
 			try {
 				try{
 				//	JSONObject jObject = new JSONObject(jsonString);
-					JSONArray  jsonArray = new JSONArray(jsonString);
+					//JSONArray  jsonArray = new JSONArray(jsonString);
+					JSONObject jsonObject = new JSONObject(jsonString);
+					String stattus = (String)jsonObject.get("Status");
+					if (stattus.equals(AppConstants.Failed)) {
+						responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+					}else if (stattus.equals(AppConstants.OK)) {
+						Type listType = new TypeToken<List<ServicesDO>>() {}.getType();
+						List<ServicesDO> servicesList = new Gson().fromJson(jsonObject.getJSONArray("Data").toString(), listType);
+						responseObject = servicesList;
+					}
 					/** Getting the parsed data as a List construct */
-					Type listType = new TypeToken<List<ServicesDO>>() {}.getType();
-					List<ServicesDO> servicesList = new Gson().fromJson(jsonArray.toString(), listType);
-					responseObject = servicesList;
+
 				}catch(Exception e){
 					Log.d("Exception", e.toString());
 					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
@@ -137,22 +148,69 @@ public class CommonParser extends BaseParser{
 			try {
 				try{
 					//	JSONObject jObject = new JSONObject(jsonString);
-					if (jsonString.contains("NoCustomersAvailable")) {
+					JSONObject jsonObject = new JSONObject(jsonString);
+					String stattus = (String)jsonObject.get("Status");
+					if (stattus.equals(AppConstants.Failed)) {
+						if (jsonObject.get("Message").equals("NoCustomersAvailable")) {
+							responseObject = jsonObject.get("Message");
+						}else{
+							responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+						}
+
+					}else if (stattus.equals(AppConstants.OK)) {
+						Type listType = new TypeToken<List<CustomerDO>>() {}.getType();
+						List<CustomerDO> customerList = new Gson().fromJson(jsonObject.getJSONArray("Data").toString(), listType);
+						responseObject = customerList;
+					}
+					/*if (jsonString.contains("NoCustomersAvailable")) {
 						responseObject = jsonString;
 					}else{
 						JSONArray  jsonArray = new JSONArray(jsonString);
-						/** Getting the parsed data as a List construct */
+						*//** Getting the parsed data as a List construct *//*
 						if (jsonArray.length()>0) {
-							Type listType = new TypeToken<List<CustomerDO>>() {}.getType();
-							List<CustomerDO> customerList = new Gson().fromJson(jsonArray.toString(), listType);
-							responseObject = customerList;
+
 						}else{
 							responseObject = jsonString;
 						}
-					}
+					}*/
 
 
 				}catch(Exception e) {
+					Log.d("Exception", e.toString());
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+	/**
+	 * Here parsing the response jsonString(Bookslot data)
+	 * @param jsonString
+	 */
+	private void parseBookSlot(String jsonString)
+	{
+
+		if(jsonString!=null && jsonString.length()>0)
+		{
+			try {
+				try{
+					//	JSONObject jObject = new JSONObject(jsonString);
+					//JSONArray  jsonArray = new JSONArray(jsonString);
+					JSONObject jsonObject = new JSONObject(jsonString);
+					String stattus = (String)jsonObject.get("Status");
+					if (stattus.equals(AppConstants.Failed)) {
+						responseObject = (String)jsonObject.get("Message");
+					}else if (stattus.equals(AppConstants.OK)) {
+
+						responseObject = stattus;
+					}
+					/** Getting the parsed data as a List construct */
+
+				}catch(Exception e){
 					Log.d("Exception", e.toString());
 					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
 				}

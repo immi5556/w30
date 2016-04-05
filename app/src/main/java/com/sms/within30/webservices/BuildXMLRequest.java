@@ -4,6 +4,7 @@ package com.sms.within30.webservices;
 
 import android.net.Uri;
 
+import com.sms.within30.dataobjects.BookSlotDO;
 import com.sms.within30.dataobjects.CustomerDO;
 
 import org.apache.http.NameValuePair;
@@ -56,5 +57,23 @@ public class BuildXMLRequest {
 		return pairs;
 	}
 
+	/**
+	 * This method is used to get the requested params as namevalue pairs
+	 * @param bookSlotDO
+	 * @return JSONObject
+	 */
+	public static  JSONObject bookSlotRequest(BookSlotDO bookSlotDO){
+		JSONObject pairs = new JSONObject();
+		try {
+			//{"subDomain":"desaloon","date":"2016-4-4 21:10","email":"","mobile":""}
+			pairs.put("subDomain", bookSlotDO.getSubDomain());
+			pairs.put("date", bookSlotDO.getDate());
+			pairs.put("email", bookSlotDO.getEmail());
+			pairs.put("mobile", bookSlotDO.getMobile());
 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
 }

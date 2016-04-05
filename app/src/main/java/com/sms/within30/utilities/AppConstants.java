@@ -64,5 +64,8 @@ public class AppConstants {
 	public static final String PASSWORD_PATTERN = 
             "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
 	public static final int SHIMMER_PAUSE_DELAY = 100;
-	
+
+	public static  final String Failed= "Failed";
+	public static final String OK =  "Ok";
+
 }

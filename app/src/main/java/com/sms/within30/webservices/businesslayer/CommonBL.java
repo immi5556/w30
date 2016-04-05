@@ -3,6 +3,7 @@ package com.sms.within30.webservices.businesslayer;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.sms.within30.dataobjects.BookSlotDO;
 import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.webservices.BaseWA;
 import com.sms.within30.webservices.BuildXMLRequest;
@@ -52,5 +53,11 @@ public class CommonBL extends BaseBL {
 	public boolean getCustomers(CustomerDO customerDO) {
 		return new BaseWA(mContext, this, empNo).startDataDownload(ServiceMethods.WS_CUSTOMERS,BuildXMLRequest.customerRequest(customerDO));
 	}
-
+	/**
+	 * getCustomers call
+	 * @return boolean
+	 */
+	public boolean bookSlot(BookSlotDO bookSlotDO) {
+		return new BaseWA(mContext, this, empNo).startDataDownload(ServiceMethods.WS_BOOKSLOT,BuildXMLRequest.bookSlotRequest(bookSlotDO));
+	}
 }
