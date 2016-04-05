@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sms.within30" >
 <uses-sdk
-    android:minSdkVersion="17"
+    android:minSdkVersion="16"
     />
     <permission
         android:name="info.androidhive.googlemapsv2.permission.MAPS_RECEIVE"

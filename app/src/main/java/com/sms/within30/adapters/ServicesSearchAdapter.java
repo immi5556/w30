@@ -61,7 +61,7 @@ public class ServicesSearchAdapter extends ArrayAdapter<ServicesDO> implements
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.textView.setText(servicesList.get(position).getDisplay());
+        holder.textView.setText(servicesList.get(position).getName());
         return convertView;
 
     }
@@ -104,7 +104,7 @@ public class ServicesSearchAdapter extends ArrayAdapter<ServicesDO> implements
 
                 for (int i = 0; i < count; i++) {
                     ServicesDO servicesDO = (ServicesDO) values.get(i);
-                    String itemDisplay = servicesDO.getDisplay();
+                    String itemDisplay = servicesDO.getName();
                     String itemName = servicesDO.getName();
                     if (itemDisplay.toLowerCase().contains(prefixString)) {
                         newValues.add(servicesDO);

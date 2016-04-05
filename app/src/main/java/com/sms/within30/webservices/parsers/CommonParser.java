@@ -16,6 +16,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sms.within30.R;
+import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.webservices.ServiceMethods;
@@ -60,6 +61,8 @@ public class CommonParser extends BaseParser{
 			case WS_SERVICES:
 				parseServies(jsonString);
 				break;
+			case WS_CUSTOMERS:
+				parseCustomers(jsonString);
 
 		default:
 			break;
@@ -92,6 +95,10 @@ public class CommonParser extends BaseParser{
 		}
 	}
 
+	/**
+	 * Here parsing the response jsonString(Services data)
+	 * @param jsonString
+	 */
 	private void parseServies(String jsonString)
 	{
 
@@ -107,14 +114,55 @@ public class CommonParser extends BaseParser{
 					responseObject = servicesList;
 				}catch(Exception e){
 					Log.d("Exception", e.toString());
-					responseObject = context.getString(R.string.server_error_please_try_again);
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
 				}
 
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				responseObject = context.getString(R.string.server_error_please_try_again);
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
 			}
 		}
 	}
+
+	/**
+	 * Here parsing response jsonString (Customer data)
+	 * @param jsonString
+	 */
+
+	private void parseCustomers(String jsonString){
+		//CustomerDO
+		if(jsonString!=null && jsonString.length()>0)
+		{
+			try {
+				try{
+					//	JSONObject jObject = new JSONObject(jsonString);
+					if (jsonString.contains("NoCustomersAvailable")) {
+						responseObject = jsonString;
+					}else{
+						JSONArray  jsonArray = new JSONArray(jsonString);
+						/** Getting the parsed data as a List construct */
+						if (jsonArray.length()>0) {
+							Type listType = new TypeToken<List<CustomerDO>>() {}.getType();
+							List<CustomerDO> customerList = new Gson().fromJson(jsonArray.toString(), listType);
+							responseObject = customerList;
+						}else{
+							responseObject = jsonString;
+						}
+					}
+
+
+				}catch(Exception e) {
+					Log.d("Exception", e.toString());
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+
 }

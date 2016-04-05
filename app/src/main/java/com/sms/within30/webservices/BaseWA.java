@@ -1,6 +1,7 @@
 package com.sms.within30.webservices;
 
 import java.io.InputStream;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,13 +12,18 @@ import com.sms.within30.utilities.NetworkUtility;
 import com.sms.within30.utilities.StringUtils;
 import com.sms.within30.webservices.parsers.BaseParser;
 
+import org.apache.http.NameValuePair;
+import org.json.JSONObject;
+
 
 public class BaseWA implements HttpListener
 {
 	private WebAccessListener listener;
 	private Context mContext;
 	private String empNo;
-	
+	JSONObject  pairs;
+
+
 	public BaseWA(Context mContext, WebAccessListener webAccessListener,String empNo)
 	{
 		this.mContext = mContext;
@@ -51,15 +57,15 @@ public class BaseWA implements HttpListener
 	/**
 	 * Method to start downloading the data.
 	 * @param method
-	 * @param parameters
+	 *
 	 * @return boolean
 	 */
-	public boolean startDataDownload(ServiceMethods method, Object parameters)
+	public boolean startDataDownload(ServiceMethods method, JSONObject pairs)
 	{
 
 		if(NetworkUtility.isNetworkConnectionAvailable(mContext))
 		{
-			HTTPSimulator downloader = new HTTPSimulator(this, method, parameters.toString(),"");
+			HTTPSimulator downloader = new HTTPSimulator(this, method,pairs);
 			downloader.start();
 			return true;
 		}
@@ -90,7 +96,15 @@ public class BaseWA implements HttpListener
 		String parameters;
 		String payload;
 		int rawSource;
+		JSONObject pairs;
 		//UserProfileDO userDO = null;
+		public HTTPSimulator(HttpListener listener, ServiceMethods method, JSONObject pairs)
+		{
+			this.listener = listener;
+			this.method = method;
+			this.pairs = pairs;
+			//this.payload = key;
+		}
 		public HTTPSimulator(HttpListener listener, ServiceMethods method, String parameters,String key)
 		{
 			this.listener = listener;
@@ -116,20 +130,21 @@ public class BaseWA implements HttpListener
 
 			try
 			{
+				isResponse = new RestClient().sendRequest(method,parameters,pairs);
+				/*if(parameters == null)
 
-				if(parameters == null)
 					isResponse = mContext.getResources().openRawResource(rawSource);
 				else{
 					if (payload.equals("IMAGE_URL")) {
 						//isResponse = new RestClient().sendRequest(method, parameters, empNo, userDO);
 					}else{
 						System.out.println("----------------------------------------  -1");
-						isResponse = new RestClient().sendRequest(method,parameters,empNo);
+						//isResponse = new RestClient().sendRequest(method,parameters,pairs);
 						System.out.println("----------------------------------------6");
 					}
+*/
 
-
-				}
+				//}
 
 
 				if(isResponse != null)
@@ -207,7 +222,7 @@ public class BaseWA implements HttpListener
 				if(parameters == null)
 					isResponse = mContext.getResources().openRawResource(rawSource);
 				else
-					isResponse = new RestClient().sendRequest(method,parameters,empNo);   
+					isResponse = new RestClient().sendRequest(method,parameters,pairs);
 				
 				if(isResponse != null)
 				{

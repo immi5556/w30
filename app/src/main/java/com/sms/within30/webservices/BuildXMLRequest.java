@@ -4,6 +4,15 @@ package com.sms.within30.webservices;
 
 import android.net.Uri;
 
+import com.sms.within30.dataobjects.CustomerDO;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class BuildXMLRequest {
 /*	private final static String SOAP_HEADER = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -27,6 +36,25 @@ public class BuildXMLRequest {
 		sb.append(browser_key);
 		return sb.toString();
 	}
-	
+
+	/**
+	 * This method is used to get the requested params as namevalue pairs
+	 * @param customerDO
+	 * @return List<NameValuePair>
+	 */
+	public static  JSONObject customerRequest(CustomerDO customerDO){
+		JSONObject pairs = new JSONObject();
+		try {
+			pairs.put("latitude", Double.toString(customerDO.getLatitude()));
+			pairs.put("longitude", Double.toString(customerDO.getLongitude()));
+			pairs.put("serviceId", customerDO.getServiceId());
+			pairs.put("miles", Integer.toString(customerDO.getMiles()));
+			pairs.put("minutes", Integer.toString(customerDO.getMinutes()));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
+
 
 }

@@ -11,6 +11,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sms.within30.adapters.ServicesSearchAdapter;
+import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.sidemenu.interfaces.Resourceble;
 import com.sms.within30.sidemenu.interfaces.ScreenShotable;
@@ -106,11 +108,12 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 ServicesDO servicesDO = (ServicesDO) adapterView.getItemAtPosition(position);
-                autoCompleteTextView.setText(servicesDO.getDisplay());
+                autoCompleteTextView.setText(servicesDO.getName());
 
                 Intent mapsIntent = new Intent(LandingActivity.this,MapsActivity.class);
-                mapsIntent.putExtra("actionbar_title","Dentist");
-                mapsIntent.putExtra("category_type","hospitals");
+                mapsIntent.putExtra("actionbar_title",servicesDO.getName());
+             //   mapsIntent.putExtra("category_type","hospitals");
+                mapsIntent.putExtra("service_id",servicesDO.get_id());
                 startActivity(mapsIntent);
             }
         });
@@ -132,16 +135,18 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onWheelItemClick(WheelView parent, int position, boolean isSelected) {
                 String msg = String.valueOf(position) + " " + isSelected;
-
+                Log.i("wheel position", "" + position);
+                ServicesDO servicesDO = (ServicesDO)servicesList.get(position);
                 Intent mapsIntent = new Intent(LandingActivity.this, MapsActivity.class);
-                mapsIntent.putExtra("actionbar_title", "Dentist");
-                mapsIntent.putExtra("category_type", "hospitals");
+                mapsIntent.putExtra("actionbar_title", servicesDO.getName());
+                mapsIntent.putExtra("service_id",servicesDO.get_id());
+               // mapsIntent.putExtra("service_type", "hospitals");
                 startActivity(mapsIntent);
             }
         });
 
-        setMenuItems();
-       /* if (NetworkUtility.isNetworkConnectionAvailable(LandingActivity.this)) {
+     //  setMenuItems();
+        if (NetworkUtility.isNetworkConnectionAvailable(LandingActivity.this)) {
             if(new CommonBL(LandingActivity.this, LandingActivity.this).getServices()){
                 if (pd == null) {
 
@@ -157,7 +162,7 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
             }
         }else{
             showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
-        }*/
+        }
 
     }
 
@@ -165,13 +170,6 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
         String colorName = MaterialColor.getColorName(entry);
         return MaterialColor.getContrastColor(colorName);
     }
-
-
-
-
-
-
-
     @Override
     public void onClick(View v) {
 
@@ -285,37 +283,37 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
 
             List<ServicesDO> tempList = new ArrayList<ServicesDO>();
             ServicesDO  servicesDO = new ServicesDO();
-            servicesDO.setDisplay("Hair Saloons");
+            servicesDO.setName("Hair Saloons");
             servicesDO.setName("Hair Saloons");
             tempList.add(servicesDO);
 
             ServicesDO  servicesDO1 = new ServicesDO();
-            servicesDO1.setDisplay("Spas");
+            servicesDO1.setName("Spas");
             servicesDO1.setName("Spas");
             tempList.add(servicesDO1);
 
             ServicesDO  servicesDO2 = new ServicesDO();
-            servicesDO2.setDisplay("Dentist");
+            servicesDO2.setName("Dentist");
             servicesDO2.setName("Dentist");
             tempList.add(servicesDO2);
 
             ServicesDO  servicesDO3 = new ServicesDO();
-            servicesDO3.setDisplay("Diagnostics");
+            servicesDO3.setName("Diagnostics");
             servicesDO3.setName("Diagnostics");
             tempList.add(servicesDO3);
 
             ServicesDO  servicesDO4 = new ServicesDO();
-            servicesDO4.setDisplay("Car Maintenance");
+            servicesDO4.setName("Car Maintenance");
             servicesDO4.setName("Car Maintenance");
             tempList.add(servicesDO4);
 
             ServicesDO  servicesDO5 = new ServicesDO();
-            servicesDO5.setDisplay("Legal Services");
+            servicesDO5.setName("Legal Services");
             servicesDO5.setName("Legal Services");
             tempList.add(servicesDO5);
 
             ServicesDO  servicesDO6 = new ServicesDO();
-            servicesDO6.setDisplay("Photographers");
+            servicesDO6.setName("Photographers");
             servicesDO6.setName("Photographers");
             tempList.add(servicesDO6);
 
@@ -346,7 +344,6 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void dataRetreived(Response data) {
-        // llLoader.setVisibility(View.GONE);
         if (pd != null)
             if (pd.isShowing()) {
                 pd.dismiss();

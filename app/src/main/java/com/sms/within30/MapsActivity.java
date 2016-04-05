@@ -2,6 +2,7 @@ package com.sms.within30;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,6 +52,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.lib.GPSTracker;
 import com.sms.within30.sidemenu.fragment.ContentFragment;
@@ -59,6 +61,7 @@ import com.sms.within30.sidemenu.interfaces.Resourceble;
 import com.sms.within30.sidemenu.interfaces.ScreenShotable;
 import com.sms.within30.sidemenu.util.ViewAnimator;
 import com.sms.within30.utilities.NetworkUtility;
+import com.sms.within30.utilities.W30Constants;
 import com.sms.within30.webservices.Response;
 import com.sms.within30.webservices.businesslayer.CommonBL;
 import com.sms.within30.webservices.businesslayer.DataListener;
@@ -90,6 +93,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     LinearLayout homeLayout;
     String category_type = "";
     String actionbarTitle = "";
+    String service_id = "";
     ActionBar actionBar;
     com.sms.within30.lib.VerticalSeekBar sbfilter;
     Button btfilterdistance;
@@ -123,8 +127,9 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
       //  viewAnimator = new ViewAnimator<>(MapsActivity.this, list, myLInearLayout, mLayoutDrawer, this);
         // Getting place reference from the map
         if ( getIntent()!=null) {
-            category_type = getIntent().getStringExtra("category_type");
+           // category_type = getIntent().getStringExtra("category_type");
             actionbarTitle = getIntent().getStringExtra("actionbar_title");
+            service_id = getIntent().getStringExtra("service_id");
             tvTitle.setText(actionbarTitle);
         }
 
@@ -221,6 +226,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         sbfilter.setVisibility(View.GONE);
+                        marker.getId();
                         if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
                             llbooking.startAnimation(bottomUp);
                             llbooking.setVisibility(View.VISIBLE);
@@ -230,11 +236,36 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     }
                 });
 
-                loadCategories();
+               // loadCategories();
+                getServices();
             }
         }
     }
-    private  void loadCategories(){
+    private void getServices(){
+        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
+            CustomerDO customerDO = new CustomerDO();
+            customerDO.setLatitude(mLatitude);
+            customerDO.setLongitude(mLongitude);
+            customerDO.setMiles(W30Constants.MILES);
+            customerDO.setMinutes(W30Constants.MINITUS);
+            customerDO.setServiceId(service_id);
+            if(new CommonBL(MapsActivity.this, MapsActivity.this).getCustomers(customerDO)){
+                if (pd == null) {
+                    pd =  new ProgressDialog(MapsActivity.this);
+                    pd.setProgressStyle(android.R.attr.progressBarStyleSmall);
+                    pd.setMessage("Loading...");
+                    pd.show();
+                }
+            }else{
+                showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+            }
+        }else{
+            showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+        }
+    }
+
+
+  /*  private  void loadCategories(){
 
 
         String browser_key = getResources().getString(R.string.google_maps_browser_key);
@@ -253,7 +284,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         // Invokes the "doInBackground()" method of the class PlaceTask
         placesTask.execute(sb.toString());
 
-       /* if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)){
+       *//* if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)){
             if(new CommonBL(MapsActivity.this, MapsActivity.this).getMapInfo(mLatitude, mLongitude,radius,browser_key,category_type)){
 
             }else{
@@ -262,9 +293,9 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
             }
         }else{
             Toast.makeText(MapsActivity.this,R.string.Unable_to_connect_server_please_try_again,Toast.LENGTH_SHORT).show();
-        }*/
+        }*//*
 
-    }
+    }*/
     private void  showCustomFilterDialog(Context context){
         // custom dialog
         final Dialog dialog = new Dialog(context);
@@ -401,13 +432,18 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     @Override
     public void dataRetreived(Response data) {
        // llLoader.setVisibility(View.GONE);
+        if (pd != null)
+            if (pd.isShowing()) {
+                pd.dismiss();
+                pd = null;
+            }
         if(data != null && data.data != null) {
             hideLoader();
             switch (data.method) {
-                case WS_MAP_INFO:
+                case WS_CUSTOMERS:
                     if(data.data!=null && data.data instanceof List<?>)
                     {
-                        List<HashMap<String, String>> placesList = (List<HashMap<String, String>>)data.data;
+                        List<CustomerDO> placesList = (List<CustomerDO>)data.data;
                         // Clears all the existing markers
                         mMap.clear();
 
@@ -417,13 +453,16 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                             MarkerOptions markerOptions = new MarkerOptions();
 
                             // Getting a place from the places list
-                            HashMap<String, String> hmPlace = placesList.get(i);
+                            CustomerDO  customerDO= (CustomerDO) placesList.get(i);
 
                             // Getting latitude of the place
-                            double lat = Double.parseDouble(hmPlace.get("lat"));
+                            double[] coordinates = customerDO.getGeo().getCoordinates();
+                            double lat = coordinates[0];
+                            double lng = coordinates[1];
+                           // double lat = Double.parseDouble(hmPlace.get("lat"));
 
                             // Getting longitude of the place
-                            double lng = Double.parseDouble(hmPlace.get("lng"));
+                           // double lng = Double.parseDouble(hmPlace.get("lng"));
 
                             LatLng latLng = new LatLng(lat, lng);
 
@@ -432,11 +471,19 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                             // Setting the title for the marker.
                             //This will be displayed on taping the marker
-                            markerOptions.title("3 OPen Slots");
+
+
 
                             View custom_marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
                             TextView numTxt = (TextView) custom_marker.findViewById(R.id.tvtitle);
-                            numTxt.setText("3\nOpen slots");
+
+                            if (customerDO.getSlotsAvailable() == 0) {
+                                markerOptions.title("Fully Booked");
+                                numTxt.setText("Fully Booked");
+                            }else{
+                                markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
+                                numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                            }
                             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapsActivity.this, custom_marker)));
 
                             // Placing a marker on the touched position
@@ -445,8 +492,13 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                             Marker m = mMap.addMarker(markerOptions);
 
                             // Linking Marker id and place reference
-                            mMarkerPlaceLink.put(m.getId(), hmPlace.get("reference"));
+                            mMarkerPlaceLink.put(m.getId(), customerDO.getServiceId());
+                            //TODO: put all values here
+
                         }
+                    }else if(data.data!=null && data.data instanceof String ){
+                        String str = (String)data.data;
+                        showToast(str);
                     }
                     break;
                 default:
@@ -722,7 +774,7 @@ Circle circle;
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        menu.findItem(R.id.menu_filter).setVisible(true);
+        menu.findItem(R.id.menu_filter).setVisible(false);
         menu.findItem(R.id.menu_home).setVisible(false);
 
         mSearchCheck = true;

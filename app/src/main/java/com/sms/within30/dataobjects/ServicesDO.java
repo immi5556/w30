@@ -5,9 +5,12 @@ package com.sms.within30.dataobjects;
  */
 public class ServicesDO {
     private String name;
-    private String display;
-    private String icon;
-    private String iconurl;
+    private String _id;
+    private String descr;
+    private String image;
+    private String mobileDecription;
+    private String mobileImage;
+    private long createdat;
 
     public String getName() {
         return name;
@@ -17,27 +20,51 @@ public class ServicesDO {
         this.name = name;
     }
 
-    public String getDisplay() {
-        return display;
+    public String get_id() {
+        return _id;
     }
 
-    public void setDisplay(String display) {
-        this.display = display;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
-    public String getIconurl() {
-        return iconurl;
+    public String getImage() {
+        return image;
     }
 
-    public void setIconurl(String iconurl) {
-        this.iconurl = iconurl;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getMobileDecription() {
+        return mobileDecription;
+    }
+
+    public void setMobileDecription(String mobileDecription) {
+        this.mobileDecription = mobileDecription;
+    }
+
+    public String getMobileImage() {
+        return mobileImage;
+    }
+
+    public void setMobileImage(String mobileImage) {
+        this.mobileImage = mobileImage;
+    }
+
+    public long getCreatedat() {
+        return createdat;
+    }
+
+    public void setCreatedat(long createdat) {
+        this.createdat = createdat;
     }
 }

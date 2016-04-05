@@ -1328,7 +1328,7 @@ public class WheelView extends View {
                    // canvas.drawText("Salon",rect.bottom,rect.bottom,imagePaint);
                   //  canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);
                   System.out.println("adapterPosition->"+adapterPosition);
-                    canvas.drawText(servicesDOList.get(adapterPosition).getDisplay(),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
+                    canvas.drawText(servicesDOList.get(adapterPosition).getName(),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
                 }
 
                /* Paint paint = new Paint();
