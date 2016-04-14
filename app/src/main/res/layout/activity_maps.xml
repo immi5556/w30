@@ -61,7 +61,7 @@
               android:id="@+id/sbfilter"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-                 android:max="10000"
+                 android:max="200"
 
               />
             </FrameLayout>

@@ -77,6 +77,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     double mLongitude=0;
 
     HashMap<String, CustomerDO> mMarkerPlaceLink = new HashMap<String, CustomerDO>();
+    List<CustomerDO> placesList = new ArrayList<CustomerDO>();
     LinearLayout llbooking;
     Animation bottomUp;
     Animation bottomDown;
@@ -110,6 +112,11 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     TextView tvaddress1;
     TextView tvaddress2;
 
+
+    private float distanceSelectedRadius = 0;
+    private float timeSelectedRadius = 0;
+    private boolean isDistanceFilterSelected = false;
+    private boolean isTimeFilterSelected = false;
     public void initialize(){
         homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_maps, null);
         // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
@@ -139,6 +146,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         tvtime = (TextView) homeLayout.findViewById(R.id.tvtime);
         tvaddress1 = (TextView) homeLayout.findViewById(R.id.tvaddress1);
         tvaddress2 = (TextView)homeLayout.findViewById(R.id.tvaddress2);
+
        // myLInearLayout = new MyLInearLayout(MapsActivity.this).newInstance();
       //  viewAnimator = new ViewAnimator<>(MapsActivity.this, list, myLInearLayout, mLayoutDrawer, this);
         // Getting place reference from the map
@@ -275,7 +283,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         try{
 
             tvComapanyName.setText(customerDO.getCompanyName());
-            tvaddress1.setText(customerDO.getGeo().getCity()+" "+customerDO.getGeo().getCountry());
+            tvaddress1.setText(customerDO.getGeo().getAddress().toString());
             tvtime.setText("Estimated time:"+" "+customerDO.getExpectedTime()+" "+"MIN");
             tvmiles.setText(customerDO.getDestinationDistance()+" "+"Miles");
             bt_book.setTag(customerDO);
@@ -315,6 +323,9 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
             CustomerDO customerDO = new CustomerDO();
             customerDO.setLatitude(mLatitude);
             customerDO.setLongitude(mLongitude);
+
+           // customerDO.setLatitude(17.4119767);
+           // customerDO.setLongitude(78.4200375);
             customerDO.setMiles(W30Constants.MILES);
             customerDO.setMinutes(W30Constants.MINITUS);
             customerDO.setServiceId(service_id);
@@ -512,9 +523,10 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 case WS_CUSTOMERS:
                     if(data.data!=null && data.data instanceof List<?>)
                     {
-                        List<CustomerDO> placesList = (List<CustomerDO>)data.data;
+                       placesList = (List<CustomerDO>)data.data;
                         // Clears all the existing markers
                         mMap.clear();
+
                         Log.d("places list.size",""+placesList.size());
                         for (int i = 0; i < placesList.size(); i++) {
 
@@ -526,8 +538,9 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                             Log.d("customerDO",customerDO.toString());
                             // Getting latitude of the place
                             double[] coordinates = customerDO.getGeo().getCoordinates();
-                            double lat = coordinates[0];
-                            double lng = coordinates[1];
+
+                            double lng = coordinates[0];
+                            double lat = coordinates[1];
                            // double lat = Double.parseDouble(hmPlace.get("lat"));
                             Log.d("lat",""+lat);
                             Log.d("lng",""+lng);
@@ -623,6 +636,11 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 llbooking.startAnimation(bottomDown);
                 llbooking.setVisibility(View.INVISIBLE);
             }
+            isTimeFilterSelected = true;
+            isDistanceFilterSelected = false;
+            sbfilter.setProgress((int)timeSelectedRadius);
+            addCircleToMap((int) timeSelectedRadius);
+            btfiltertime.setText(""+timeSelectedRadius+"MIN");
         }else if (v.getId() == R.id.btfilterdistance) {
             System.out.println("clicked on btfilterdistance");
             sbfilter.setVisibility(View.VISIBLE);
@@ -633,6 +651,12 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 llbooking.startAnimation(bottomDown);
                 llbooking.setVisibility(View.INVISIBLE);
             }
+
+            isDistanceFilterSelected = true;
+            isTimeFilterSelected = false;
+            sbfilter.setProgress((int)distanceSelectedRadius);
+            addCircleToMap((int) distanceSelectedRadius);
+            btfilterdistance.setText(""+distanceSelectedRadius+"MI");
         }
 
     }
@@ -648,25 +672,69 @@ Circle circle;
        System.out.println("adding circle to map..........................." + mLatitude + " " + mLongitude);
        if (circle!=null) {
            circle.remove();
-         //  circle = null;
        }
-       CircleOptions circleOptions = new CircleOptions()
-               .center(new LatLng(17.4119848, 78.4200735))
-               .radius(radius)
-               .strokeColor(getResources().getColor(R.color.w30_blue))
-              // .fillColor(getResources().getColor(R.color.map_circle_fill))
-               .fillColor(0x55ffffff)
-               .strokeWidth(3f)
-               .visible(true);
+       try{
+         if (placesList.size()>0) {
+             mMap.clear();
+             for (CustomerDO customerDO:placesList){
+                 if (isDistanceFilterSelected){
+                    int miles = customerDO.getDestinationDistance();
+                     if (miles <= radius){
+                         setMarker(customerDO);
+                     }
+                 } else if (isTimeFilterSelected) {
+                    int time = customerDO.getExpectedTime();
+                     if (time <= radius) {
+                         setMarker(customerDO);
+                     }
+                 }
+             }
+         }
+           CircleOptions circleOptions = new CircleOptions()
+                  //  .center(new LatLng(17.4119767, 78.4200375))
+                   .center(new LatLng(mLatitude,mLongitude))
+                   .radius(radius)
+                   .strokeColor(getResources().getColor(R.color.w30_blue))
+                           // .fillColor(getResources().getColor(R.color.map_circle_fill))
+                   .fillColor(0x55ffffff)
+                   .strokeWidth(3f)
+                   .visible(true);
 
-       circle =  mMap.addCircle(circleOptions);
-       //circle.al
-      //
-      // mMap.an
-       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(),getZoomLevel(circle)));
+           circle =  mMap.addCircle(circleOptions);
+           mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(),getZoomLevel(circle)));
 
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
    }
 
+    private void setMarker(CustomerDO customerDO){
+        // Creating a marker
+        MarkerOptions markerOptions = new MarkerOptions();
+        double[] coordinates = customerDO.getGeo().getCoordinates();
+        double lng = coordinates[0];
+        double lat = coordinates[1];
+        LatLng latLng = new LatLng(lat, lng);
+
+        // Setting the position for the marker
+        markerOptions.position(latLng);
+        View custom_marker = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
+        TextView numTxt = (TextView) custom_marker.findViewById(R.id.tvtitle);
+        Log.d("open slots",""+customerDO.getSlotsAvailable());
+        if (customerDO.getSlotsAvailable()!=null) {
+            if (customerDO.getSlotsAvailable() == 0) {
+                markerOptions.title("Fully Booked");
+                numTxt.setText("Fully Booked");
+            }else{
+                markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
+                numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+            }
+        }
+
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapsActivity.this, custom_marker)));
+        Marker m = mMap.addMarker(markerOptions);
+        mMarkerPlaceLink.put(m.getId(),customerDO);
+    }
 
     public int getZoomLevel(Circle circle) {
         int zoomLevel = 11;
@@ -682,6 +750,13 @@ Circle circle;
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         System.out.println("seek bar on progress changed....."+progress);
         addCircleToMap(progress);
+        if(isDistanceFilterSelected) {
+           distanceSelectedRadius = progress;
+            btfilterdistance.setText(""+distanceSelectedRadius+"MI");
+        }else if (isTimeFilterSelected) {
+            timeSelectedRadius  = progress;
+            btfiltertime.setText(""+timeSelectedRadius+"MIN");
+        }
 
     }
 
@@ -697,35 +772,9 @@ Circle circle;
     }
 
 
-    /** A class, to download Google Places */
-    private class PlacesTask extends AsyncTask<String, Integer, String>{
 
-        String data = null;
 
-        // Invoked by execute() method of this object
-        @Override
-        protected String doInBackground(String... url) {
-            try{
-                data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
-            }
-            return data;
-        }
-
-        // Executed after the complete execution of doInBackground() method
-        @Override
-        protected void onPostExecute(String result){
-            ParserTask parserTask = new ParserTask();
-
-            // Start parsing the Google places in JSON format
-            // Invokes the "doInBackground()" method of the class ParseTask
-            parserTask.execute(result);
-        }
-
-    }
-
-    /** A class to parse the Google Places in JSON format */
+   /* *//** A class to parse the Google Places in JSON format *//*
     private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>> {
 
         JSONObject jObject;
@@ -740,7 +789,7 @@ Circle circle;
             try{
                 jObject = new JSONObject(jsonData[0]);
 
-                /** Getting the parsed data as a List construct */
+                *//** Getting the parsed data as a List construct *//*
                 places = placeJsonParser.parse(jObject);
 
             }catch(Exception e){
@@ -796,7 +845,7 @@ Circle circle;
             }
         }
         }
-    }
+    }*/
     // Convert a view to bitmap
     public  Bitmap createDrawableFromView(Context context, View view) {
         DisplayMetrics displayMetrics = new DisplayMetrics();

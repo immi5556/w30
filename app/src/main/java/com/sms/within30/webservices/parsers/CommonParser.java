@@ -201,16 +201,24 @@ public class CommonParser extends BaseParser{
 					//	JSONObject jObject = new JSONObject(jsonString);
 					//JSONArray  jsonArray = new JSONArray(jsonString);
 					JSONObject jsonObject = new JSONObject(jsonString);
-					String stattus = (String)jsonObject.get("Status");
-					if (stattus.equals(AppConstants.Failed)) {
-						responseObject = (String)jsonObject.get("Message");
-					}else if (stattus.equals(AppConstants.OK)) {
+					if (jsonObject.has("action")) {
+						String stattus = (String)jsonObject.get("action");
+						if (stattus.equals(AppConstants.INSERT)) {
+							responseObject = AppConstants.OK;
+						}
+					}else if (jsonObject.has("Status")) {
+						String stattus = (String)jsonObject.get("Status");
+						if (stattus.equals(AppConstants.Failed)) {
+							responseObject = jsonObject.get("Message");
+						}
+					}
+					/*else if (stattus.equals(AppConstants.OK)) {
 
 						responseObject = stattus;
-					}
+					}*/
 					/** Getting the parsed data as a List construct */
 
-				}catch(Exception e){
+				} catch (Exception e) {
 					Log.d("Exception", e.toString());
 					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
 				}

@@ -8,6 +8,7 @@ public class GeoDO {
     private String country;
 
     private double coordinates[];
+    private AddressDO address;
     public double[] getCoordinates() {
         return coordinates;
     }
@@ -29,5 +30,13 @@ public class GeoDO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public AddressDO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDO address) {
+        this.address = address;
     }
 }

@@ -36,13 +36,20 @@
                 android:gravity="center_horizontal|center"
                 android:layout_centerHorizontal="true" />
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@+id/tvComapanyName"
+    android:layout_centerHorizontal="true">
+
 
 
             <RatingBar
                 android:id="@+id/ratingbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvComapanyName"
+
                 style="?android:attr/ratingBarStyleSmall"
                 android:stepSize="1.0"
                 android:numStars="5"
@@ -50,7 +57,7 @@
                 android:progressTint="@color/rating_bar_star_filled"
                 android:progressBackgroundTint="@color/rating_bar_star_filled"
                 android:secondaryProgressTint="@color/rating_bar_star_filled"
-                android:layout_alignStart="@+id/tvComapanyName" />
+                 />
             <TextView
                 android:id="@+id/tvcount"
                 android:layout_width="wrap_content"
@@ -72,9 +79,11 @@
                 android:layout_gravity="center"
                 android:layout_toRightOf="@+id/tvcount"
                 android:id="@+id/tvmiles"
+                android:paddingLeft="5dp"
                 android:layout_alignTop="@+id/tvcount"
-                android:layout_alignEnd="@+id/tvComapanyName"
+
                 android:gravity="right" />
+</LinearLayout>
         </RelativeLayout>
 
 
