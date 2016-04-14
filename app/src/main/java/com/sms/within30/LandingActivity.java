@@ -277,7 +277,7 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
         dialog.show();
     }
 
-    public void setMenuItems(){
+   /* public void setMenuItems(){
 
         try {
 
@@ -340,7 +340,7 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
         }
 
     }
-
+*/
 
     @Override
     public void dataRetreived(Response data) {

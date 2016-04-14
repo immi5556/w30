@@ -183,12 +183,21 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 double longitude = gpsTracker.getLongitude();
                 mLatitude = latitude;
                 mLongitude = longitude;
+                LatLng latLng = new LatLng(mLatitude, mLongitude);
                 // create marker
-                MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
+               MarkerOptions marker = new MarkerOptions().position(latLng);
 
                 // adding marker
-                mMap.addMarker(marker);
-                }else{
+               // mMap.addMarker(marker);
+
+                Marker m = mMap.addMarker(marker);
+              //  mMap.addMarker(marker);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                CustomerDO customerDO = null;
+                mMarkerPlaceLink.put(m.getId(), customerDO);
+
+            }else{
                 // can't get location
                 // GPS or Network is not enabled
                 // Ask user to enable GPS/network in settings
@@ -253,15 +262,19 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         sbfilter.setVisibility(View.GONE);
-                       // marker..getId();
-                       ;
+                        // marker..getId();
+                        ;
                         CustomerDO marker_customerInfo = mMarkerPlaceLink.get(marker.getId());
-                      //  Log.d("selected_marker_customer_info",  marker_customerInfo.toString());
-                        setCustomerInfo(marker_customerInfo);
-                        if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
-                            llbooking.startAnimation(bottomUp);
-                            llbooking.setVisibility(View.VISIBLE);
+                        //  Log.d("selected_marker_customer_info",  marker_customerInfo.toString());
+                        if (marker_customerInfo != null) {
+                            setCustomerInfo(marker_customerInfo);
+                            if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
+                                llbooking.startAnimation(bottomUp);
+                                llbooking.setVisibility(View.VISIBLE);
+                            }
                         }
+
+
                         marker.hideInfoWindow();
                         return true;
                     }

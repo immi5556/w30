@@ -32,6 +32,23 @@
                 android:visibility="gone"
                 android:layout_gravity="center_horizontal|left"
                 android:layout_alignParentLeft="true" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tvlocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="vijayawada"
+                    android:layout_margin="10dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_light"
+                    android:gravity="center_horizontal|right"
+                   />
+
+            </LinearLayout>
             <TextView
                 android:id="@+id/tvbusinessower"
                 android:layout_width="wrap_content"
@@ -128,7 +145,7 @@
             android:id="@+id/autoCompleted_categorysearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-android:textColorHint="#cecece"
+            android:textColorHint="#cecece"
             android:background="@mipmap/search_box"
             android:layout_marginTop="50dp"
             android:ems="2"
