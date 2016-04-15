@@ -30,11 +30,11 @@
         android:textSize="@dimen/size16"
         android:layout_margin="5dp"/>
     <TextView
-        android:id="@+id/textDone1"
+        android:id="@+id/tvEstimatedTime"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Hope to see you in 12 min"
+        android:text="Hope to see you in 0 min"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:layout_below="@+id/text"

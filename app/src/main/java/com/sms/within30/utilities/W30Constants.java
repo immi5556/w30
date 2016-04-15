@@ -6,4 +6,5 @@ package com.sms.within30.utilities;
 public class W30Constants {
     public static Integer MILES = 200;
     public static Integer MINITUS = 200;
+    public static Double MILES_IN_METERS = 1609.34;
 }

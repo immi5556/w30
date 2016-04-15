@@ -65,6 +65,7 @@ import com.sms.within30.sidemenu.util.ViewAnimator;
 import com.sms.within30.utilities.AppConstants;
 import com.sms.within30.utilities.CalendarUtils;
 import com.sms.within30.utilities.NetworkUtility;
+import com.sms.within30.utilities.StringUtils;
 import com.sms.within30.utilities.W30Constants;
 import com.sms.within30.webservices.Response;
 import com.sms.within30.webservices.businesslayer.CommonBL;
@@ -113,8 +114,8 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     TextView tvaddress2;
 
 
-    private float distanceSelectedRadius = 0;
-    private float timeSelectedRadius = 0;
+    private float distanceSelectedRadius = 30;
+    private float timeSelectedRadius = 30;
     private boolean isDistanceFilterSelected = false;
     private boolean isTimeFilterSelected = false;
     public void initialize(){
@@ -165,8 +166,20 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         bt_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomerDO customerDO =(CustomerDO) bt_book.getTag();
-                bookSlot(customerDO);
+                try{
+                    CustomerDO customerDO =(CustomerDO) bt_book.getTag();
+                    if (customerDO !=null) {
+                        if(llbooking.getVisibility() == View.VISIBLE){
+                            llbooking.startAnimation(bottomDown);
+                            llbooking.setVisibility(View.INVISIBLE);
+                        }
+                        bookSlot(customerDO);
+                    }
+
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+
 
 
             }
@@ -286,20 +299,25 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         }
     }
     private void setCustomerInfo(CustomerDO customerDO){
-      /*  TextView tvComapanyName;
-        RatingBar ratingbar;
-        TextView tvcount;
-        TextView tvmiles;
-        TextView tvtime;
-        TextView tvaddress1;
-        TextView tvaddress2;*/
-        try{
 
-            tvComapanyName.setText(customerDO.getCompanyName());
+        try{
+            String upperCaseString_companyName = customerDO.getCompanyName().substring(0, 1).toUpperCase() + customerDO.getCompanyName().substring(1);
+            tvComapanyName.setText(upperCaseString_companyName);
             tvaddress1.setText(customerDO.getGeo().getAddress().toString());
             tvtime.setText("Estimated time:"+" "+customerDO.getExpectedTime()+" "+"MIN");
-            tvmiles.setText(customerDO.getDestinationDistance()+" "+"Miles");
-            bt_book.setTag(customerDO);
+            tvmiles.setText(customerDO.getDestinationDistance() + " " + "Miles");
+            if (customerDO.getSlotsAvailable() == 0) {
+                bt_book.setClickable(false);
+                bt_book.setAlpha(0.5f);
+            }else{
+                bt_book.setClickable(true);
+                bt_book.setTag(customerDO);
+                bt_book.setAlpha(1f);
+                int expectedtime = 0;
+                expectedtime = customerDO.getExpectedTime();
+                tvtime.setTag(expectedtime);
+            }
+
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -309,7 +327,6 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
         if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
             BookSlotDO bookSlotDO = new BookSlotDO();
-            //TODO: construct current data here
             String currentDate = CalendarUtils.getCurrentPostDate((long)customerDO.getExpectedTime());
             bookSlotDO.setDate(currentDate);
             bookSlotDO.setSubDomain(customerDO.getSubdomain());
@@ -437,11 +454,19 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
        window.setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
      //  window.setsty
        TextView dialogButton = (TextView) dialog.findViewById(R.id.dialogButtonOK);
+       TextView tvEstimatedTime = (TextView) dialog.findViewById(R.id.tvEstimatedTime);
+       int expectedTime = 0;
+       if (tvtime.getTag() !=null) {
+           expectedTime = (Integer)tvtime.getTag();
+       }
+       String str = "Hope to see you in "+expectedTime+" min";
+       tvEstimatedTime.setText(str);
        // if button is clicked, close the custom dialog
        dialogButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                dialog.dismiss();
+               getServices();
            }
        });
 
@@ -587,21 +612,8 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
                             // Placing a marker on the touched position
 
-
                             Marker m = mMap.addMarker(markerOptions);
-
-                            // Linking Marker id and place reference
-
-                          //  mMarkerPlaceLink.put(m.getId(), customerDO.getServiceId()); mMarkerPlaceLink.put("_clientid",customerDO.get_clientid());
-                            /*HashMap<String,String> marker_customerInfo = new HashMap<String,String>();
-                            marker_customerInfo.put("subDomain",customerDO.getSubDomain());
-                            marker_customerInfo.put("companyName",customerDO.getCompanyName());
-                            marker_customerInfo.put("city",customerDO.getGeo().getCity());
-                            marker_customerInfo.put("country",customerDO.getGeo().getCountry());
-                            marker_customerInfo.put("expectedTime",Double.toString(customerDO.getExpectedTime()));*/
                             mMarkerPlaceLink.put(m.getId(),customerDO);
-
-                            //TODO: put all values here
 
                         }
                     }else if(data.data!=null && data.data instanceof String ){
@@ -687,12 +699,19 @@ Circle circle;
            circle.remove();
        }
        try{
+           double slider_in_meters = 0.0;
          if (placesList.size()>0) {
              mMap.clear();
+
              for (CustomerDO customerDO:placesList){
                  if (isDistanceFilterSelected){
-                    int miles = customerDO.getDestinationDistance();
-                     if (miles <= radius){
+                    double miles = customerDO.getDestinationDistance();
+                     Log.d("before miles",""+miles);
+
+                     double est_meters = miles*W30Constants.MILES_IN_METERS; // 1 miles = 1609.34 metres
+                    Log.d("after conversion",""+est_meters);
+                      slider_in_meters = radius*W30Constants.MILES_IN_METERS;
+                     if (est_meters <= slider_in_meters){
                          setMarker(customerDO);
                      }
                  } else if (isTimeFilterSelected) {
@@ -706,7 +725,7 @@ Circle circle;
            CircleOptions circleOptions = new CircleOptions()
                   //  .center(new LatLng(17.4119767, 78.4200375))
                    .center(new LatLng(mLatitude,mLongitude))
-                   .radius(radius)
+                   .radius(slider_in_meters)
                    .strokeColor(getResources().getColor(R.color.w30_blue))
                            // .fillColor(getResources().getColor(R.color.map_circle_fill))
                    .fillColor(0x55ffffff)

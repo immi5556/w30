@@ -56,12 +56,14 @@
             android:layout_margin="15dp"
 
             >
-
+// 30 miles = 48280.3
+            //1 miles = 1609.34
+            //200 miles =
              <com.sms.within30.lib.VerticalSeekBar
               android:id="@+id/sbfilter"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-                 android:max="200"
+              android:max="30"
 
               />
             </FrameLayout>

@@ -22,7 +22,7 @@ public class CustomerDO {
     Integer slotsAvailable = 0;
     private int expectedTime;
     public String subdomain;
-    public int destinationDistance;
+    public Double destinationDistance;
 
 
 
@@ -122,11 +122,11 @@ public class CustomerDO {
         this.expectedTime = expectedTime;
     }
 
-    public int getDestinationDistance() {
+    public double getDestinationDistance() {
         return destinationDistance;
     }
 
-    public void setDestinationDistance(int destinationDistance) {
+    public void setDestinationDistance(double destinationDistance) {
         this.destinationDistance = destinationDistance;
     }
 
