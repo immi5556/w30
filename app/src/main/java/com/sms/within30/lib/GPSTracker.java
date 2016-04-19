@@ -45,7 +45,7 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     public Location getLocation() {
-        try {
+      //  try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
 
@@ -97,9 +97,10 @@ public class GPSTracker extends Service implements LocationListener {
                 }
             }
 
-        } catch (Exception e) {
+       /* } catch (Exception e) {
             e.printStackTrace();
-        }
+            return null;
+        }*/
 
         return location;
     }

@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.sms.within30.adapters.ServicesSearchAdapter;
 import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.dataobjects.ServicesDO;
@@ -114,6 +115,9 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                 mapsIntent.putExtra("actionbar_title",servicesDO.getName());
              //   mapsIntent.putExtra("category_type","hospitals");
                 mapsIntent.putExtra("service_id",servicesDO.get_id());
+                // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
+                String listSerializedToJson = new Gson().toJson(servicesList);
+                mapsIntent.putExtra("service_list", listSerializedToJson);
                 startActivity(mapsIntent);
             }
         });
@@ -139,9 +143,13 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                 ServicesDO servicesDO = (ServicesDO)servicesList.get(position);
                 Intent mapsIntent = new Intent(LandingActivity.this, MapsActivity.class);
                 mapsIntent.putExtra("actionbar_title", servicesDO.getName());
-                mapsIntent.putExtra("service_id",servicesDO.get_id());
-               // mapsIntent.putExtra("service_type", "hospitals");
+                mapsIntent.putExtra("service_id", servicesDO.get_id());
+                // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
+                String listSerializedToJson = new Gson().toJson(servicesList);
+                mapsIntent.putExtra("service_list", listSerializedToJson);
                 startActivity(mapsIntent);
+
+
             }
         });
 
@@ -183,9 +191,9 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                 wheelView.setVisibility(View.VISIBLE);
                 btmenu.setImageResource(R.mipmap.menu_open);
             }
-        }else if (v.getId() == R.id.img_filter) {
+        }/*else if (v.getId() == R.id.img_filter) {
             showCustomDialog(LandingActivity.this);
-        }else if (v.getId() == R.id.tvbusinessower) {
+        }*/else if (v.getId() == R.id.tvbusinessower) {
           /**  if (NetworkUtility.isNetworkConnectionAvailable(LandingActivity.this)) {
                 Intent mapsIntent = new Intent(LandingActivity.this,MapsActivity.class);
                 mapsIntent.putExtra("actionbar_title","Dentist");
@@ -248,7 +256,7 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private void  showCustomDialog(Context context){
+ /*   private void  showCustomDialog(Context context){
         // custom dialog
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -276,70 +284,6 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
 
         dialog.show();
     }
-
-   /* public void setMenuItems(){
-
-        try {
-
-            List<ServicesDO> tempList = new ArrayList<ServicesDO>();
-            ServicesDO  servicesDO = new ServicesDO();
-            servicesDO.setName("Hair Saloons");
-            servicesDO.setName("Hair Saloons");
-            tempList.add(servicesDO);
-
-            ServicesDO  servicesDO1 = new ServicesDO();
-            servicesDO1.setName("Spas");
-            servicesDO1.setName("Spas");
-            tempList.add(servicesDO1);
-
-            ServicesDO  servicesDO2 = new ServicesDO();
-            servicesDO2.setName("Dentist");
-            servicesDO2.setName("Dentist");
-            tempList.add(servicesDO2);
-
-            ServicesDO  servicesDO3 = new ServicesDO();
-            servicesDO3.setName("Diagnostics");
-            servicesDO3.setName("Diagnostics");
-            tempList.add(servicesDO3);
-
-            ServicesDO  servicesDO4 = new ServicesDO();
-            servicesDO4.setName("Car Maintenance");
-            servicesDO4.setName("Car Maintenance");
-            tempList.add(servicesDO4);
-
-            ServicesDO  servicesDO5 = new ServicesDO();
-            servicesDO5.setName("Legal Services");
-            servicesDO5.setName("Legal Services");
-            tempList.add(servicesDO5);
-
-            ServicesDO  servicesDO6 = new ServicesDO();
-            servicesDO6.setName("Photographers");
-            servicesDO6.setName("Photographers");
-            tempList.add(servicesDO6);
-
-            servicesList = tempList;
-            System.out.println("servicesList->"+servicesList.size());
-            if (servicesList!=null) {
-                servicesSearchAdapter.refreshServicesList(servicesList);
-                wheelView.setWheelItemCount(servicesList.size());
-                //create data for the adapter
-                List<Map.Entry<String, Integer>> entries = new ArrayList<Map.Entry<String, Integer>>(servicesList.size());
-
-                for (int i = 0; i < servicesList.size(); i++) {
-                    Map.Entry<String, Integer> entry = MaterialColor.random(this, "\\D*_500$");
-                    entries.add(entry);
-                }
-
-                //populate the adapter, that knows how to draw each item (as you would do with a ListAdapter)
-                wheelView.setAdapter(new MaterialColorAdapter(entries, LandingActivity.this));
-                wheelView.setSetvices(servicesList);
-
-            }
-        }catch(Exception e){
-              e.printStackTrace();;
-        }
-
-    }
 */
 
     @Override
@@ -358,6 +302,10 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                         servicesList = (List<ServicesDO>)data.data;
                         System.out.println("servicesList->"+servicesList.size());
                         if (servicesList!=null) {
+                            //TODO:Download the images from web
+                           /* for(ServicesDO servicesDO:servicesList){
+
+                            }*/
                             servicesSearchAdapter.refreshServicesList(servicesList);
                             wheelView.setWheelItemCount(servicesList.size());
                             //create data for the adapter

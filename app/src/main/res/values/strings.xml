@@ -40,7 +40,7 @@
     <string name="business_owner">Business Owner</string>
     <string name="services_offered">Services Offered</string>
     <string name="schedule_my_booking">Schedule my booking</string>
-    <string name="appointment_confirmed">Appointment\n Cofirmed!</string>
+    <string name="appointment_confirmed">Appointment\n Confirmed!</string>
     <string name="done">DONE</string>
     <string name="book">Book</string>
     <string name="filter_options">Filter Options</string>

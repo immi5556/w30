@@ -96,20 +96,33 @@
             android:background="#333333">
 
         </View>
+       <!-- <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        <TextView
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal">
+            <include
+                layout="@layout/customer_address_view">
+            </include>
+            android:drawableLeft="@mipmap/address"
+            </LinearLayout>-->
+
+       <TextView
             android:id="@+id/tvaddress1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dfdsfdfdfdfdfdfdsfdsfdsfsdfsdfdfsdfdfsdfd dfdsf dfsdfdfsdfsdf sdf"
-            android:drawableLeft="@mipmap/address"
+            android:text=""
+
             android:drawablePadding="5dp"
             android:textColor="@android:color/black"
             android:textSize="@dimen/size14"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal|center" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tvaddress2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,7 +130,7 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/size14"
             android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal|center"/>
+            android:layout_gravity="center_horizontal|center"/>-->
 
         <TextView
             android:id="@+id/tvtime"

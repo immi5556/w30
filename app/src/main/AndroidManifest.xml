@@ -9,7 +9,12 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.sms.within30.permission.MAPS_RECEIVE" />
-
+   <!-- <permission
+        android:name="com.sms.within30.permission.ACCESS_FINE_LOCATION"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.sms.within30.permission.ACCESS_COARSE_LOCATION"
+        android:protectionLevel="signature" />-->
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,6 +22,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission-sdk-m android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission-sdk-m android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- to access the network state of the device -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 

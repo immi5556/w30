@@ -1,9 +1,11 @@
 package com.sms.within30.dataobjects;
 
+import java.io.Serializable;
+
 /**
  * Created by SR Lakhsmi on 4/1/2016.
  */
-public class CustomerDO {
+public class CustomerDO implements Serializable {
     private String _clientid;
     private double latitude;
     private double longitude;
@@ -20,7 +22,7 @@ public class CustomerDO {
     private String companyCity;
     private GeoDO geo;
     Integer slotsAvailable = 0;
-    private int expectedTime;
+    private float expectedTime;
     public String subdomain;
     public Double destinationDistance;
 
@@ -114,7 +116,7 @@ public class CustomerDO {
         this.slotsAvailable = slotsAvailable;
     }
 
-    public int getExpectedTime() {
+    public float getExpectedTime() {
         return expectedTime;
     }
 

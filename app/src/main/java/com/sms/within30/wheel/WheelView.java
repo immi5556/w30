@@ -1238,10 +1238,10 @@ public class WheelView extends View {
         ArrayList<Integer> categoryDrawablesList = new ArrayList<Integer>();
         categoryDrawablesList.add(R.mipmap.salon);
         categoryDrawablesList.add(R.mipmap.spa_and_massage);
-        categoryDrawablesList.add(R.mipmap.dentist);
+        categoryDrawablesList.add(R.mipmap.diagntcs);
         categoryDrawablesList.add(R.mipmap.law);
         categoryDrawablesList.add(R.mipmap.autoservices);
-        categoryDrawablesList.add(R.mipmap.diagntcs);
+        categoryDrawablesList.add(R.mipmap.dentist);
         categoryDrawablesList.add(R.mipmap.phtography);
 
 

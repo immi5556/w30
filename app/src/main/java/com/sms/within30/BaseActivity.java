@@ -69,6 +69,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.sidemenu.fragment.ContentFragment;
 import com.sms.within30.sidemenu.fragment.MyLInearLayout;
 import com.sms.within30.sidemenu.interfaces.Resourceble;
@@ -221,7 +222,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 
 		setActionBar();
 		//mLayoutDrawer.setDrawerListener(drawerToggle);
-		createMenuList();
+		//createMenuList();
 		viewAnimator = new ViewAnimator<>(BaseActivity.this, list, myLInearLayout, mLayoutDrawer, this);
 	//	this.getWindow().setStatusBarColor(getResources().getColor(R.color.backgroung_actionbar));
 	}
@@ -272,9 +273,10 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 		super.onConfigurationChanged(newConfig);
 		drawerToggle.onConfigurationChanged(newConfig);
 	}
-
-	private void createMenuList() {
-		SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
+List<ServicesDO> servicesList;
+	public void createMenuList(List<ServicesDO> servicesList) {
+		this.servicesList = servicesList;
+		/*SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
 		list.add(menuItem0);
 		SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.SALON, R.mipmap.menu_salon);
 		list.add(menuItem);
@@ -289,7 +291,38 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 		SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.DIAGNOSTICKS, R.mipmap.menu_diagnostics);
 		list.add(menuItem6);
 		SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.PHOTOGRAPHERS, R.mipmap.menu_photographers);
-		list.add(menuItem7);
+		list.add(menuItem7);*/
+
+		try{
+			SlideMenuItem menu_Item_close = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
+			list.add(menu_Item_close);
+			if (servicesList !=null) {
+				for (ServicesDO servicesDO:servicesList){
+					SlideMenuItem menu_Item = null ;
+					if (servicesDO.getName().equalsIgnoreCase("Hair Salon")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_salon);
+
+					}else if (servicesDO.getName().equalsIgnoreCase("Massage & Spa")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_spa);
+					}else if (servicesDO.getName().equalsIgnoreCase("Diagnostics")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_diagnostics);
+					}else if (servicesDO.getName().equalsIgnoreCase("Legal")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_law);
+					}else if (servicesDO.getName().equalsIgnoreCase("Automobile Maintenance")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_car_maintainence);
+					}else if (servicesDO.getName().equalsIgnoreCase("Dental")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_dentist);
+					}else if (servicesDO.getName().equalsIgnoreCase("Photography")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_photographers);
+					}
+					menu_Item.set_id(servicesDO.get_id());
+					list.add(menu_Item);
+				}
+
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
 	@Override

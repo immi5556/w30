@@ -10,6 +10,7 @@ import com.sms.within30.sidemenu.interfaces.Resourceble;
 public class SlideMenuItem implements Resourceble {
     private String name;
     private int imageRes;
+    private String _id;
 
     public SlideMenuItem(String name, int imageRes) {
         this.name = name;
@@ -30,5 +31,13 @@ public class SlideMenuItem implements Resourceble {
 
     public void setImageRes(int imageRes) {
         this.imageRes = imageRes;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }

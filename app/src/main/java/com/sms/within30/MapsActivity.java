@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,7 +16,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -53,8 +57,10 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.sms.within30.dataobjects.BookSlotDO;
 import com.sms.within30.dataobjects.CustomerDO;
+import com.sms.within30.dataobjects.ServicesDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.lib.GPSTracker;
 import com.sms.within30.sidemenu.fragment.ContentFragment;
@@ -79,9 +85,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.graphics.Color.MAGENTA;
 import static android.graphics.Color.TRANSPARENT;
 
 public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, LocationListener ,DataListener, ScreenShotable,View.OnClickListener,SeekBar.OnSeekBarChangeListener {
@@ -93,6 +101,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
 
     HashMap<String, CustomerDO> mMarkerPlaceLink = new HashMap<String, CustomerDO>();
     List<CustomerDO> placesList = new ArrayList<CustomerDO>();
+    List<ServicesDO> servicesList;
     LinearLayout llbooking;
     Animation bottomUp;
     Animation bottomDown;
@@ -118,6 +127,15 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     private float timeSelectedRadius = 30;
     private boolean isDistanceFilterSelected = false;
     private boolean isTimeFilterSelected = false;
+
+    private static final String[] LOCATION_PERMS={
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=3;
+    private static  final int LOCATION_REQUEST1 = 4;
+    GPSTracker gpsTracker = null;
     public void initialize(){
         homeLayout = (LinearLayout) inflater.inflate(R.layout.activity_maps, null);
         // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
@@ -146,17 +164,29 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         tvmiles = (TextView)homeLayout.findViewById(R.id.tvmiles);
         tvtime = (TextView) homeLayout.findViewById(R.id.tvtime);
         tvaddress1 = (TextView) homeLayout.findViewById(R.id.tvaddress1);
-        tvaddress2 = (TextView)homeLayout.findViewById(R.id.tvaddress2);
+       // tvaddress2 = (TextView)homeLayout.findViewById(R.id.tvaddress2);
 
        // myLInearLayout = new MyLInearLayout(MapsActivity.this).newInstance();
       //  viewAnimator = new ViewAnimator<>(MapsActivity.this, list, myLInearLayout, mLayoutDrawer, this);
         // Getting place reference from the map
         if ( getIntent()!=null) {
-           // category_type = getIntent().getStringExtra("category_type");
+
             actionbarTitle = getIntent().getStringExtra("actionbar_title");
             service_id = getIntent().getStringExtra("service_id");
             tvTitle.setText(actionbarTitle);
+
+           // in second Activity we get intent and retrieve the string value (listSerializedToJson) back to list
+            String listSerializedToJson = getIntent().getExtras().getString("service_list");
+            // in this example we have array but you can easy convert it to list - new ArrayList<MyObject>(Arrays.asList(mMyObjectList));
+            servicesList =new ArrayList<ServicesDO>(Arrays.asList(new Gson().fromJson(listSerializedToJson, ServicesDO[].class)));
+            for(ServicesDO servicesDO:servicesList){
+                Log.d("services:-",servicesDO.toString());
+            }
+            if (servicesList!=null) {
+                createMenuList(servicesList);
+            }
         }
+
 
         try{
             initilizeMap();
@@ -180,42 +210,66 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     e.printStackTrace();
                 }
 
-
-
             }
         });
         if (mMap!=null) {
             //   mMap.setMyLocationEnabled(true);
             // create class object
-            GPSTracker gpsTracker = new GPSTracker(MapsActivity.this);
 
-            // check if GPS enabled
-            if(gpsTracker.canGetLocation()){
+            try{
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    gpsTracker = new GPSTracker(MapsActivity.this);
+                }else{
 
-                double latitude = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
-                mLatitude = latitude;
-                mLongitude = longitude;
-                LatLng latLng = new LatLng(mLatitude, mLongitude);
-                // create marker
-               MarkerOptions marker = new MarkerOptions().position(latLng);
+                    if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MapsActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_REQUEST);
+                         Log.d("ACCESS_COARSE_LOCATION"," permission requesting...");
+                    } else {
+                        Log.d("ACCESS_COARSE_LOCATION"," permission suceess...");
+                        gpsTracker = new GPSTracker(MapsActivity.this);
+                    }
+                }
 
-                // adding marker
-               // mMap.addMarker(marker);
+            } catch (Exception e) {
+                Log.d("location exception","exception occured ...........");
+                e.printStackTrace();
 
-                Marker m = mMap.addMarker(marker);
-              //  mMap.addMarker(marker);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-                CustomerDO customerDO = null;
-                mMarkerPlaceLink.put(m.getId(), customerDO);
-
-            }else{
-                // can't get location
-                // GPS or Network is not enabled
-                // Ask user to enable GPS/network in settings
-                gpsTracker.showSettingsAlert();
             }
+
+            if (gpsTracker!=null){
+                getGPSTrackerInfo();
+                // check if GPS enabled
+               /* if(gpsTracker.canGetLocation()){
+
+                    double latitude = gpsTracker.getLatitude();
+                    double longitude = gpsTracker.getLongitude();
+                    mLatitude = latitude;
+                    mLongitude = longitude;
+                    LatLng latLng = new LatLng(mLatitude, mLongitude);
+                    // create marker
+                    MarkerOptions marker = new MarkerOptions().position(latLng);
+
+                    // adding marker
+                    // mMap.addMarker(marker);
+
+                    Marker m = mMap.addMarker(marker);
+                    //  mMap.addMarker(marker);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                    CustomerDO customerDO = null;
+                    mMarkerPlaceLink.put(m.getId(), customerDO);
+                    getServices();
+                } else {
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gpsTracker.showSettingsAlert();
+                }*/
+            }else{
+                Log.d("GPS traker null","unable to get the location coz android latest version ...........");
+
+            }
+
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
@@ -239,44 +293,11 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 dialog.show();
 
             }else {
-              /*  // Getting LocationManager object from System Service LOCATION_SERVICE
-                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-                // Creating a criteria object to retrieve provider
-                Criteria criteria = new Criteria();
-
-                // Getting the name of the best provider
-                String provider = locationManager.getBestProvider(criteria, true);
-
-                // Getting Current Location From GPS
-                Location location = locationManager.getLastKnownLocation(provider);
-
-                if(location!=null){
-                    onLocationChanged(location);
-                }*/
-
-// check if GPS enabled
-
-             //   locationManager.requestLocationUpdates(provider, 20000, 0, this);
-
-                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
-                    @Override
-                    public void onInfoWindowClick(Marker arg0) {
-
-                       /* if (llbooking.getVisibility() == View.INVISIBLE || llbooking.getVisibility() == View.GONE) {
-                            llbooking.startAnimation(bottomUp);
-                            llbooking.setVisibility(View.VISIBLE);
-                        }*/
-
-                    }
-                });
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         sbfilter.setVisibility(View.GONE);
-                        // marker..getId();
-                        ;
+
                         CustomerDO marker_customerInfo = mMarkerPlaceLink.get(marker.getId());
                         //  Log.d("selected_marker_customer_info",  marker_customerInfo.toString());
                         if (marker_customerInfo != null) {
@@ -286,22 +307,115 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                                 llbooking.setVisibility(View.VISIBLE);
                             }
                         }
-
-
                         marker.hideInfoWindow();
                         return true;
                     }
                 });
 
-               // loadCategories();
-                getServices();
             }
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+      switch(requestCode) {
+       case LOCATION_REQUEST:
+                if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d("in onRequestPermissionsResult","ACCESS_COARSE_LOCATION success");
+                    getGPSTrackerInfo();
+                } else  if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
+                {
+                    Log.d("in onRequestPermissionsResult", "ACCESS_COARSE_LOCATION failed");
+                    // Should we show an explanation?
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        //Show permission explanation dialog...
+                        Log.d("in onRequestPermissionsResult", "Show permission explanation dialog..ACCESS_COARSE_LOCATION.");
+                        getGPSTrackerInfo();
+                    }else{
+                        //Never ask again selected, or device policy prohibits the app from having that permission.
+                        //So, disable that feature, or fall back to another situation...
+                        Log.d("in onRequestPermissionsResult", "Never ask again selected...ACCESS_COARSE_LOCATION");
+                       // Toast.makeText(this, "Go to settings and enable permissions...1", Toast.LENGTH_LONG)
+                        //        .show();
+                        if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST1);
+                            Log.d("ACCESS_FINE_LOCATION"," permission requesting...");
+                        } else {
+                            Log.d("ACCESS_FINE_LOCATION"," permission suceess...");
+                        }
+                    }
+                }
+                break;
+            case LOCATION_REQUEST1:
+                    //Do the stuff that requires permission...
+                  if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            {
+                Log.d("in onRequestPermissionsResult","ACCESS_FINE_LOCATION success");
+                getGPSTrackerInfo();
+
+
+            }else  if (ContextCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
+            {
+                Log.d("in onRequestPermissionsResult", "ACCESS_FINE_LOCATION failed");
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    //Show permission explanation dialog...
+                    Log.d("in onRequestPermissionsResult", "Show permission explanation dialog...ACCESS_FINE_LOCATION");
+                    getGPSTrackerInfo();
+                }else{
+                    //Never ask again selected, or device policy prohibits the app from having that permission.
+                    //So, disable that feature, or fall back to another situation...
+                    Log.d("in onRequestPermissionsResult", "Never ask again selected...ACCESS_FINE_LOCATION");
+                    Toast.makeText(this, "Go to settings and enable permissions.", Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+                break;
+
+
+
+        }
+    }
+
+    public void getGPSTrackerInfo(){
+        if(gpsTracker.canGetLocation()){
+
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            mLatitude = latitude;
+            mLongitude = longitude;
+            LatLng latLng = new LatLng(mLatitude, mLongitude);
+            // create marker
+            MarkerOptions marker = new MarkerOptions().position(latLng);
+
+            // adding marker
+            // mMap.addMarker(marker);
+
+            Marker m = mMap.addMarker(marker);
+            //  mMap.addMarker(marker);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            CustomerDO customerDO = null;
+            mMarkerPlaceLink.put(m.getId(), customerDO);
+            getServices();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            try{
+                gpsTracker.showSettingsAlert();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+    }
+
     private void setCustomerInfo(CustomerDO customerDO){
 
         try{
-            String upperCaseString_companyName = customerDO.getCompanyName().substring(0, 1).toUpperCase() + customerDO.getCompanyName().substring(1);
+
+            String upperCaseString_companyName = customerDO.getFullName().substring(0, 1).toUpperCase() + customerDO.getFullName().substring(1);
             tvComapanyName.setText(upperCaseString_companyName);
             tvaddress1.setText(customerDO.getGeo().getAddress().toString());
             tvtime.setText("Estimated time:"+" "+customerDO.getExpectedTime()+" "+"MIN");
@@ -313,7 +427,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                 bt_book.setClickable(true);
                 bt_book.setTag(customerDO);
                 bt_book.setAlpha(1f);
-                int expectedtime = 0;
+                float expectedtime = 0;
                 expectedtime = customerDO.getExpectedTime();
                 tvtime.setTag(expectedtime);
             }
@@ -340,7 +454,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                     pd.setMessage("Loading...");
                     pd.show();
                 }
-            }else{
+            } else{
                 showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
             }
         }else{
@@ -349,26 +463,34 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
     }
 
     private void getServices(){
-        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
-            CustomerDO customerDO = new CustomerDO();
-            customerDO.setLatitude(mLatitude);
-            customerDO.setLongitude(mLongitude);
 
-           // customerDO.setLatitude(17.4119767);
-           // customerDO.setLongitude(78.4200375);
-            customerDO.setMiles(W30Constants.MILES);
-            customerDO.setMinutes(W30Constants.MINITUS);
-            customerDO.setServiceId(service_id);
-            if(new CommonBL(MapsActivity.this, MapsActivity.this).getCustomers(customerDO)){
-                if (pd == null) {
-                    pd =  new ProgressDialog(MapsActivity.this);
-                    pd.setProgressStyle(android.R.attr.progressBarStyleSmall);
-                    pd.setMessage("Loading...");
-                    pd.show();
-                }
-            }else{
+        if (NetworkUtility.isNetworkConnectionAvailable(MapsActivity.this)) {
+            if (mLongitude == 0 || mLongitude == 0){
                 showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+            }else{
+                // clear data
+                placesList.clear();
+                CustomerDO customerDO = new CustomerDO();
+                customerDO.setLatitude(mLatitude);
+                customerDO.setLongitude(mLongitude);
+
+                // customerDO.setLatitude(17.4119767);
+                // customerDO.setLongitude(78.4200375);
+                customerDO.setMiles(W30Constants.MILES);
+                customerDO.setMinutes(W30Constants.MINITUS);
+                customerDO.setServiceId(service_id);
+                if(new CommonBL(MapsActivity.this, MapsActivity.this).getCustomers(customerDO)){
+                    if (pd == null) {
+                        pd =  new ProgressDialog(MapsActivity.this);
+                        pd.setProgressStyle(android.R.attr.progressBarStyleSmall);
+                        pd.setMessage("Loading...");
+                        pd.show();
+                    }
+                }else{
+                    showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+                }
             }
+
         }else{
             showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
         }
@@ -406,7 +528,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         }*//*
 
     }*/
-    private void  showCustomFilterDialog(Context context){
+    /*private void  showCustomFilterDialog(Context context){
         // custom dialog
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -433,7 +555,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         });
 
         dialog.show();
-    }
+    }*/
    private void  showCustomDialog(Context context){
        // custom dialog
        final Dialog dialog = new Dialog(context);
@@ -455,9 +577,9 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
      //  window.setsty
        TextView dialogButton = (TextView) dialog.findViewById(R.id.dialogButtonOK);
        TextView tvEstimatedTime = (TextView) dialog.findViewById(R.id.tvEstimatedTime);
-       int expectedTime = 0;
+       float expectedTime = 0;
        if (tvtime.getTag() !=null) {
-           expectedTime = (Integer)tvtime.getTag();
+           expectedTime = (Float)tvtime.getTag();
        }
        String str = "Hope to see you in "+expectedTime+" min";
        tvEstimatedTime.setText(str);
@@ -506,7 +628,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         }
     }
     /** A method to download json data from url */
-    private String downloadUrl(String strUrl) throws IOException {
+  /*  private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
@@ -545,7 +667,7 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
         }
 
         return data;
-    }
+    }*/
 
     @Override
     public void dataRetreived(Response data) {
@@ -600,11 +722,17 @@ public class MapsActivity extends BaseActivity  implements  OnMapReadyCallback, 
                             Log.d("open slots",""+customerDO.getSlotsAvailable());
                             if (customerDO.getSlotsAvailable()!=null) {
                                 if (customerDO.getSlotsAvailable() == 0) {
-                                    markerOptions.title("Fully Booked");
-                                    numTxt.setText("Fully Booked");
+                                    markerOptions.title("Check Next Slot");
+                                    numTxt.setText("Check Next Slot");
                                 }else{
-                                    markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
-                                    numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                                    if (customerDO.getSlotsAvailable() == 1) {
+                                        markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slot");
+                                        numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slot");
+                                    }else{
+                                        markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
+                                        numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                                    }
+
                                 }
                             }
 
@@ -700,28 +828,33 @@ Circle circle;
        }
        try{
            double slider_in_meters = 0.0;
-         if (placesList.size()>0) {
-             mMap.clear();
+           slider_in_meters = radius*W30Constants.MILES_IN_METERS;
+           try{
+               if (placesList !=null){
+                   if (placesList.size()>0) {
+                       mMap.clear();
+                       for (CustomerDO customerDO:placesList){
+                           if (isDistanceFilterSelected){
+                               double miles_slider =( radius * 1)/W30Constants.MILES_IN_METERS;
+                               Log.d("miles_slider ",""+miles_slider);
+                               double miles_server = customerDO.getDestinationDistance();//(customerDO.getDestinationDistance() *1)/W30Constants.MILES_IN_METERS;
+                               Log.d("miles_server ",""+miles_server);
+                               if ((miles_server <= radius) &&(customerDO.getExpectedTime() <= timeSelectedRadius)) {
+                                   setMarker(customerDO);
+                               }
+                           } else if (isTimeFilterSelected) {
 
-             for (CustomerDO customerDO:placesList){
-                 if (isDistanceFilterSelected){
-                    double miles = customerDO.getDestinationDistance();
-                     Log.d("before miles",""+miles);
+                               if ((customerDO.getDestinationDistance() <= distanceSelectedRadius) &&(customerDO.getExpectedTime() <= radius)) {
+                                   setMarker(customerDO);
+                               }
+                           }
+                       }
+                   }
+               }
+           }catch(Exception e){
+               e.printStackTrace();
+           }
 
-                     double est_meters = miles*W30Constants.MILES_IN_METERS; // 1 miles = 1609.34 metres
-                    Log.d("after conversion",""+est_meters);
-                      slider_in_meters = radius*W30Constants.MILES_IN_METERS;
-                     if (est_meters <= slider_in_meters){
-                         setMarker(customerDO);
-                     }
-                 } else if (isTimeFilterSelected) {
-                    int time = customerDO.getExpectedTime();
-                     if (time <= radius) {
-                         setMarker(customerDO);
-                     }
-                 }
-             }
-         }
            CircleOptions circleOptions = new CircleOptions()
                   //  .center(new LatLng(17.4119767, 78.4200375))
                    .center(new LatLng(mLatitude,mLongitude))
@@ -733,7 +866,7 @@ Circle circle;
                    .visible(true);
 
            circle =  mMap.addCircle(circleOptions);
-           mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(),getZoomLevel(circle)));
+           mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(),getZoomLevel(circle,slider_in_meters)));
 
        }catch(Exception e) {
            e.printStackTrace();
@@ -755,24 +888,31 @@ Circle circle;
         Log.d("open slots",""+customerDO.getSlotsAvailable());
         if (customerDO.getSlotsAvailable()!=null) {
             if (customerDO.getSlotsAvailable() == 0) {
-                markerOptions.title("Fully Booked");
-                numTxt.setText("Fully Booked");
+                markerOptions.title("Check\nNext Slot");
+                numTxt.setText("Check\n Next Slot");
+
             }else{
-                markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
-                numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                if (customerDO.getSlotsAvailable() == 1) {
+                    markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slot");
+                    numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slot");
+                }else{
+                    markerOptions.title(customerDO.getSlotsAvailable()+" "+"OPen Slots");
+                    numTxt.setText(customerDO.getSlotsAvailable()+"\nOpen slots");
+                }
             }
         }
+
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapsActivity.this, custom_marker)));
         Marker m = mMap.addMarker(markerOptions);
         mMarkerPlaceLink.put(m.getId(),customerDO);
     }
 
-    public int getZoomLevel(Circle circle) {
+    public int getZoomLevel(Circle circle,double slider_radius) {
         int zoomLevel = 11;
         if (circle != null) {
             double radius = circle.getRadius() + circle.getRadius() / 2;
-            double scale = radius / 500;
+            double scale = slider_radius / 500;
             zoomLevel = (int) (16 - Math.log(scale) / Math.log(2));
         }
         return zoomLevel;
@@ -935,7 +1075,7 @@ Circle circle;
                 return true;*/
 
             case R.id.menu_filter:
-                showCustomFilterDialog(MapsActivity.this);
+               // showCustomFilterDialog(MapsActivity.this);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -960,6 +1100,18 @@ Circle circle;
             case ContentFragment.CLOSE:
                 return screenShotable;
             default:
+                service_id =  slideMenuItem.get_id();
+                Log.d("side menu", "service id from side menu " + service_id);
+                if (service_id !=null) {
+                    mMap.clear();
+                    sbfilter.setVisibility(View.GONE);
+                    if(llbooking.getVisibility() == View.VISIBLE){
+                        llbooking.startAnimation(bottomDown);
+                        llbooking.setVisibility(View.INVISIBLE);
+                    }
+                    getServices();
+                }
+
                 return replaceFragment(screenShotable, position);
         }
     }
@@ -981,6 +1133,17 @@ Circle circle;
     public void addViewToContainer(View view) {
         linearLayout.addView(view);
     }
+    @Override
+    public void onBackPressed()
+    {
+        if(llbooking.getVisibility() == View.VISIBLE){
+            llbooking.startAnimation(bottomDown);
+            llbooking.setVisibility(View.INVISIBLE);
+        }else{
+            super.onBackPressed();
+        }
 
+
+    }
 
 }

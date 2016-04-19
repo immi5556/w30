@@ -67,4 +67,17 @@ public class ServicesDO {
     public void setCreatedat(long createdat) {
         this.createdat = createdat;
     }
+
+    @Override
+    public String toString() {
+        return "ServicesDO{" +
+                "name='" + name + '\'' +
+                ", _id='" + _id + '\'' +
+                ", descr='" + descr + '\'' +
+                ", image='" + image + '\'' +
+                ", mobileDecription='" + mobileDecription + '\'' +
+                ", mobileImage='" + mobileImage + '\'' +
+                ", createdat=" + createdat +
+                '}';
+    }
 }
