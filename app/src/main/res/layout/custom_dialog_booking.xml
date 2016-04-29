@@ -9,14 +9,14 @@
     android:background="@drawable/rounded_bg_filter"
     >
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:src="@mipmap/booked_popup_icon"
         android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
     <TextView
         android:id="@+id/text"
@@ -34,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Hope to see you in 0 min"
+        android:text="see you in 0 min"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:layout_below="@+id/text"

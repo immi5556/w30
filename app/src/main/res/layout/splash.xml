@@ -6,21 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:gravity="center"
-    android:orientation="vertical" >
-    <com.sms.within30.utilities.ShimmerFrameLayout
+    android:orientation="vertical">
+   <!-- <com.sms.within30.utilities.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        shimmer:duration="1200" >
+        shimmer:duration="1200" >-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/logo"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/splash_new"
             android:contentDescription="@string/app_name" />
-    </com.sms.within30.utilities.ShimmerFrameLayout>
+   <!-- </com.sms.within30.utilities.ShimmerFrameLayout>-->
 
 
 

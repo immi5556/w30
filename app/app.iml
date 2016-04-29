@@ -119,6 +119,7 @@
     <orderEntry type="library" exported="" name="play-services-measurement-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-8.4.0" level="project" />
+    <orderEntry type="library" exported="" name="libphonenumber-7.0.4" level="project" />
     <orderEntry type="library" exported="" name="gson-1.7.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-cast-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-vision-8.4.0" level="project" />

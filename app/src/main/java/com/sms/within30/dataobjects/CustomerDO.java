@@ -25,6 +25,54 @@ public class CustomerDO implements Serializable {
     private float expectedTime;
     public String subdomain;
     public Double destinationDistance;
+    public String startHour;
+    public String  endHour;
+
+    public String getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(String startHour) {
+        this.startHour = startHour;
+    }
+
+    public String getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(String endHour) {
+        this.endHour = endHour;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String userId;
+
+
+    public void setExpectedTime(float expectedTime) {
+        this.expectedTime = expectedTime;
+    }
+
+    public void setDestinationDistance(Double destinationDistance) {
+        this.destinationDistance = destinationDistance;
+    }
+
+    public String getSlotBookedAt() {
+        return slotBookedAt;
+    }
+
+    public void setSlotBookedAt(String slotBookedAt) {
+        this.slotBookedAt = slotBookedAt;
+    }
+
+    private  String slotBookedAt;
+
 
 
 
@@ -52,16 +100,18 @@ public class CustomerDO implements Serializable {
         this.logoPath = logoPath;
     }
 
+
+
+    public String getFullName() {
+        return fullName;
+    }
+
     public String getLogoUrl() {
         return logoUrl;
     }
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
-    }
-
-    public String getFullName() {
-        return fullName;
     }
 
     public void setFullName(String fullName) {

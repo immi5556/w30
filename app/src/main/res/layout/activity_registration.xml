@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    style="@style/AppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_registration"
+    android:gravity="center"
+    android:orientation="vertical" >
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+          <TextView
+
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/welcome_to"
+              android:textSize="@dimen/size20"
+              android:textColor="@color/black"
+              android:gravity="center_horizontal"
+              android:layout_gravity="center"
+              android:layout_marginTop="65dp"/>
+          <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+
+              android:src="@mipmap/logo"
+
+              android:layout_marginTop="2dp" />
+
+          <com.sms.within30.lib.CleanableEditText
+              android:id="@+id/et_firstname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColorHint="@color/gray_light"
+              android:background="@mipmap/input_registration"
+              android:drawableLeft="@mipmap/icon_name"
+              android:layout_marginTop="30dp"
+              android:lines="1"
+              android:textSize="@dimen/text_size_large"
+              android:hint="@string/first_name"
+              android:paddingLeft="25dp"
+              android:drawablePadding="5dp"
+              android:paddingRight="15dp"
+              android:drawableRight="@mipmap/cross_input"
+              android:gravity="center|center_horizontal"
+              android:layout_gravity="center_horizontal"
+              android:inputType="textCapSentences|textPersonName"
+              android:imeOptions="actionNext"/>
+          <com.sms.within30.lib.CleanableEditText
+              android:id="@+id/et_lastname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColorHint="@color/gray_light"
+              android:background="@mipmap/input_registration"
+              android:drawableLeft="@mipmap/icon_name"
+              android:layout_marginTop="15dp"
+              android:paddingLeft="25dp"
+              android:drawablePadding="5dp"
+              android:paddingRight="15dp"
+              android:lines="1"
+              android:inputType="textCapSentences|textPersonName"
+              android:imeOptions="actionNext"
+
+              android:textSize="@dimen/text_size_large"
+              android:hint="@string/last_name"
+              android:drawableRight="@mipmap/cross_input"
+              android:gravity="center|center_horizontal"
+              android:layout_gravity="center_horizontal"
+
+              />
+          <com.sms.within30.lib.CleanableEditText
+              android:id="@+id/et_email"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColorHint="@color/gray_light"
+              android:background="@mipmap/input_registration"
+              android:drawableLeft="@mipmap/icon_email"
+              android:layout_marginTop="15dp"
+              android:lines="1"
+              android:textSize="@dimen/text_size_large"
+              android:inputType="textEmailAddress"
+              android:imeOptions="actionNext"
+              android:hint="@string/email"
+              android:drawableRight="@mipmap/cross_input"
+              android:gravity="center|center_horizontal"
+              android:layout_gravity="center_horizontal"
+              android:paddingLeft="25dp"
+              android:drawablePadding="5dp"
+              android:paddingRight="15dp"/>
+          <com.sms.within30.lib.CleanableEditText
+              android:id="@+id/et_mobileno"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColorHint="@color/gray_light"
+              android:background="@mipmap/input_registration"
+              android:drawableLeft="@mipmap/icon_phone"
+              android:layout_marginTop="15dp"
+              android:lines="1"
+              android:maxLength="13"
+              android:textSize="@dimen/text_size_large"
+              android:inputType="phone"
+              android:imeOptions="actionDone"
+              android:hint="@string/mobile_no"
+              android:paddingLeft="25dp"
+              android:drawablePadding="5dp"
+              android:paddingRight="15dp"
+              android:drawableRight="@mipmap/cross_input"
+              android:gravity="center|center_horizontal"
+              android:layout_gravity="center_horizontal"
+              />
+          <TextView
+              android:id="@+id/btsubmit"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="30dp"
+
+              android:background="@mipmap/submit_registration"
+              android:layout_gravity="center" />
+      </LinearLayout>
+  </ScrollView>
+
+
+
+</LinearLayout>

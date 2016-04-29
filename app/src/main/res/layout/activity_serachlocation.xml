@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    style="@style/AppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          android:background="@color/white"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/use_gps">
+              <TextView
+                 android:id="@+id/tv_currentLocation"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Current Location"
+                  android:textSize="@dimen/size20"
+                  android:textColor="@color/black"
+                  android:gravity="left"
+                  android:layout_gravity="left"
+                  android:layout_margin="10dp"/>
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="#ebe8e8"
+                  android:layout_margin="10dp"
+                  />
+              <TextView
+                    android:id="@+id/tvusegps"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Use GPS"
+                  android:textSize="@dimen/size20"
+                  android:textColor="@color/black"
+                  android:gravity="center|center_horizontal"
+                  android:layout_gravity="left"
+                  android:drawablePadding="10dp"
+                  android:drawableLeft="@android:drawable/ic_menu_compass"
+                  android:layout_margin="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="@color/use_gps"
+              android:layout_marginTop="20dp">
+              <TextView
+
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Recent Searches "
+                  android:textSize="@dimen/size20"
+                  android:textColor="@color/black"
+                  android:gravity="left"
+                  android:layout_gravity="left"
+                  android:layout_margin="10dp"/>
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="#ebe8e8"
+                  android:layout_margin="10dp"
+                  />
+              <ListView
+                  android:id="@+id/lv_locationhistory"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" />
+          </LinearLayout>
+      </LinearLayout>
+
+
+
+
+</LinearLayout>

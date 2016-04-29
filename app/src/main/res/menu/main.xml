@@ -10,9 +10,21 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>-->
     <item
-        android:id="@+id/menu_filter"
-        android:icon="@mipmap/filter_icon"
+        android:id="@+id/menu_reset"
+        android:icon="@mipmap/menu_reset"
         android:title="@string/filter"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item
+        android:id="@+id/menu_edit"
+        android:icon="@mipmap/menu_edit"
+        android:title="@string/filter"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+
         app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/menu_home"

@@ -9,6 +9,15 @@ public class BookSlotDO {
     private  String date;
     private String email;
     private String mobile;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getSubDomain() {
         return subDomain;

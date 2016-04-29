@@ -70,6 +70,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 import com.sms.within30.dataobjects.ServicesDO;
+import com.sms.within30.lib.SlidingUpPanelLayout;
 import com.sms.within30.sidemenu.fragment.ContentFragment;
 import com.sms.within30.sidemenu.fragment.MyLInearLayout;
 import com.sms.within30.sidemenu.interfaces.Resourceble;
@@ -98,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 	public ViewAnimator viewAnimator;
 	public LinearLayout linearLayout;
 	public List<SlideMenuItem> list = new ArrayList<>();
-	public ActionBarDrawerToggle drawerToggle;
+	//public ActionBarDrawerToggle drawerToggle;
 //	public Spinner navSpinner;
 	
 	public ImageLoader initImageLoader(Context context, int resId)
@@ -165,6 +166,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 	    return (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
 	}
 	MyLInearLayout myLInearLayout ;
+	SlidingUpPanelLayout mSlidingUpPanelLayout;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -220,28 +222,34 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 		});
 		myLInearLayout = new MyLInearLayout(BaseActivity.this).newInstance();
 
-		setActionBar();
+		//setActionBar();
 		//mLayoutDrawer.setDrawerListener(drawerToggle);
 		//createMenuList();
 		viewAnimator = new ViewAnimator<>(BaseActivity.this, list, myLInearLayout, mLayoutDrawer, this);
 	//	this.getWindow().setStatusBarColor(getResources().getColor(R.color.backgroung_actionbar));
+
+		//sliding panel
+		/*mSlidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.slidingLayout);
+		mSlidingUpPanelLayout.setEnableDragViewTouchEvents(false);
+		mSlidingUpPanelLayout.setSlidingEnabled(false);
+		mSlidingUpPanelLayout.expandPane();*/
 	}
 	
 	protected SearchView searchView;
-	private void setActionBar() {
+	/*public void setActionBar() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		drawerToggle = new ActionBarDrawerToggle(
-				this,                  /* host Activity */
-				mLayoutDrawer,         /* DrawerLayout object */
-				toolbar,  /* nav drawer icon to replace 'Up' caret */
-				R.string.drawer_open,  /* "open drawer" description */
-				R.string.drawer_close  /* "close drawer" description */
+				this,                  *//* host Activity *//*
+				mLayoutDrawer,         *//* DrawerLayout object *//*
+				toolbar,  *//* nav drawer icon to replace 'Up' caret *//*
+				R.string.drawer_open,  *//* "open drawer" description *//*
+				R.string.drawer_close  *//* "close drawer" description *//*
 		) {
 
-			/** Called when a drawer has settled in a completely closed state. */
+			*//** Called when a drawer has settled in a completely closed state. *//*
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
 				linearLayout.removeAllViews();
@@ -255,14 +263,14 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 					viewAnimator.showMenuContent();
 			}
 
-			/** Called when a drawer has settled in a completely open state. */
+			*//** Called when a drawer has settled in a completely open state. *//*
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
 			}
 		};
 		mLayoutDrawer.setDrawerListener(drawerToggle);
-	}
-	@Override
+	}*/
+	/*@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		drawerToggle.syncState();
@@ -272,7 +280,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ViewAnim
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		drawerToggle.onConfigurationChanged(newConfig);
-	}
+	}*/
 List<ServicesDO> servicesList;
 	public void createMenuList(List<ServicesDO> servicesList) {
 		this.servicesList = servicesList;
@@ -296,6 +304,8 @@ List<ServicesDO> servicesList;
 		try{
 			SlideMenuItem menu_Item_close = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
 			list.add(menu_Item_close);
+			SlideMenuItem menu_Item_home = new SlideMenuItem(ContentFragment.HOME, R.mipmap.menu_home);
+			list.add(menu_Item_home);
 			if (servicesList !=null) {
 				for (ServicesDO servicesDO:servicesList){
 					SlideMenuItem menu_Item = null ;
@@ -317,7 +327,10 @@ List<ServicesDO> servicesList;
 					}
 					menu_Item.set_id(servicesDO.get_id());
 					list.add(menu_Item);
+
 				}
+				SlideMenuItem menu_Item_settings = new SlideMenuItem(ContentFragment.SETTINGS, R.mipmap.settings);
+				list.add(menu_Item_settings);
 
 			}
 		}catch(Exception e){
@@ -336,8 +349,8 @@ List<ServicesDO> servicesList;
         .setHintTextColor(getResources().getColor(R.color.white));	    
 	    searchView.setOnQueryTextListener(OnQuerySearchView);*/
 
-	    menu.findItem(R.id.menu_filter).setVisible(false);
-
+	    menu.findItem(R.id.menu_reset).setVisible(false);
+		menu.findItem(R.id.menu_edit).setVisible(false);
 		mSearchCheck = false;
 		return true;
 	}
@@ -365,9 +378,9 @@ List<ServicesDO> servicesList;
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (drawerToggle.onOptionsItemSelected(item)) {
+		/*if (drawerToggle.onOptionsItemSelected(item)) {
 			return true;
-		}
+		}*/
 		/*switch (item.getItemId()) {
 		case android.R.id.home:
 			resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);

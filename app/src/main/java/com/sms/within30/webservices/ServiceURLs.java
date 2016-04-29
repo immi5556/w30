@@ -9,11 +9,19 @@ public class ServiceURLs
 
 	//public static String MAIN_URL 	 	 		= 	"http://win-a37f:kMEKlE0Ujovo@49.206.64.209:9012/endpoint";
 	public static String MAIN_URL 	 	 		= 	"http://49.206.64.209:9012/endpoint";
+
+
 	//Soap method names
 	public static String Mapinfo 				= "nearbysearch/json?";
 	public static String GETMYSERVICES 			= "/api/getmyservices";
 	public static String GETMYCUSTOMERS 		= "/api/getmycustomers";
 	public static String BOOKSLOT 				= "/api/bookslot";
+	public static String GETCITIES 				= "/api/getcities";
+	public static String GETeNDUSER 			= "/api/getenduser";
+	public static String SAVEENDUSER 			= "/api/saveenduser";
+	public static String UPDATEENDUSER 			= "/api/updateenduser";
+
+
 
 
 	
@@ -26,6 +34,10 @@ public class ServiceURLs
 			case WS_SERVICES:
 			case WS_CUSTOMERS:
 			case WS_BOOKSLOT:
+			case WS_GETCITIES:
+			case WS_GETENDUSER:
+			case WS_SAVEENDYUSER:
+			case WS_UPDATEENDUSER:
 			method = "POST";
 				break;
 

@@ -2,6 +2,7 @@
 <resources>
     <color name="w30_red">#cb2027</color>
     <color name="w30_blue">#39425f</color>
+    <color name="circle_map">#646464</color>
     <color name="map_circle_fill">#f3f1ee</color>
     <color name="reset">#d9d6d6</color>
     <color name="rating_bar_star_filled">#faca51</color>
@@ -13,6 +14,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#1b2a30</color>
     <color name="gray_light">#808080</color>
+    <color name="use_gps">#f8f7f7</color>
     <color name="grey_light">#EBEBEB</color>
     <color name="brown_dark">#595959</color>
     <color name="black_dark">#414141</color>

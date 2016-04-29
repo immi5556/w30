@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.SystemClock;
 
 import android.support.annotation.DrawableRes;
@@ -1323,7 +1324,14 @@ public class WheelView extends View {
                     drawable.draw(canvas);
                     Paint imagePaint = new Paint();
                     imagePaint.setTextAlign(Paint.Align.CENTER);
-                    imagePaint.setTextSize(20f);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                        imagePaint.setTextSize(20f);
+                    }
+                    //do call
+                    else {
+                        imagePaint.setTextSize(30f);
+                    }
+
                     Rect rect = drawable.getBounds();
                    // canvas.drawText("Salon",rect.bottom,rect.bottom,imagePaint);
                   //  canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);

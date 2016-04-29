@@ -121,6 +121,7 @@ public class HttpHelper
 			HttpPost post = new HttpPost(strGetURL.toString());
 			post.addHeader(BasicScheme.authenticate(
 					new UsernamePasswordCredentials("win-a37f", "kMEKlE0Ujovo"), "UTF-8", false));
+
 			//List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			//*pairs.add(new BasicNameValuePair("key1", "value1"));
 		//	pairs.add(new BasicNameValuePair("key2", "value2"));*//*

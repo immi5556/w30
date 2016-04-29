@@ -42,16 +42,20 @@
     <string name="schedule_my_booking">Schedule my booking</string>
     <string name="appointment_confirmed">Appointment\n Confirmed!</string>
     <string name="done">DONE</string>
-    <string name="book">Book</string>
+    <string name="book">Schedule</string>
     <string name="filter_options">Filter Options</string>
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
     <string name="Unable_to_connect_server_please_try_again">There seems to be some data connectivity issue with your network. Please check connection and try again.</string>
     <string name="server_error_please_try_again">There seems to be some data connectivity issue with your network.</string>
 
-    <string name="drawer_open">drawer_open</string>
-    <string name="drawer_close">drawer_close</string>
-
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">E-mail</string>
+    <string name="mobile_no">Cell #</string>
+<string name="welcome_to">WELCOME TO</string>
+    <string name="drawer_open"></string>
+    <string name="drawer_close"></string>
 
 
 </resources>

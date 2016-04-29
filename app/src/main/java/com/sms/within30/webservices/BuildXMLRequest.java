@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.sms.within30.dataobjects.BookSlotDO;
 import com.sms.within30.dataobjects.CustomerDO;
+import com.sms.within30.dataobjects.UserDO;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -51,6 +52,7 @@ public class BuildXMLRequest {
 			pairs.put("serviceId", customerDO.getServiceId());
 			pairs.put("miles", Integer.toString(customerDO.getMiles()));
 			pairs.put("minutes", Integer.toString(customerDO.getMinutes()));
+			pairs.put("userId",customerDO.getUserId());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -70,6 +72,54 @@ public class BuildXMLRequest {
 			pairs.put("date", bookSlotDO.getDate());
 			pairs.put("email", bookSlotDO.getEmail());
 			pairs.put("mobile", bookSlotDO.getMobile());
+			pairs.put("userId",bookSlotDO.getUserId());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
+	public static  JSONObject getCitiesRequest(double latitude,double longitude){
+		JSONObject pairs = new JSONObject();
+		try {
+
+			pairs.put("latitude", latitude);
+			pairs.put("longitude",longitude);
+
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
+	public static  JSONObject saveenduser(UserDO userDO){
+		JSONObject pairs = new JSONObject();
+		try {
+
+					//"icon": ""
+			pairs.put("firstName", userDO.getFirstName());
+			pairs.put("lastName",userDO.getLastName());
+			pairs.put("email", userDO.getEmail());
+			pairs.put("mobile",userDO.getMobile());
+
+
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
+	public static  JSONObject updateenduser(UserDO userDO){
+		JSONObject pairs = new JSONObject();
+		try {
+
+			//"icon": ""
+			pairs.put("firstName", userDO.getFirstName());
+			pairs.put("lastName",userDO.getLastName());
+			pairs.put("email", userDO.getEmail());
+			pairs.put("mobile",userDO.getMobile());
+			pairs.put("_id",userDO.get_id());
+
+
 
 		}catch(Exception e){
 			e.printStackTrace();

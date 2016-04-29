@@ -19,13 +19,14 @@ import com.sms.within30.sidemenu.interfaces.ScreenShotable;
  */
 public class ContentFragment extends Fragment implements ScreenShotable {
     public static final String CLOSE = "Close";
-    public static final String SALON = "Salon";
-    public static final String SPA = "Spa";
+    public static final String HOME = "Home";
+    public static final String SETTINGS = "Settings";
+    /*public static final String SPA = "Spa";
     public static final String DENTIST = "Dentist";
     public static final String LEGAL_SERVICES = "Legal Services";
     public static final String CAR_MAINTENANCE = "Car Maintenance";
     public static final String DIAGNOSTICKS = "Diagnostics";
-    public static final String PHOTOGRAPHERS = "Photographers";
+    public static final String PHOTOGRAPHERS = "Photographers";*/
 
     private View containerView;
     protected ImageView mImageView;

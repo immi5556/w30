@@ -19,10 +19,11 @@
             android:layout_margin="2dp"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal" />
-        <ImageView
+        <TextView
+            android:id="@+id/img_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/map_marker"
+            android:background="@mipmap/map_marker"
             android:layout_below="@+id/tvtitle"
             android:layout_centerHorizontal="true" />
 

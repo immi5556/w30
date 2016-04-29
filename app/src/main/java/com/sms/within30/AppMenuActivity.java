@@ -59,7 +59,7 @@ public class AppMenuActivity extends BaseActivity implements View.OnClickListene
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        menu.findItem(R.id.menu_filter).setVisible(false);
+        menu.findItem(R.id.menu_reset).setVisible(false);
         menu.findItem(R.id.menu_home).setVisible(true);
 
         mSearchCheck = true;

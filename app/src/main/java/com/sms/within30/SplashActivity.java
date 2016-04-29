@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
+import com.sms.within30.session.SessionManager;
 import com.sms.within30.utilities.AppConstants;
 import com.sms.within30.utilities.PreferenceUtils;
 import com.sms.within30.utilities.ShimmerFrameLayout;
@@ -16,7 +17,7 @@ public class SplashActivity extends Activity {
 
 	private final int SPLASH_TIME = 2000;
 	private PreferenceUtils preference;
-    private ShimmerFrameLayout mShimmerViewContainer;
+   // private ShimmerFrameLayout mShimmerViewContainer;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -24,7 +25,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.splash);
 		//initializeFonts();
 		preference = new PreferenceUtils(this);
-        mShimmerViewContainer 	= (ShimmerFrameLayout)findViewById(R.id.shimmer_view_container);
+      //  mShimmerViewContainer 	= (ShimmerFrameLayout)findViewById(R.id.shimmer_view_container);
 
 	}
 
@@ -42,7 +43,7 @@ public class SplashActivity extends Activity {
 
             @Override
             public void run() {
-                mShimmerViewContainer.stopShimmerAnimation();
+            //    mShimmerViewContainer.stopShimmerAnimation();
             }
         }, AppConstants.SHIMMER_PAUSE_DELAY);
 
@@ -51,7 +52,7 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-        mShimmerViewContainer.startShimmerAnimation();
+     //   mShimmerViewContainer.startShimmerAnimation();
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -63,23 +64,16 @@ public class SplashActivity extends Activity {
 
 
 	public void moveToNextScreen() {
-		if("".equalsIgnoreCase(preference.getStringFromPreference(PreferenceUtils.USER_NAME, "")))
-		{
+		SessionManager sessionManager = new SessionManager(SplashActivity.this);
+		if(sessionManager.checkLoginSession()){
 			// New User
 			Intent splashActivty = new Intent(getApplicationContext(), LandingActivity.class);
 			startActivity(splashActivty);
-		}
-		else
-		{
-			// Existing user
-			/*Intent splashActivty = new Intent(getApplicationContext(), HomeScreenActivty.class);
-			startActivity(splashActivty);*/
-			/*Intent splashActivty = new Intent(getApplicationContext(), HomeScreenArcActivty.class);
-			startActivity(splashActivty);*/
-		/*	Intent splashActivty = new Intent(getApplicationContext(), HomeScreenSweetSheetActivty.class);
-			startActivity(splashActivty);*/
-			/*Intent splashActivty = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(splashActivty);*/
+
+		}else{
+			// New User
+			Intent splashActivty = new Intent(getApplicationContext(), RegistrationActivity.class);
+			startActivity(splashActivty);
 		}
 		finish();
 

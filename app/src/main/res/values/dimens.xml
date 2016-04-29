@@ -196,5 +196,11 @@
   <dimen name="item_font_size_path">18sp</dimen>
   <dimen name="layout_child_offset_path_left">265dp</dimen>
   <dimen name="layout_radius_path_left">380dp</dimen>
+<!-- map sliding panel-->
+    <dimen name="paralax_offset">125dp</dimen>
+
+    <!--bottom sheet-->
+    <dimen name="bottomsheet_default_sheet_width">0dp</dimen>
+
 
 </resources>

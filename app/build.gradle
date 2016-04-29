@@ -30,4 +30,9 @@ dependencies {
 
     //JSON parsing
     compile 'com.google.code.gson:gson:1.7.2'
+    //Phone number format
+    compile 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
+//sliding panel
+   // compile 'com.sothree.slidinguppanel:library:3.3.0'
+
 }

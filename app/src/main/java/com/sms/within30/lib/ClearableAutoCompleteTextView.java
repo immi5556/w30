@@ -31,7 +31,7 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView {
 
     // The image we defined for the clear button
     public Drawable imgClearButton = getResources().getDrawable(
-            android.R.drawable.ic_delete);
+            R.mipmap.cross_input);
     // The image we defined for the clear button
     public Drawable imgSearchButton = getResources().getDrawable(
             R.mipmap.search_landing);

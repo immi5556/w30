@@ -15,52 +15,76 @@
 
 
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:weightSum="1"
             >
 
-            <ImageView
-                android:id="@+id/img_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/filter_1"
-                android:gravity="left"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                android:layout_gravity="center_horizontal|left"
-                android:layout_alignParentLeft="true" />
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible"
+                android:layout_weight="1"
+                android:layout_margin="10dp">
                 <TextView
                     android:id="@+id/tvlocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="vijayawada"
-                    android:layout_margin="10dp"
-                    android:textSize="13sp"
+android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
                     android:textColor="@color/gray_light"
-                    android:gravity="center_horizontal|right"
-                   />
+                    android:gravity="center_horizontal|center"
+android:background="@mipmap/search_box"
+                    android:drawableRight="@mipmap/editcat"
+                    android:drawablePadding="10dp"
+                    android:visibility="visible"
+                    android:paddingRight="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/text_size_large"/>
+                <com.sms.within30.lib.ClearableAutoCompleteTextView
+                    android:visibility="gone"
+                    android:id="@+id/etChangeLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:maxLength="10"
+                    android:textColorHint="#cecece"
+                    android:drawablePadding="10dp"
+                    android:textSize="@dimen/text_size_large"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/im_looking_for"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@mipmap/search_box"
+                    android:gravity="center|center_horizontal"
+                    android:layout_gravity="center_horizontal"
 
-            </LinearLayout>
+                    />
+
+            </RelativeLayout>
             <TextView
                 android:id="@+id/tvbusinessower"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/business_owner"
                 android:layout_margin="10dp"
-                android:textSize="13sp"
+                android:textSize="17sp"
                 android:textColor="@color/gray_light"
                 android:gravity="center_horizontal|right"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_weight="0.5"
+                android:visibility="gone"/>
 
-         </RelativeLayout>
+         </LinearLayout>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -69,7 +93,9 @@
 
             android:src="@mipmap/logo"
 
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,9 +176,11 @@
             android:layout_marginTop="50dp"
             android:ems="2"
             android:textSize="@dimen/text_size_large"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionDone"
             android:hint="@string/im_looking_for"
             android:padding="5dp"
+            android:maxLength="10"
+android:paddingRight="10dp"
             android:gravity="center|center_horizontal"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

@@ -41,6 +41,10 @@ public abstract class BaseParser extends DefaultHandler
 			case WS_SERVICES:
 			case WS_CUSTOMERS:
 			case WS_BOOKSLOT:
+			case WS_GETCITIES:
+			case WS_GETENDUSER:
+			case WS_SAVEENDYUSER:
+			case WS_UPDATEENDUSER:
 			return new CommonParser(context);
 		
 		}

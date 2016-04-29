@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\sheet_list_item_subheader.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\sheet_list_item_subheader.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\sheet_list_item.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\sheet_list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\grid_sheet_view.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\grid_sheet_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\list_sheet_view.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\list_sheet_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\sheet_list_item_separator.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\sheet_list_item_separator.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\sheet_image_grid_item.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\sheet_image_grid_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\build\\intermediates\\res\\merged\\release\\layout\\sheet_grid_item.xml",
+        "source": "C:\\Users\\SR Lakhsmi\\Downloads\\bottomsheet-master\\bottomsheet-commons\\src\\main\\res\\layout\\sheet_grid_item.xml"
+    }
+]

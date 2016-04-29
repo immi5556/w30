@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sms.within30.R;
 import com.sms.within30.dataobjects.CustomerDO;
+import com.sms.within30.dataobjects.LocationDO;
 import com.sms.within30.dataobjects.ServicesDO;
+import com.sms.within30.dataobjects.UserDO;
 import com.sms.within30.googlemaps.PlaceJSONParser;
 import com.sms.within30.utilities.AppConstants;
 import com.sms.within30.webservices.ServiceMethods;
@@ -68,8 +70,105 @@ public class CommonParser extends BaseParser{
 			case WS_BOOKSLOT:
 				parseBookSlot(jsonString);
 				break;
+			case WS_GETCITIES:
+				parseGetCities(jsonString);
+				break;
+			case WS_GETENDUSER:
+				parseGetEndUser(jsonString);
+				break;
+			case WS_SAVEENDYUSER:
+				parseSaveEndUser(jsonString);
+				break;
+			case WS_UPDATEENDUSER:
+				parseUpdateEndUser(jsonString);
+				break;
 		default:
 			break;
+		}
+	}
+
+	private void parseUpdateEndUser(String jsonString) {
+		if(jsonString!=null && jsonString.length()>0) {
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				String stattus = (String)jsonObject.get("Status");
+				if (stattus.equalsIgnoreCase(AppConstants.Failed)) {
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}else if (stattus.equalsIgnoreCase(AppConstants.OK)) {
+
+					UserDO userDO  = new UserDO();
+					userDO.setMessage(jsonObject.getString("Message"));
+					responseObject = userDO;
+				}
+			} catch (Exception e) {
+				Log.d("Exception", e.toString());
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+
+	private void parseSaveEndUser(String jsonString) {
+		if(jsonString!=null && jsonString.length()>0) {
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				String stattus = (String)jsonObject.get("Status");
+				if (stattus.equalsIgnoreCase(AppConstants.Failed)) {
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}else if (stattus.equalsIgnoreCase(AppConstants.OK)) {
+
+					UserDO userDO = new Gson().fromJson(jsonObject.toString(), UserDO.class);
+
+					responseObject = userDO;
+				}
+			} catch (Exception e) {
+				Log.d("Exception", e.toString());
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+
+	private void parseGetEndUser(String jsonString) {
+		if(jsonString!=null && jsonString.length()>0) {
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				String stattus = (String)jsonObject.get("Status");
+				if (stattus.equalsIgnoreCase(AppConstants.Failed)) {
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}else if (stattus.equalsIgnoreCase(AppConstants.OK)) {
+
+					UserDO userDO = new Gson().fromJson(jsonObject.getJSONObject("Data").toString(), UserDO.class);
+					responseObject = userDO;
+				}
+			} catch (Exception e) {
+				Log.d("Exception", e.toString());
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
+		}
+	}
+
+	private void parseGetCities(String jsonString) {
+		if(jsonString!=null && jsonString.length()>0) {
+			try {
+				try {
+					//	JSONObject jObject = new JSONObject(jsonString);
+					JSONArray  jsonArray = new JSONArray(jsonString);
+					Type listType = new TypeToken<List<LocationDO>>() {
+					}.getType();
+					List<LocationDO> LocationsList = new Gson().fromJson(jsonArray.toString(), listType);
+					responseObject = LocationsList;
+
+					/** Getting the parsed data as a List construct */
+
+				} catch (Exception e) {
+					Log.d("Exception", e.toString());
+					responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+				}
+
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
 		}
 	}
 
@@ -151,7 +250,7 @@ public class CommonParser extends BaseParser{
 					JSONObject jsonObject = new JSONObject(jsonString);
 					String stattus = (String)jsonObject.get("Status");
 					if (stattus.equals(AppConstants.Failed)) {
-						if (jsonObject.get("Message").equals("NoCustomersAvailable")) {
+						if (jsonObject.get("Message").equals("No customers available")) {
 							responseObject = jsonObject.get("Message");
 						}else{
 							responseObject = context.getResources().getString(R.string.server_error_please_try_again);
