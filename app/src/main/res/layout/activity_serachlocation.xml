@@ -46,7 +46,7 @@
                   android:gravity="center|center_horizontal"
                   android:layout_gravity="left"
                   android:drawablePadding="10dp"
-                  android:drawableLeft="@android:drawable/ic_menu_compass"
+                  android:drawableLeft="@mipmap/icon_usegps"
                   android:layout_margin="5dp"/>
           </LinearLayout>
 

@@ -20,31 +20,40 @@ package com.sms.within30.wheel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
+import android.os.Handler;
 import android.os.SystemClock;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 import com.sms.within30.R;
 import com.sms.within30.dataobjects.ServicesDO;
+import com.sms.within30.webservices.ServiceURLs;
 import com.sms.within30.wheel.transformer.FadingSelectionTransformer;
 import com.sms.within30.wheel.transformer.ScalingItemTransformer;
 import com.sms.within30.wheel.transformer.WheelItemTransformer;
 import com.sms.within30.wheel.transformer.WheelSelectionTransformer;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1234,29 +1243,14 @@ public class WheelView extends View {
         }
     }
 
-    private void drawWheelItems(Canvas canvas) {
+    private void drawWheelItems(final Canvas canvas) {
         // drawables items array
         ArrayList<Integer> categoryDrawablesList = new ArrayList<Integer>();
         categoryDrawablesList.add(R.mipmap.salon);
         categoryDrawablesList.add(R.mipmap.spa_and_massage);
-        categoryDrawablesList.add(R.mipmap.diagntcs);
-        categoryDrawablesList.add(R.mipmap.law);
-        categoryDrawablesList.add(R.mipmap.autoservices);
         categoryDrawablesList.add(R.mipmap.dentist);
-        categoryDrawablesList.add(R.mipmap.phtography);
-
-
-       /* ArrayList<String> categoryItemNames = new ArrayList<String>();
-        categoryItemNames.add("Salon");
-        categoryItemNames.add("Spa");
-        categoryItemNames.add("Dentist");
-        categoryItemNames.add("Legal Services");
-        categoryItemNames.add("Car Maintenance");
-        categoryItemNames.add("Diagnostics");
-        categoryItemNames.add("Photographers");*/
-
-
-
+        categoryDrawablesList.add(R.mipmap.diagntcs);
+        categoryDrawablesList.add(R.mipmap.autoservices);
 
         double angleInRadians = Math.toRadians(mAngle);
         double cosAngle = Math.cos(angleInRadians);
@@ -1268,7 +1262,7 @@ public class WheelView extends View {
         int offset = mRawSelectedPosition - wheelItemOffset;
         int length = mItemCount + offset;
         for (int i = offset; i < length; i++) {
-            int adapterPosition = rawPositionToAdapterPosition(i);
+            final int adapterPosition = rawPositionToAdapterPosition(i);
             int wheelItemPosition = rawPositionToWheelPosition(i, adapterPosition);
 
             Circle itemBounds = mWheelItemBounds.get(wheelItemPosition);
@@ -1285,6 +1279,9 @@ public class WheelView extends View {
             //translate back after rotation
             x1 += centerX;
             y1 += centerY;
+            final float xTemp = x1;
+            final float yTemp = y1;
+
 
             ItemState itemState = mItemStates.get(wheelItemPosition);
             updateItemState(itemState, adapterPosition, x1, y1, radius);
@@ -1307,15 +1304,53 @@ public class WheelView extends View {
                     }
                 }
 
-               /* if (i == mRawSelectedPosition && mSelectionDrawable != null && !isEmptyItemPosition(i)) {
-                    mSelectionDrawable.setBounds(sTempRect.left - mSelectionPadding, sTempRect.top - mSelectionPadding,
-                            sTempRect.right + mSelectionPadding, sTempRect.bottom + mSelectionPadding);
-                    mSelectionTransformer.transform(mSelectionDrawable, itemState);
-                    mSelectionDrawable.draw(canvas);
-                }*/
 
-              //  Drawable drawable = cacheItem.mDrawable;
-               // Drawable drawable = categoryDrawablesList.get(adapterPosition);
+
+
+          /*  synchronized (this) {
+                 final ImageView imageView = new ImageView(activity);
+                 String imageURL = ServiceURLs.IMAGE_URL + servicesDOList.get(adapterPosition).getMobileImage();
+
+                 Log.d("imageURL", imageURL);
+                 // final ImageView menuimageView = new ImageView(LandingActivity.this);
+                 Picasso.with(activity).load(imageURL).into(imageView, new Callback() {
+                     @Override
+                     public void onSuccess() {
+                         Log.d("services image", "completed download image");
+                         // setCategotyDrawable(imageView,canvas,adapterPosition,xTemp,yTemp);
+                         //  new Handler().postDelayed(new Runnable() {
+                         //    @Override
+                         //    public void run() {//You will get your bitmap here
+
+                         Bitmap innerBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                         Drawable drawable = new BitmapDrawable(activity.getResources(), innerBitmap);
+                         if (drawable != null) {
+                             drawable.setBounds(sTempRect);
+                             drawable.draw(canvas);
+                             Paint imagePaint = new Paint();
+                             imagePaint.setTextAlign(Paint.Align.CENTER);
+                             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                                 imagePaint.setTextSize(20f);
+                             }
+                             //do call
+                             else {
+                                 imagePaint.setTextSize(30f);
+                             }
+
+                             System.out.println("adapterPosition->" + adapterPosition);
+                             canvas.drawText(servicesDOList.get(adapterPosition).getName(), xTemp, yTemp + (drawable.getIntrinsicWidth()), imagePaint);
+                         } //setCategotyDrawable(imageView,canvas,adapterPosition,xTemp,yTemp);
+
+                     }
+                     //  }, 100);
+                     // }
+
+                     @Override
+                     public void onError() {
+                         Log.d("Error", "error while downloading  image");
+                     }
+                 });
+             }*/
 
                 Drawable drawable = getResources().getDrawable(categoryDrawablesList.get(adapterPosition));
 
@@ -1332,30 +1367,12 @@ public class WheelView extends View {
                         imagePaint.setTextSize(30f);
                     }
 
-                    Rect rect = drawable.getBounds();
-                   // canvas.drawText("Salon",rect.bottom,rect.bottom,imagePaint);
-                  //  canvas.drawText(categoryItemNames.get(adapterPosition),x1,y1+(drawable.getIntrinsicWidth()/2),imagePaint);
-                  System.out.println("adapterPosition->"+adapterPosition);
+                    System.out.println("adapterPosition->"+adapterPosition);
                     canvas.drawText(servicesDOList.get(adapterPosition).getName(),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
                 }
 
-               /* Paint paint = new Paint();
-                paint.setColor(Color.WHITE);
-                paint.setStyle(Paint.Style.FILL);
-                canvas.drawPaint(paint);
 
-                paint.setColor(Color.BLACK);
-                paint.setTextSize(20);
-                System.out.println("sTempRect.bottom->"+sTempRect.bottom);
-                canvas.drawText("Some Text", sTempRect.bottom, sTempRect.bottom, paint);*/
 
-               /* View view = activity.getLayoutInflater().inflate(R.layout.item, null);
-                if (view!=null){
-                    view.setMinimumWidth(sTempRect.width());
-                    view.setMinimumHeight(sTempRect.height());
-
-                    view.draw(canvas);
-                }*/
 
             } else {
                 if (cacheItem != null && cacheItem.mIsVisible) {
@@ -1367,7 +1384,27 @@ public class WheelView extends View {
             }
         }
     }
+    void setCategotyDrawable(ImageView imageView,Canvas canvas,int adapterPosition,float x1,float y1){
+        Bitmap innerBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        Drawable drawable = new BitmapDrawable(activity.getResources(), innerBitmap);
+        if (drawable != null) {
+            drawable.setBounds(sTempRect);
+            drawable.draw(canvas);
+            Paint imagePaint = new Paint();
+            imagePaint.setTextAlign(Paint.Align.CENTER);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                imagePaint.setTextSize(20f);
+            }
+            //do call
+            else {
+                imagePaint.setTextSize(30f);
+            }
 
+            System.out.println("adapterPosition->"+adapterPosition);
+            canvas.drawText(servicesDOList.get(adapterPosition).getName(),x1,y1+(drawable.getIntrinsicWidth()),imagePaint);
+        }
+
+    }
     /**
      * The ItemState is used to provide extra information when transforming the selection drawable
      * or item bounds.

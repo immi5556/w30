@@ -93,7 +93,7 @@ import static android.graphics.Color.TRANSPARENT;
 public class EditProfileActivity extends BaseActivity  implements  DataListener, View.OnClickListener ,CompoundButton.OnCheckedChangeListener{
 
 
-    LinearLayout llbooking;
+   // LinearLayout llbooking;
 
     LinearLayout homeLayout;
     com.sms.within30.lib.CleanableEditText et_firstname;
@@ -230,7 +230,7 @@ public class EditProfileActivity extends BaseActivity  implements  DataListener,
 
     private void intilizeControls() {
 
-        llbooking = (LinearLayout) homeLayout.findViewById(R.id.llbooking);
+       // llbooking = (LinearLayout) homeLayout.findViewById(R.id.llbooking);
         et_firstname = (CleanableEditText) homeLayout.findViewById(R.id.et_firstname);
         et_lastname = (CleanableEditText) homeLayout.findViewById(R.id.et_lastname);
         et_email = (TextView) homeLayout.findViewById(R.id.et_email);

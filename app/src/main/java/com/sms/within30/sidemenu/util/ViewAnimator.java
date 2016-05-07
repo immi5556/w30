@@ -64,6 +64,7 @@ public class ViewAnimator<T extends Resourceble> {
                 }
             });
             ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageResource(list.get(i).getImageRes());
+           // ((ImageView) viewMenu.findViewById(R.id.menu_item_image)).setImageDrawable(list.get(i).getImageRes());
             ((TextView) viewMenu.findViewById(R.id.menu_item_name)).setText(list.get(i).getName());
             viewMenu.setVisibility(View.GONE);
             viewMenu.setEnabled(false);

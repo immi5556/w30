@@ -17,6 +17,7 @@ public class CustomerDO implements Serializable {
     private String logoUrl;
     private String fullName;
     private String businessType;
+    private String message = "";
     private String mobile;
     private String companyEmail;
     private String companyCity;
@@ -24,9 +25,29 @@ public class CustomerDO implements Serializable {
     Integer slotsAvailable = 0;
     private float expectedTime;
     public String subdomain;
-    public Double destinationDistance;
+    public float destinationDistance;
     public String startHour;
     public String  endHour;
+
+    public String getNextSlotAt() {
+        return nextSlotAt;
+    }
+
+    public void setNextSlotAt(String nextSlotAt) {
+        this.nextSlotAt = nextSlotAt;
+    }
+
+    public String nextSlotAt = "";
+
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getStartHour() {
         return startHour;
@@ -59,7 +80,7 @@ public class CustomerDO implements Serializable {
         this.expectedTime = expectedTime;
     }
 
-    public void setDestinationDistance(Double destinationDistance) {
+    public void setDestinationDistance(float destinationDistance) {
         this.destinationDistance = destinationDistance;
     }
 
@@ -174,13 +195,11 @@ public class CustomerDO implements Serializable {
         this.expectedTime = expectedTime;
     }
 
-    public double getDestinationDistance() {
+    public float getDestinationDistance() {
         return destinationDistance;
     }
 
-    public void setDestinationDistance(double destinationDistance) {
-        this.destinationDistance = destinationDistance;
-    }
+
 
     public double getLatitude() {
         return latitude;

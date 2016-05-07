@@ -35,6 +35,7 @@
               android:background="@mipmap/icon_camera"
               android:layout_alignBottom="@+id/img_profile"
               android:layout_alignRight="@+id/img_profile"
+              android:visibility="gone"
               android:layout_margin="5dp"/>
           </RelativeLayout>
           <!---->
@@ -118,7 +119,8 @@
               android:gravity="center|center_horizontal"
               android:layout_gravity="center_horizontal"
               android:lines="1"
-              android:maxLength="13"/>
+              android:maxLength="13"
+              android:focusable="false"/>
           <Switch
               android:id="@+id/switch_notifications"
               android:layout_width="wrap_content"

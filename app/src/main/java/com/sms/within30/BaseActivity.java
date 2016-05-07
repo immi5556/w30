@@ -302,6 +302,9 @@ List<ServicesDO> servicesList;
 		list.add(menuItem7);*/
 
 		try{
+			Drawable imgCross = getResources().getDrawable(R.mipmap.cross);
+			Drawable imgHome = getResources().getDrawable(R.mipmap.menu_home);
+			Drawable imgSettings = getResources().getDrawable(R.mipmap.menu_steetings);
 			SlideMenuItem menu_Item_close = new SlideMenuItem(ContentFragment.CLOSE, R.mipmap.cross);
 			list.add(menu_Item_close);
 			SlideMenuItem menu_Item_home = new SlideMenuItem(ContentFragment.HOME, R.mipmap.menu_home);
@@ -309,27 +312,28 @@ List<ServicesDO> servicesList;
 			if (servicesList !=null) {
 				for (ServicesDO servicesDO:servicesList){
 					SlideMenuItem menu_Item = null ;
+					//menu_Item= new SlideMenuItem(servicesDO.getName(), servicesDO.getMenuImageDrawable());
 					if (servicesDO.getName().equalsIgnoreCase("Hair Salon")) {
 						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_salon);
 
 					}else if (servicesDO.getName().equalsIgnoreCase("Massage & Spa")) {
 						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_spa);
-					}else if (servicesDO.getName().equalsIgnoreCase("Diagnostics")) {
-						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_diagnostics);
-					}else if (servicesDO.getName().equalsIgnoreCase("Legal")) {
-						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_law);
-					}else if (servicesDO.getName().equalsIgnoreCase("Automobile Maintenance")) {
-						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_car_maintainence);
-					}else if (servicesDO.getName().equalsIgnoreCase("Dental")) {
+					}else if (servicesDO.getName().equalsIgnoreCase("Dentists")) {
 						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_dentist);
-					}else if (servicesDO.getName().equalsIgnoreCase("Photography")) {
-						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_photographers);
+					}else if (servicesDO.getName().equalsIgnoreCase("Clinics")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_diagnostics);
+					}else if (servicesDO.getName().equalsIgnoreCase("Car Services")) {
+						menu_Item= new SlideMenuItem(servicesDO.getName(), R.mipmap.menu_car_maintainence);
 					}
+
+
+
+
 					menu_Item.set_id(servicesDO.get_id());
 					list.add(menu_Item);
 
 				}
-				SlideMenuItem menu_Item_settings = new SlideMenuItem(ContentFragment.SETTINGS, R.mipmap.settings);
+				SlideMenuItem menu_Item_settings = new SlideMenuItem(ContentFragment.SETTINGS, R.mipmap.menu_steetings);
 				list.add(menu_Item_settings);
 
 			}

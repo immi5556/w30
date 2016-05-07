@@ -11,19 +11,17 @@
         android:id="@+id/wheelview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:wheelColor="#ffffff"
         app:rotatableWheelDrawable="false"
-        app:selectionAngle="270"
-
-
+        app:selectionAngle="235"
         app:repeatItems="true"
-        app:wheelRadius="180dp"
-        app:wheelItemCount="7"
-
+        app:wheelRadius="150dp"
+        app:wheelItemCount="5"
         app:wheelItemRadius="35dp"
         app:wheelPosition="bottom"
 
+
+        app:wheelItemAngle="78"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/transparent"/>
 

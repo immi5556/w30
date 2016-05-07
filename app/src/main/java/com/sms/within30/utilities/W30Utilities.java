@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.sms.within30.R;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -79,5 +80,10 @@ public class W30Utilities {
      */
     public boolean validCellPhone(String number) {
         return android.util.Patterns.PHONE.matcher(number).matches();
+    }
+    public static BigDecimal round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd;
     }
 }

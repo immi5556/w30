@@ -1,6 +1,8 @@
 package com.sms.within30.sidemenu.model;
 
 
+import android.graphics.drawable.Drawable;
+
 import com.sms.within30.sidemenu.interfaces.Resourceble;
 
 /**
@@ -9,7 +11,8 @@ import com.sms.within30.sidemenu.interfaces.Resourceble;
 
 public class SlideMenuItem implements Resourceble {
     private String name;
-    private int imageRes;
+   // private int imageRes;
+   private int imageRes;
     private String _id;
 
     public SlideMenuItem(String name, int imageRes) {

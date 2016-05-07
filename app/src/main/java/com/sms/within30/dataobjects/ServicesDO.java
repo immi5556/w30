@@ -1,5 +1,8 @@
 package com.sms.within30.dataobjects;
 
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 /**
  * Created by SR Lakhsmi on 2/4/2016.
  */
@@ -10,7 +13,70 @@ public class ServicesDO {
     private String image;
     private String mobileDecription;
     private String mobileImage;
+    private String mobileMenuImage;
     private long createdat;
+    private Drawable drawable;
+    private Drawable menuImageDrawable;
+    public boolean active = false;
+    private ImageView imageView;
+    private ImageView menuImageView;
+
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public ImageView getMenuImageView() {
+        return menuImageView;
+    }
+
+    public void setMenuImageView(ImageView menuImageView) {
+        this.menuImageView = menuImageView;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+
+
+
+
+
+    public Drawable getMenuImageDrawable() {
+        return menuImageDrawable;
+    }
+
+    public void setMenuImageDrawable(Drawable menuImageDrawable) {
+        this.menuImageDrawable = menuImageDrawable;
+    }
+
+    public String getMobileMenuImage() {
+        return mobileMenuImage;
+    }
+
+    public void setMobileMenuImage(String mobileMenuImage) {
+        this.mobileMenuImage = mobileMenuImage;
+    }
+
+    public Drawable getDrawable() {
+        return drawable;
+    }
+
+    public void setDrawable(Drawable drawable) {
+        this.drawable = drawable;
+    }
+
+
+
 
     public String getName() {
         return name;

@@ -6,6 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -14,6 +18,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -46,12 +51,16 @@ import com.sms.within30.sidemenu.interfaces.Resourceble;
 import com.sms.within30.sidemenu.interfaces.ScreenShotable;
 import com.sms.within30.utilities.NetworkUtility;
 import com.sms.within30.webservices.Response;
+import com.sms.within30.webservices.ServiceURLs;
 import com.sms.within30.webservices.businesslayer.CommonBL;
 import com.sms.within30.webservices.businesslayer.DataListener;
 import com.sms.within30.wheel.MaterialColor;
 import com.sms.within30.wheel.TextDrawable;
 import com.sms.within30.wheel.WheelArrayAdapter;
 import com.sms.within30.wheel.WheelView;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -307,8 +316,14 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
             List<Address> addresses = gcd.getFromLocation(mLatitude, mLongitude, 1);
             if (addresses.size() > 0){
                // System.out.println(addresses.get(0).getAddressLine(0));
-                System.out.println(addresses.get(0).getSubLocality());
-                String city = addresses.get(0).getSubLocality();
+                String city ="";
+                city = addresses.get(0).getSubLocality();
+                if (city.length() == 0) {
+                    city =  addresses.get(0).getAddressLine(0);
+                }
+
+                System.out.println("city->"+city);
+
                 return city;
             }
 
@@ -332,7 +347,7 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
         tvbusinessower = (TextView) homeLayout.findViewById(R.id.tvbusinessower);
         btmenu = (ImageView) findViewById(R.id.btmenu);
         llmenu = (LinearLayout) homeLayout.findViewById(R.id.llmenu);
-        llmenu.setOnClickListener(this);
+      //  llmenu.setOnClickListener(this);
         wheelView = (WheelView) findViewById(R.id.wheelview);
         wheelView.setActivity(this);
         wheelClose = AnimationUtils.loadAnimation(this, R.anim.wheel_close);
@@ -354,19 +369,21 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
 
                 ServicesDO servicesDO = (ServicesDO) adapterView.getItemAtPosition(position);
                 autoCompleteTextView.setText(servicesDO.getName());
-
-                Intent mapsIntent = new Intent(LandingActivity.this,MapsActivity.class);
-                mapsIntent.putExtra("actionbar_title", servicesDO.getName());
-             //   mapsIntent.putExtra("category_type","hospitals");
-                mapsIntent.putExtra("service_id", servicesDO.get_id());
-                // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
-                String listSerializedToJson = new Gson().toJson(servicesList);
-                mapsIntent.putExtra("service_list", listSerializedToJson);
-                LocationDO locationDO = (LocationDO)tvlocation.getTag();
-                mapsIntent.putExtra("location",locationDO);
-                String locationListSerializedToJson = new Gson().toJson(locationList);
-                mapsIntent.putExtra("locationList",locationListSerializedToJson);
-                startActivity(mapsIntent);
+               // if (servicesDO.isActive()) {
+                    Intent mapsIntent = new Intent(LandingActivity.this,MapsActivity.class);
+                    mapsIntent.putExtra("actionbar_title", servicesDO.getName());
+                    mapsIntent.putExtra("service_id", servicesDO.get_id());
+                    // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
+                    String listSerializedToJson = new Gson().toJson(servicesList);
+                    mapsIntent.putExtra("service_list", listSerializedToJson);
+                    LocationDO locationDO = (LocationDO)tvlocation.getTag();
+                    mapsIntent.putExtra("location",locationDO);
+                    String locationListSerializedToJson = new Gson().toJson(locationList);
+                    mapsIntent.putExtra("locationList",locationListSerializedToJson);
+                    startActivity(mapsIntent);
+               /* }else{
+                    showToast("Coming Soon");
+                }*/
             }
         });
 
@@ -403,16 +420,21 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                 String msg = String.valueOf(position) + " " + isSelected;
                 Log.i("wheel position", "" + position);
                 ServicesDO servicesDO = (ServicesDO)servicesList.get(position);
-                Intent mapsIntent = new Intent(LandingActivity.this, MapsActivity.class);
-                mapsIntent.putExtra("actionbar_title", servicesDO.getName());
-                mapsIntent.putExtra("service_id", servicesDO.get_id());
-                // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
-                String listSerializedToJson = new Gson().toJson(servicesList);
-                mapsIntent.putExtra("service_list", listSerializedToJson);
-                mapsIntent.putExtra("location",locationDO);
-                String locationListSerializedToJson = new Gson().toJson(locationList);
-                mapsIntent.putExtra("locationList",locationListSerializedToJson);
-                startActivity(mapsIntent);
+                //if (servicesDO.isActive()) {
+                    Intent mapsIntent = new Intent(LandingActivity.this, MapsActivity.class);
+                    mapsIntent.putExtra("actionbar_title", servicesDO.getName());
+                    mapsIntent.putExtra("service_id", servicesDO.get_id());
+                    // here we use GSON to serialize mMyObjectList and pass it throught intent to second Activity
+                    String listSerializedToJson = new Gson().toJson(servicesList);
+                    mapsIntent.putExtra("service_list", listSerializedToJson);
+                    mapsIntent.putExtra("location",locationDO);
+                    String locationListSerializedToJson = new Gson().toJson(locationList);
+                    mapsIntent.putExtra("locationList",locationListSerializedToJson);
+                    startActivity(mapsIntent);
+              /*  }else{
+                    showToast("Coming Soon");
+                }*/
+
 
 
             }
@@ -537,13 +559,47 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                 case WS_SERVICES:
                     if(data.data!=null && data.data instanceof List<?>)
                     {
+                        List<ServicesDO> servicesDOListTemp =  (List<ServicesDO>)data.data;
                         servicesList = (List<ServicesDO>)data.data;
-                        System.out.println("servicesList->"+servicesList.size());
-                        if (servicesList!=null) {
-                            //TODO:Download the images from web
-                           /* for(ServicesDO servicesDO:servicesList){
+                       /* System.out.println("servicesDOListTemp->"+servicesDOListTemp.size());
+                        if (servicesDOListTemp!=null) {
+                            servicesList = new ArrayList<ServicesDO>();
+                            for (final ServicesDO servicesDO:servicesDOListTemp) {
+                                final ServicesDO servicesDO1 = new ServicesDO();
+                                servicesDO1.setName(servicesDO.getName());
+                                servicesDO1.set_id(servicesDO.get_id());
+                                String imageURL = ServiceURLs.IMAGE_URL+servicesDO.getMobileImage();
+                                String menuImageURL = ServiceURLs.IMAGE_URL+servicesDO.getMobileMenuImage();
+                                Log.d("imageURL", imageURL);
+                                final ImageView imageView = new ImageView(LandingActivity.this);
+                                final ImageView menuimageView = new ImageView(LandingActivity.this);
+                                Picasso.with(LandingActivity.this).load(imageURL).into(imageView, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {//You will get your bitmap here
+                                                servicesDO1.setImageView(imageView);
+                                                Bitmap innerBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                                                servicesDO1.setDrawable(new BitmapDrawable(LandingActivity.this.getResources(), innerBitmap));
+                                                Log.d("services image", "completed download image");
+                                                if (servicesDO1.getDrawable() != null *//*&& servicesDO1.getMenuImageDrawable()!=null*//*) {
+                                                    servicesList.add(servicesDO1);
+                                                }
+                                            }
+                                        }, 100);
+                                    }
 
-                            }*/
+                                    @Override
+                                    public void onError() {
+                                        Log.d("Error","error while downloading  image");
+                                    }
+                                });
+                             }
+                        }*/
+                        Log.d("servicesList", ""+servicesList.size());
+                        if (servicesList!=null) {
+
                             servicesSearchAdapter.refreshServicesList(servicesList);
                             wheelView.setWheelItemCount(servicesList.size());
                             //create data for the adapter

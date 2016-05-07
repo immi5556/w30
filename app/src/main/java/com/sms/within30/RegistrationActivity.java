@@ -206,6 +206,9 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 		String phoneNumber = tm.getLine1Number();
 		Log.d("phoneNumber",phoneNumber);
 		if (phoneNumber != null && phoneNumber.length() > 0) {
+			int digits = 10;
+			int country_digits = phoneNumber.length() - digits;
+			phoneNumber = phoneNumber.substring(country_digits);
 			et_mobileno.setText(phoneNumber);
 			//return  number;
 		}
@@ -217,19 +220,14 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
 				setPhoneNumber();
 			else {
-
 				if (ContextCompat.checkSelfPermission(RegistrationActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 					ActivityCompat.requestPermissions(RegistrationActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, READPHONE_REQUEST);
 					Log.d("READ_PHONE_STATE", " permission requesting...");
 				} else {
 					Log.d("READ_PHONE_STATE", " permission suceess...");
 					setPhoneNumber();
-
 				}
-
 			}
-
-
 		} catch (Exception e) {
 			Log.d("location exception", "exception occured ...........");
 			e.printStackTrace();

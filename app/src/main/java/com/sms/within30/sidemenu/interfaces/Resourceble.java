@@ -1,5 +1,7 @@
 package com.sms.within30.sidemenu.interfaces;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by Konstantin on 12.01.2015.
  */
