@@ -51,7 +51,8 @@
               android:gravity="center|center_horizontal"
               android:layout_gravity="center_horizontal"
               android:inputType="textCapSentences|textPersonName"
-              android:imeOptions="actionNext"/>
+              android:imeOptions="actionNext"
+              />
           <com.sms.within30.lib.CleanableEditText
               android:id="@+id/et_lastname"
               android:layout_width="wrap_content"
@@ -92,7 +93,8 @@
               android:layout_gravity="center_horizontal"
               android:paddingLeft="25dp"
               android:drawablePadding="5dp"
-              android:paddingRight="15dp"/>
+              android:paddingRight="15dp"
+              />
           <com.sms.within30.lib.CleanableEditText
               android:id="@+id/et_mobileno"
               android:layout_width="wrap_content"
@@ -113,6 +115,7 @@
               android:drawableRight="@mipmap/cross_input"
               android:gravity="center|center_horizontal"
               android:layout_gravity="center_horizontal"
+
               />
           <TextView
               android:id="@+id/btsubmit"

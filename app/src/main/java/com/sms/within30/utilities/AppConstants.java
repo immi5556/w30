@@ -68,5 +68,6 @@ public class AppConstants {
 	public static  final String Failed= "Failed";
 	public static final String OK =  "Ok";
 	public static  final String INSERT = "insert";
+	public static  final String SUCCESS = "Success";
 
 }

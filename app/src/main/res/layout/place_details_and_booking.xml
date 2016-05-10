@@ -14,26 +14,28 @@
 
             android:background="@android:color/transparent">
 
+<!--<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/slide_details_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_slideup"
+        android:layout_gravity="right"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
 
-                <ImageView
-                    android:id="@+id/slide_details_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_slideup"
-                    android:layout_gravity="right"
-
-                    android:layout_marginRight="15dp"
-
-android:layout_alignParentRight="true"
-
-                    android:visibility="visible"/>
+        android:visibility="visible"/>
+</FrameLayout>
+              -->
 
 
             <RelativeLayout
                 android:id="@+id/rlmain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="-10dp"
+                android:layout_marginTop="-20dp"
 
                 android:background="@android:color/transparent">
                 <LinearLayout
@@ -285,6 +287,23 @@ android:layout_alignParentRight="true"
                     android:layout_alignParentRight="true"
                     android:visibility="visible"/>-->
             </RelativeLayout>
+            <FrameLayout
+                android:id="@+id/frame_slide_details_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentRight="true">
+                <TextView
+                    android:id="@+id/slide_details_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/icon_slideup"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+
+                    android:visibility="visible"/>
+            </FrameLayout>
 
         </RelativeLayout>
 

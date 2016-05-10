@@ -9,7 +9,8 @@ public enum ServiceMethods
     WS_GETCITIES(ServiceURLs.GETCITIES),
     WS_GETENDUSER(ServiceURLs.GETeNDUSER),
     WS_SAVEENDYUSER(ServiceURLs.SAVEENDUSER),
-    WS_UPDATEENDUSER(ServiceURLs.UPDATEENDUSER);
+    WS_UPDATEENDUSER(ServiceURLs.UPDATEENDUSER),
+    WS_SUBMITRATING(ServiceURLs.SUBMITRATING);
 	
 	private final String value;
     private ServiceMethods(String value) {

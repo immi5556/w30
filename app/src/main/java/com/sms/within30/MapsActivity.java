@@ -31,6 +31,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -101,6 +102,7 @@ import com.sms.within30.utilities.NetworkUtility;
 import com.sms.within30.utilities.OnSwipeTouchListener;
 import com.sms.within30.utilities.StringUtils;
 import com.sms.within30.utilities.W30Constants;
+import com.sms.within30.utilities.W30Database;
 import com.sms.within30.utilities.W30Utilities;
 import com.sms.within30.webservices.Response;
 import com.sms.within30.webservices.businesslayer.CommonBL;
@@ -276,55 +278,7 @@ FrameLayout abcd;
         tv_floating_time.setOnTouchListener(new FilterTime(sbfilter_time,sbfilter_distance));
        // tv_floating_distance.setOnTouchListener(this);
         tv_floating_distance.setOnTouchListener(new FilterDistance(sbfilter_distance,sbfilter_time));
-        /*tv_floating_distance.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
 
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        startX = event.getRawX();
-                        startY = event.getRawY();
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        float newX = event.getRawX();
-                        float newY = event.getRawY();
-
-                        if (Math.abs(newX - startX) > Math.abs(newY - startY)) {
-                            // Means Horizontal Movement.
-                            if (newX - startX > 0) {
-                                // Moving Right
-                                System.out.println("moving right.............");
-                            } else {
-                                // Moving Left
-                                System.out.println("moving left.............");
-                            }
-                        } else {
-                            // Means Vertical Movement.
-                            if (newY - startY > 0) {
-                                // Moving Down
-                                System.out.println("moving down.............");
-                                sbfilter_distance.setProgress(sbfilter_distance.getProgress() - 1);
-                            } else {
-                                // Moving Up
-                                System.out.println("moving top.............");
-                                sbfilter_distance.setProgress(sbfilter_distance.getProgress() + 1);
-                            }
-                        }
-
-                        startX = newX;
-                        startY = newY;
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        // Finger Up and the motion is complete
-                        startX = 0;
-                        startY = 0;
-                        break;
-                }
-                return true;
-            }
-        });*/
 
 
 
@@ -692,9 +646,50 @@ FrameLayout abcd;
             tvcall_show  = (TextView) child.findViewById(R.id.tvcall_show);
             tv_web_show  = (TextView) child.findViewById(R.id.tv_web_show);
             tvTimings  = (TextView) child.findViewById(R.id.tvTimings);
+            FrameLayout frame_slide_details_view = (FrameLayout) child.findViewById(R.id.frame_slide_details_view);
+            final TextView slide_details_view = (TextView)child.findViewById(R.id.slide_details_view);
             String upperCaseString_companyName = customerDO.getFullName().substring(0, 1).toUpperCase() + customerDO.getFullName().substring(1);
             tvComapanyName.setText(upperCaseString_companyName);
             tvaddress1.setText(customerDO.getGeo().getAddress().toString());
+            ratingbar.setRating(customerDO.getRating());
+            child.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    Log.d("child sheelt state", bottomSheetLayout.getState()+"");
+                  //  Log.d("child getTransitionName state", bottomSheetLayout.getTransitionName()+"");
+                 //   Log.d("child getHeight", bottomSheetLayout.getHeight()+"");
+                  //  Log.d("child getMeasuredHeight", bottomSheetLayout.getMeasuredHeight()+"");
+
+                    if (bottomSheetLayout.getState().equals(BottomSheetLayout.State.EXPANDED)) {
+
+
+                        slide_details_view.setBackground(getResources().getDrawable(R.mipmap.icon_slidedown));
+                    } else if (bottomSheetLayout.getState().equals(BottomSheetLayout.State.PREPARING) ||bottomSheetLayout.getState().equals(BottomSheetLayout.State.PEEKED) ) {
+                       // Log.d("child sheelt state", "PEEKED..............");
+
+                        slide_details_view.setBackground(getResources().getDrawable(R.mipmap.icon_slideup));
+                    }
+                    return true;
+                }
+            });
+            frame_slide_details_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("bottom sheelt state",""+bottomSheetLayout.getState());
+
+                            if (bottomSheetLayout.getState().equals(BottomSheetLayout.State.PEEKED)) {
+                                Log.d("bottom sheelt state","expanding..............");
+                                bottomSheetLayout.setState(BottomSheetLayout.State.EXPANDED);
+                                bottomSheetLayout.expandSheet();
+                                slide_details_view.setBackground(getResources().getDrawable(R.mipmap.icon_slidedown));
+                            }else if (bottomSheetLayout.getState().equals(BottomSheetLayout.State.EXPANDED)) {
+                                Log.d("bottom sheelt state","PEEKED..............");
+                                bottomSheetLayout.setState(BottomSheetLayout.State.PEEKED);
+                                bottomSheetLayout.peekSheet();
+                                 slide_details_view.setBackground(getResources().getDrawable(R.mipmap.icon_slideup));
+                            }
+                }
+            });
             if (customerDO.getSlotsAvailable()!=null) {
 
                 if (customerDO.getSlotsAvailable() == 0) {
@@ -722,10 +717,12 @@ FrameLayout abcd;
                 tvcall_show.setText(customerDO.getMobile());
                 tvcall.setAlpha(1f);
                 tvcall.setClickable(true);
+                tvcall_show.setClickable(true);
                 tvcall_show.setVisibility(View.VISIBLE);
             }else { // phone number not exists
                 tvcall.setAlpha(0.5f);
                 tvcall.setClickable(false);
+                tvcall_show.setClickable(false);
                 tvcall_show.setVisibility(View.GONE);
             }
             if(customerDO.getLogoUrl()!=null && customerDO.getLogoUrl().length()>0){
@@ -775,6 +772,12 @@ FrameLayout abcd;
                 }
             });
             tvcall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkReadPhoneStatePermissions();
+                }
+            });
+            tvcall_show.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     checkReadPhoneStatePermissions();
@@ -1063,6 +1066,16 @@ FrameLayout abcd;
                         String str = (String)data.data;
                         if (str.equals(AppConstants.OK)) {
                            // getServices();
+                            CustomerDO customerDO =(CustomerDO) bt_book.getTag();
+                            if (customerDO !=null) {
+                          /*  if(llbooking.getVisibility() == View.VISIBLE){
+                                llbooking.startAnimation(bottomDown);
+                                llbooking.setVisibility(View.INVISIBLE);
+                            }*/
+                                saveBookedInfo(customerDO);
+
+                            }
+
                             showCustomDialog(MapsActivity.this);
                         }else{
                             showToast(str);
@@ -1074,6 +1087,15 @@ FrameLayout abcd;
                     break;
             }
         }
+    }
+
+    private void saveBookedInfo(CustomerDO customerDO) {
+        String currentDate = CalendarUtils.getCurrentPostDate(/*(long)customerDO.getDefaultDuration()*/(long)0);
+        String tempDate = CalendarUtils.getCurrentPostDate("yyyy-MM-dd HH:mm:ss");
+        customerDO.setSlotBookedDate(tempDate);
+        W30Database w30Database = new W30Database(MapsActivity.this);
+        w30Database.addBookedSlotsInfo(customerDO);
+
     }
 
     @Override
@@ -1254,44 +1276,15 @@ Circle circle;
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         System.out.println("seek bar on progress changed....." + progress);
-       // addCircleToMap(progress);
-       /* if(llbooking.getVisibility() == View.VISIBLE){
-            llbooking.startAnimation(bottomDown);
-            llbooking.setVisibility(View.INVISIBLE);
-        }*/
-
-
-       /* if(isDistanceFilterSelected) {
-           distanceSelectedRadius = progress;
-            btfilterdistance.setText(""+distanceSelectedRadius+"MI");
-        }else if (isTimeFilterSelected) {
-            timeSelectedRadius  = progress;
-            btfiltertime.setText(""+timeSelectedRadius+"MIN");
-        }*/
 
         if (seekBar.getId() == R.id.sbfilter_distance){
-           /* Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_distance);
-            Bitmap bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-            Canvas c = new Canvas(bmp);
-          //  c.rotate(90);
-
-            String text = Integer.toString(sbfilter_distance.getProgress());
-            Paint p = new Paint();
-            p.setTypeface(Typeface.DEFAULT_BOLD);
-            p.setTextSize(14);
-            p.setColor(getResources().getColor(R.color.black));
-            int width = (int) p.measureText(text);
-            int yPos = (int) ((c.getWidth() / 2) - ((p.descent() + p.ascent()) / 2));
-            c.drawText(text, yPos,(bmp.getHeight())/2, p);
-            c.save();
-            c.rotate(90,50,50);
-            c.restore();
-            sbfilter_distance.setThumb(new BitmapDrawable(getResources(), bmp));
-*/
 
 
-            Log.d("seek bar","clicked on distance seek bar");
-            sbfilter_time.setSecondaryProgress(sbfilter_distance.getProgress());
+
+            Log.d("seek bar", "clicked on distance seek bar");
+          //  sbfilter_time.setSecondaryProgress(sbfilter_distance.getProgress());
+            sbfilter_distance.setSecondaryProgress(sbfilter_time.getProgress());
+           // sbfilter_distance.setProgress(progress);
             distanceSelectedRadius = sbfilter_distance.getProgress();
             isDistanceFilterSelected = true;
             isTimeFilterSelected = false;
@@ -1307,36 +1300,15 @@ Circle circle;
                     / sbfilter_distance.getMax();
             Log.d("thumbPos ", (sbfilter_distance.getHeight() - seekbarDistanceThumbPos) + "----------------------------------------");
             tv_floating_distance.setY((float) (sbfilter_distance.getHeight() - seekbarDistanceThumbPos));
-            tv_floating_distance.setText(progress+"\nMI"+" ");
+            tv_floating_distance.setText(" "+progress+" \n MI"+" ");
+
 
         }else if (seekBar.getId() == R.id.sbfilter_time) {
 
-           // Drawable thumb = getResources().getDrawable(R.mipmap.icon_camera);
-          //  thumb.setBounds(100,100,200,200);
-           // seekBar.setThumb(thumb);
-           /* Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_camera).copy(Bitmap.Config.ARGB_8888, true);
 
-            float scale = getResources().getDisplayMetrics().density;
-            float x = (int) (17 * scale + 0.5f);
-            int y = (int) ((b.getHeight()/2-3) * scale + 0.5f);
-
-            if(seekBar.getProgress() > 9) {
-                x = (int) (14 * scale + 0.5f);
-            }
-            if(seekBar.getProgress() > 99) {
-                x = (int) (11 * scale + 0.5f);
-            }
-
-            Canvas canvas = new Canvas(b);
-            canvas.drawText(""+progress, x, y, new Paint());
-            BitmapDrawable bd = new BitmapDrawable(b);
-
-            bd.setBounds(bd.getIntrinsicHeight(), bd.getIntrinsicWidth(), 0,0 );
-
-            seekBar.setThumb(bd);
-*/
-            Log.d("seek bar","clicked on time seek bar");
-            sbfilter_distance.setSecondaryProgress(sbfilter_time.getProgress());
+            Log.d("seek bar", "clicked on time seek bar");
+           // sbfilter_distance.setSecondaryProgress(sbfilter_time.getProgress());
+            sbfilter_time.setSecondaryProgress(sbfilter_distance.getProgress());
             timeSelectedRadius = sbfilter_time.getProgress();
             isDistanceFilterSelected = false;
             isTimeFilterSelected = true;
@@ -1539,6 +1511,7 @@ Circle circle;
     }
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;

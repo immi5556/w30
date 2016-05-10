@@ -44,6 +44,7 @@ public class FilterTime implements View.OnTouchListener {
                         System.out.println("moving left.............");
                     }
                 } else {
+                    sbfilter_time.setSecondaryProgress(sbfilter_distance.getProgress());
                     // Means Vertical Movement.
                     if (newY - startY > 0) {
                         // Moving Down

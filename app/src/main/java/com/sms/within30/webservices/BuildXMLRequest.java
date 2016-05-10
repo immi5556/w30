@@ -58,6 +58,24 @@ public class BuildXMLRequest {
 		}
 		return pairs;
 	}
+	/**
+	 * This method is used to get the requested params as namevalue pairs	 *
+	 * @param  int rating,String customerId,String email,String mobile
+	 * @return List<NameValuePair>
+	 */
+	public static  JSONObject submitRatingRequest(int rating,String customerId,String email,String mobile ){
+		JSONObject pairs = new JSONObject();
+		try {
+			pairs.put("rating", Integer.toString(rating));
+			pairs.put("customerId", customerId);
+			pairs.put("email", email);
+			pairs.put("mobile", mobile);
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pairs;
+	}
 
 	/**
 	 * This method is used to get the requested params as namevalue pairs

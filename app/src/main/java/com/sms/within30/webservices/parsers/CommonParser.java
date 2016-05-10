@@ -82,8 +82,25 @@ public class CommonParser extends BaseParser{
 			case WS_UPDATEENDUSER:
 				parseUpdateEndUser(jsonString);
 				break;
+			case WS_SUBMITRATING:
+				praseSubmitRating(jsonString);
+				break;
 		default:
 			break;
+		}
+	}
+
+	private void praseSubmitRating(String jsonString) {
+		if(jsonString!=null && jsonString.length()>0) {
+			try {
+				JSONObject jsonObject = new JSONObject(jsonString);
+				String stattus = (String) jsonObject.get("status");
+				responseObject = stattus;
+
+			} catch (Exception e) {
+				Log.d("Exception", e.toString());
+				responseObject = context.getResources().getString(R.string.server_error_please_try_again);
+			}
 		}
 	}
 

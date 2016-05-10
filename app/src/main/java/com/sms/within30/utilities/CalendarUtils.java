@@ -10,6 +10,7 @@ import java.util.TimeZone;
 
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 /** this class having some common methods related to the dateofJorney, dateofJorney format,dateofJorney conversion, etc.**/
@@ -1855,5 +1856,22 @@ public class CalendarUtils
 		
 		strCurrentDateWithTime = getMonthFromNumber(month+1)+" "+day+", " + year + strCurrentTime;
 		return strCurrentDateWithTime;
+	}
+
+	public static boolean getComparisionSlotBookedDateAndPresentDate(String slotbookeddateandduration){
+
+		try{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String currentDateAndtime = sdf.format(new Date());
+			Log.d("slotbookeddateandduration", currentDateAndtime);
+			Log.d("slotbookeddateandduration", slotbookeddateandduration);
+			if(slotbookeddateandduration.compareTo(slotbookeddateandduration)<=0){
+				System.out.println("Date1 is before  or equal toDate2");
+				 return true;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
 	}
 }

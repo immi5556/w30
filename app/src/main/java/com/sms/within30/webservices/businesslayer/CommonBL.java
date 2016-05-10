@@ -58,6 +58,13 @@ public class CommonBL extends BaseBL {
 	 * getCustomers call
 	 * @return boolean
 	 */
+	public boolean submitRating(int rating,String customerId,String email,String mobile) {
+		return new BaseWA(mContext, this, empNo).startDataDownload(ServiceMethods.WS_SUBMITRATING,BuildXMLRequest.submitRatingRequest(rating,customerId,email,mobile));
+	}
+	/**
+	 * getCustomers call
+	 * @return boolean
+	 */
 	public boolean bookSlot(BookSlotDO bookSlotDO) {
 		return new BaseWA(mContext, this, empNo).startDataDownload(ServiceMethods.WS_BOOKSLOT,BuildXMLRequest.bookSlotRequest(bookSlotDO));
 	}

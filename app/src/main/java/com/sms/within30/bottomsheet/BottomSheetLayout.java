@@ -471,7 +471,7 @@ public class BottomSheetLayout extends FrameLayout {
         }
     }
 
-    private void setState(State state) {
+    public void setState(State state) {
         this.state = state;
         for (OnSheetStateChangeListener onSheetStateChangeListener : onSheetStateChangeListeners) {
             onSheetStateChangeListener.onSheetStateChanged(state);

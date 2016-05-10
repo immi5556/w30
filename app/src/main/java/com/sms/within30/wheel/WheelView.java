@@ -1360,11 +1360,11 @@ public class WheelView extends View {
                     Paint imagePaint = new Paint();
                     imagePaint.setTextAlign(Paint.Align.CENTER);
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-                        imagePaint.setTextSize(20f);
+                        imagePaint.setTextSize(25f);
                     }
                     //do call
                     else {
-                        imagePaint.setTextSize(30f);
+                        imagePaint.setTextSize(35f);
                     }
 
                     System.out.println("adapterPosition->"+adapterPosition);

@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by SR Lakhsmi on 4/1/2016.
  */
 public class CustomerDO implements Serializable {
+    private int ratingId;
+    private String _id;
     private String _clientid;
     private double latitude;
     private double longitude;
@@ -28,6 +30,49 @@ public class CustomerDO implements Serializable {
     public float destinationDistance;
     public String startHour;
     public String  endHour;
+    public int defaultDuration = 0;
+    public String  slotBookedDate = "";
+    public int rating = 0;
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingId() {
+        return ratingId;
+    }
+
+    public void setRatingId(int ratingId) {
+        this.ratingId = ratingId;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getSlotBookedDate() {
+        return slotBookedDate;
+    }
+
+    public void setSlotBookedDate(String slotBookedDate) {
+        this.slotBookedDate = slotBookedDate;
+    }
+
+    public int getDefaultDuration() {
+        return defaultDuration;
+    }
+
+    public void setDefaultDuration(int defaultDuration) {
+        this.defaultDuration = defaultDuration;
+    }
 
     public String getNextSlotAt() {
         return nextSlotAt;

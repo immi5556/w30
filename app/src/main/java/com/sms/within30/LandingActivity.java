@@ -6,10 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -18,7 +14,6 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -32,9 +27,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,23 +41,21 @@ import com.sms.within30.adapters.ServicesSearchAdapter;
 import com.sms.within30.dataobjects.CustomerDO;
 import com.sms.within30.dataobjects.LocationDO;
 import com.sms.within30.dataobjects.ServicesDO;
+import com.sms.within30.dataobjects.UserDO;
 import com.sms.within30.lib.GPSTracker;
-import com.sms.within30.lib.SlidingUpPanelLayout;
 import com.sms.within30.session.SessionManager;
 import com.sms.within30.sidemenu.interfaces.Resourceble;
 import com.sms.within30.sidemenu.interfaces.ScreenShotable;
+import com.sms.within30.utilities.AppConstants;
 import com.sms.within30.utilities.NetworkUtility;
+import com.sms.within30.utilities.W30Database;
 import com.sms.within30.webservices.Response;
-import com.sms.within30.webservices.ServiceURLs;
 import com.sms.within30.webservices.businesslayer.CommonBL;
 import com.sms.within30.webservices.businesslayer.DataListener;
 import com.sms.within30.wheel.MaterialColor;
 import com.sms.within30.wheel.TextDrawable;
 import com.sms.within30.wheel.WheelArrayAdapter;
 import com.sms.within30.wheel.WheelView;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,24 +100,20 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
     GPSTracker gpsTracker = null;
    // private int count = 0;
     CommonBL commonBL = null;
-
+    int ratingId = 0;
+    W30Database w30Database;
     public void initialize() {
        // moveToNextScreen();
         homeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_landing, null);
        // llParlours.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.MATCH_PARENT));
         llBody.addView(homeLayout);
         commonBL = new CommonBL(LandingActivity.this,LandingActivity.this);
-        ActionBar actionBar = getSupportActionBar();
+        w30Database = new W30Database(LandingActivity.this);
         getSupportActionBar().hide();
 
         intilizeControls();
         getGPSTrackerInfo();
-       /* mSlidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.slidingLayout);
-        mSlidingUpPanelLayout.setEnableDragViewTouchEvents(false);
-       // mSlidingUpPanelLayout.collapsePane();
-        mSlidingUpPanelLayout.showPane();*/
-       // mSlidingUpPanelLayout.
-
+        getUnRatedCustomer();
     }
 
     private void getGPSTrackerInfo() {
@@ -139,16 +130,139 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                     gpsTracker = new GPSTracker(LandingActivity.this);
                 }
             }
-
         } catch (Exception e) {
             Log.d("location exception","exception occured ...........");
             e.printStackTrace();
-
         }
         getLatLng();
         callServices();
+    }
+    private void getUnRatedCustomer(){
 
+        List<CustomerDO> unratedCustomerList = w30Database.getUnRatedCustomer();
+        if (unratedCustomerList.size()>0) {
+            for(CustomerDO customerDO:unratedCustomerList){
+                showCustomDialog(LandingActivity.this,customerDO);
+            }
+        }
+    }
 
+    private void  showCustomDialog(Context context, final CustomerDO customerDO){
+        // custom dialog
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_rating_dialog);
+        // dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+//Grab the window of the dialog, and change the width
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+//This makes the dialog take up the full width
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        window.setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        ImageView img_close = (ImageView) dialog.findViewById(R.id.img_close);
+        final SeekBar seek_rating = (SeekBar)dialog.findViewById(R.id.seek_rating);
+        final Button bt_submit = (Button)dialog.findViewById(R.id.bt_submit);
+        TextView tvComapanyName = (TextView) dialog.findViewById(R.id.tvComapanyName);
+        final TextView tv_floating_rating = (TextView) dialog.findViewById(R.id.tv_floating_rating);
+        final Button bt_later = (Button)dialog.findViewById(R.id.bt_later);
+        //Would you like to rate your experience at Matrix Dental Services on 05/10/2016
+        tvComapanyName.setText("Would you like to rate your experience at"+" "+customerDO.getCompanyName()+" "+"on"+" "+
+        customerDO.getSlotBookedDate());
+        bt_submit.setTag(customerDO.get_id());
+        bt_later.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NetworkUtility.isNetworkConnectionAvailable(LandingActivity.this)) {
+                    dialog.dismiss();
+                    if (pd == null) {
+                        pd =  new ProgressDialog(LandingActivity.this);
+                        pd.setProgressStyle(android.R.attr.progressBarStyleSmall);
+                        pd.setMessage("Loading...");
+                        pd.show();
+                    }
+                    //  count++;
+                    String customerId =(String) bt_submit.getTag();
+                    UserDO userDO = new SessionManager(LandingActivity.this).getUserInfo();
+                    ratingId = customerDO.getRatingId();
+                    if(!commonBL.submitRating(seek_rating.getProgress()+1,customerId,userDO.getEmail(),userDO.getMobile()))
+                    {
+                        showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+                        if (pd != null)
+                            if (pd.isShowing()) {
+                                pd.dismiss();
+                                pd = null;
+                            }
+                    }
+                }else{
+                    showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+                }
+            }
+        });
+        final int stepSize = 1;
+        // = 1;
+        seek_rating.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tv_floating_rating.setVisibility(View.VISIBLE);
+               // final Animation animationFadeIn = AnimationUtils.loadAnimation(LandingActivity.this, R.anim.fade_in_rating);
+               // tv_floating_rating.startAnimation(animationFadeIn);
+
+                progress = ((int)Math.round(progress/stepSize ))*stepSize;
+
+               // seekBar.setProgress(progress);
+                Log.d("rating", progress + "----");
+
+                if (progress ==0 ){
+                    tv_floating_rating.setText("1");
+                }else if( progress ==1){
+                    tv_floating_rating.setText("2");
+                }else if ( progress <=2) {
+                    tv_floating_rating.setText("3");
+                }else if ( progress ==3){
+                    tv_floating_rating.setText("4");
+                }else if ( progress==4){
+                    tv_floating_rating.setText("5");
+                }
+                int max= seek_rating.getMax();
+                int offset = seek_rating.getThumbOffset();
+                float percent = ((float)progress)/(float)max;
+                int width = seek_rating.getWidth() - 2*offset;
+
+                int answer =((int)(width*percent +offset - tv_floating_rating.getWidth()/2));
+                tv_floating_rating.setX(answer);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+               // tv_floating_rating.setText(seek_rating.getProgress() + "/" + seekBar.getMax());
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tv_floating_rating.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        // if button is clicked, close the custom dialog
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
     private void callServices(){
         if (NetworkUtility.isNetworkConnectionAvailable(LandingActivity.this)) {
@@ -661,6 +775,20 @@ public class LandingActivity extends BaseActivity implements View.OnClickListene
                             }
                     }catch(Exception e){
                         e.printStackTrace();
+                    }
+                    break;
+                case WS_SUBMITRATING:
+                    if(data.data!=null && data.data instanceof String)
+                    {
+                        String  status = (String)data.data;
+                       if (status.equalsIgnoreCase(AppConstants.SUCCESS)){
+                           showToast("Üpdated successfully");
+                           w30Database.removeRatedCustomer(ratingId);
+                       }else{
+                           showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
+                       }
+                    }else{
+                        showToast(getResources().getString(R.string.Unable_to_connect_server_please_try_again));
                     }
                     break;
                 default:

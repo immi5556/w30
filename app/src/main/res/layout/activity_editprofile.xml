@@ -51,17 +51,16 @@
               android:textSize="@dimen/text_size_large"
               android:lines="1"
               android:hint="@string/first_name"
-
-
               android:paddingLeft="25dp"
               android:drawablePadding="5dp"
               android:paddingRight="15dp"
               android:inputType="textCapSentences|textPersonName"
               android:imeOptions="actionNext"
-
               android:drawableRight="@mipmap/cross_input"
               android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal" />
+              android:layout_gravity="center_horizontal"
+              android:focusable="true"
+              android:focusableInTouchMode="true"/>
           <com.sms.within30.lib.CleanableEditText
               android:id="@+id/et_lastname"
               android:layout_width="wrap_content"
@@ -80,7 +79,9 @@
               android:imeOptions="actionNext"
               android:drawableRight="@mipmap/cross_input"
               android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal" />
+              android:layout_gravity="center_horizontal"
+              android:focusable="true"
+              android:focusableInTouchMode="true"/>
           <TextView
               android:id="@+id/et_email"
               android:layout_width="wrap_content"
@@ -120,7 +121,8 @@
               android:layout_gravity="center_horizontal"
               android:lines="1"
               android:maxLength="13"
-              android:focusable="false"/>
+              android:focusable="true"
+              android:focusableInTouchMode="true"/>
           <Switch
               android:id="@+id/switch_notifications"
               android:layout_width="wrap_content"

@@ -44,8 +44,11 @@
     <string name="done">DONE</string>
     <string name="book">Schedule</string>
     <string name="filter_options">Filter Options</string>
+    <string name="rating_txt">Rating</string>
     <string name="apply">Apply</string>
+    <string name="submit">Submit</string>
     <string name="reset">Reset</string>
+    <string name="later">May be Later</string>
     <string name="Unable_to_connect_server_please_try_again">There seems to be some data connectivity issue with your network. Please check connection and try again.</string>
     <string name="server_error_please_try_again">There seems to be some data connectivity issue with your network.</string>
 

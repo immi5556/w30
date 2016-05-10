@@ -46,6 +46,7 @@ public class FilterDistance implements View.OnTouchListener {
                     }
                 } else {
                     // Means Vertical Movement.
+                    sbfilter_distance.setSecondaryProgress(sbfilter_time.getProgress());
                     if (newY - startY > 0) {
                         // Moving Down
                         System.out.println("moving down.............");

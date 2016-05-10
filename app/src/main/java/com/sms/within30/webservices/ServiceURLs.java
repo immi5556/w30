@@ -21,6 +21,7 @@ public class ServiceURLs
 	public static String GETeNDUSER 			= "/api/getenduser";
 	public static String SAVEENDUSER 			= "/api/saveenduser";
 	public static String UPDATEENDUSER 			= "/api/updateenduser";
+	public static String SUBMITRATING 			= "/api/submitrating";
 
 
 
@@ -39,6 +40,7 @@ public class ServiceURLs
 			case WS_GETENDUSER:
 			case WS_SAVEENDYUSER:
 			case WS_UPDATEENDUSER:
+			case WS_SUBMITRATING:
 			method = "POST";
 				break;
 		default:

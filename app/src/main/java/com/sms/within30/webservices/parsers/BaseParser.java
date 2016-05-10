@@ -45,6 +45,7 @@ public abstract class BaseParser extends DefaultHandler
 			case WS_GETENDUSER:
 			case WS_SAVEENDYUSER:
 			case WS_UPDATEENDUSER:
+			case WS_SUBMITRATING:
 			return new CommonParser(context);
 		
 		}
