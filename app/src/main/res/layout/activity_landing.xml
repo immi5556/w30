@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -31,24 +32,25 @@
                 android:visibility="visible"
                 android:layout_weight="1"
                 android:layout_margin="10dp">
-                <TextView
+                <within30.com.lib.TypeFaceTextView
                     android:id="@+id/tvlocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="vijayawada"
+                    android:text="Change Location here"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:textColor="@color/gray_light"
                     android:gravity="center_horizontal|center"
-                    android:background="@mipmap/search_box"
+                    android:background="@mipmap/bg_change_location"
                     android:drawableRight="@mipmap/editcat"
                     android:drawablePadding="10dp"
                     android:visibility="visible"
                     android:paddingRight="10dp"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_size_large"/>
-                <com.sms.within30.lib.ClearableAutoCompleteTextView
+                    android:textSize="@dimen/text_size_large"
+                    app:customTypeface="fonts/DroidSerif.ttf"/>
+                <AutoCompleteTextView
                     android:visibility="gone"
                     android:id="@+id/etChangeLocation"
                     android:layout_width="match_parent"
@@ -59,16 +61,19 @@
                     android:drawablePadding="10dp"
                     android:textSize="@dimen/text_size_large"
                     android:imeOptions="actionDone"
-                    android:hint="@string/im_looking_for"
+                    android:hint="@string/current_location"
                     android:paddingRight="10dp"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
                     android:paddingLeft="5dp"
-                    android:background="@mipmap/search_box"
+                    android:background="@mipmap/bg_change_location"
                     android:gravity="center|center_horizontal"
                     android:layout_gravity="center_horizontal"
+                    android:drawableRight="@mipmap/cross_input"
+                    android:focusable="true"
+                    android:cursorVisible="true"
 
-                    />
+                    android:inputType="textCapWords|textAutoComplete" />
 
             </RelativeLayout>
             <TextView
@@ -90,11 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:src="@mipmap/logo"
-
-            android:layout_marginTop="20dp"
-            />
+            android:layout_marginTop="20dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -127,14 +129,13 @@
                 android:text="@string/register"
                 android:textSize="@dimen/size15"
                 android:textColor="@color/black"
-                android:gravity="center_horizontal" />
+                android:gravity="center_horizontal"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:layout_height="225dp"
             android:layout_marginBottom="10dp"
-
             android:orientation="vertical">
             <include
                 android:layout_width="match_parent"
@@ -155,7 +156,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/arrow"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
             <ImageView
                 android:id="@+id/btmenu"
                 android:layout_width="wrap_content"
@@ -167,7 +170,7 @@
 
         </LinearLayout>
 
-        <com.sms.within30.lib.ClearableAutoCompleteTextView
+        <within30.com.lib.ClearableAutoCompleteTextView
             android:id="@+id/autoCompleted_categorysearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -175,14 +178,16 @@
             android:background="@mipmap/search_box"
             android:layout_marginTop="50dp"
             android:ems="2"
-            android:textSize="@dimen/text_size_large"
+            android:textSize="15sp"
             android:imeOptions="actionDone"
-            android:hint="@string/im_looking_for"
+            android:hint="@string/search_for_business"
             android:padding="5dp"
-            android:maxLength="10"
-android:paddingRight="10dp"
+            android:maxLength="15"
+            android:drawablePadding="5dp"
+            android:paddingRight="5dp"
             android:gravity="center|center_horizontal"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:inputType="textCapWords|textAutoComplete" />
     </LinearLayout>
 </ScrollView>
 </RelativeLayout>

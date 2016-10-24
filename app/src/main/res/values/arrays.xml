@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="place_type">
+   <!-- <string-array name="place_type">
         <item>airport</item>
         <item>atm</item>
         <item>bank</item>
@@ -27,5 +27,5 @@
         <item>Movie Theater</item>
         <item>Hindu Temple</item>
         <item>Restaurant</item>
-    </string-array>
+    </string-array>-->
 </resources>

@@ -3,29 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
     android:background="@color/white">
 
-    <com.sms.within30.wheel.WheelView
+    <within30.com.wheel.WheelView
         android:id="@+id/wheelview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:wheelColor="#ffffff"
         app:rotatableWheelDrawable="false"
-        app:selectionAngle="235"
+        app:selectionAngle="210"
         app:repeatItems="true"
         app:wheelRadius="150dp"
-        app:wheelItemCount="5"
+        app:wheelItemCount="6"
         app:wheelItemRadius="35dp"
         app:wheelPosition="bottom"
-
-
         app:wheelItemAngle="78"
         android:layout_gravity="center_horizontal"
         android:background="@android:color/transparent"/>
-
-
-
-
 </LinearLayout>

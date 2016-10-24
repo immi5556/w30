@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-   <!-- <item android:state_enabled="false" android:mipmap="@mipamp/switch_on" />
-    <item android:state_pressed="true"  android:mipmap="@mipamp/switch_on" />
-    <item android:state_checked="true"  android:mipmap="@mipamp/switch_on" />
-    <item                               android:mipmap="@mipamp/switch_on" />
-    <item android:state_checkable="false" android:mipmap="@mipamp/switch_off"/>-->
+    <item
+        android:drawable="@mipmap/switch_on"
+        android:state_checked="true"/>
+
+    <item
+        android:drawable="@mipmap/switch_off"
+        android:state_checked="false"/>
 </selector>

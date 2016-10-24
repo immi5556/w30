@@ -6,33 +6,51 @@ android {
 
 
     defaultConfig {
-        applicationId "com.sms.within30"
+        applicationId "within30.com"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled  true
+        //generatedDensities = []
+
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig getSigningConfig()
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                   // def date = new Date();
+                    // def formattedDate = date.format('yyyyMMddHHmmss')
+                    output.outputFile = new File(output.outputFile.parent,
+                            output.outputFile.name.replace("app-debug", "Within30"));
+
+                }
+            }
         }
+
+
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:+'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
+    compile 'com.android.support:appcompat-v7:23.0.1'
     // Google maps
-    compile 'com.google.android.gms:play-services:8.4.0'
-
+       compile 'com.google.android.gms:play-services:8.4.0'
     //JSON parsing
     compile 'com.google.code.gson:gson:1.7.2'
     //Phone number format
     compile 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
-//sliding panel
-   // compile 'com.sothree.slidinguppanel:library:3.3.0'
-
+    //google analytics
+    compile 'com.google.android.gms:play-services-analytics:7.3.0'
+    //For Google Client location API
+    //  compile 'com.google.android.gms:play-services:9.6.1'
+    //compile 'com.google.android.gms:play-services:9.6.1'
 }
+

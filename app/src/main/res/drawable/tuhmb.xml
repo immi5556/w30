@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item >
+    <!--<item >
         <rotate
             android:fromDegrees="270"
             android:toDegrees="-90"
             android:pivotX="50%"
             android:pivotY="50%"
             android:drawable="@mipmap/icon_distance"/>
-    </item>
+    </item>-->
 
-
+    <item android:drawable="@mipmap/thumb_rating_released" android:state_focused ="true"/>
+    <item android:drawable="@mipmap/thumb_rating_ontouch" android:state_pressed="true"/>
+    <item android:drawable="@mipmap/thumb_rating_released"></item>
 
 </selector>

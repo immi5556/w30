@@ -6,18 +6,19 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:orientation="vertical"
-    android:padding="10dp"
     android:background="@color/backgroung_actionbar"
     android:gravity="center_vertical|center|center_horizontal">
-
+<View
+    android:id="@+id/viewdevider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray_light"/>
     <ImageView
         android:id="@+id/menu_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/abc_btn_switch_to_on_mtrl_00012"
-        android:layout_margin="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:layout_margin="22dp"
         android:layout_gravity="center_horizontal"
         android:foregroundGravity="center_vertical|center_horizontal" />
     <TextView
@@ -29,7 +30,5 @@
         android:layout_margin="5dp"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:gravity="center_vertical|center|center_horizontal" />
-
-
+        android:gravity="center_vertical|center|center_horizontal"/>
 </LinearLayout>

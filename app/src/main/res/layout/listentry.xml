@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F5F5F5"
     android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,29 +16,31 @@
 <!--             android:layout_width="wrap_content" -->
 <!--             android:layout_height="wrap_content" -->
 <!--             android:src="@drawable/search_beautycare" /> -->
-        <TextView
+        <within30.com.lib.TypeFaceTextView
             android:id="@+id/tvItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:padding="5dp"
             android:layout_marginLeft="5dp"
-            android:text="Tony &amp; Gay"
+
             android:textColor="#484848"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:customTypeface="fonts/DroidSerif.ttf"/>
     </LinearLayout>
 
-    <TextView
+    <within30.com.lib.TypeFaceTextView
         android:id="@+id/tvItemLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:gravity="right"
-        android:text="Madhapur"
+
         android:layout_marginBottom="5dp"
         android:textColor="@color/gray_light"
         android:textSize="12sp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:customTypeface="fonts/DroidSerif.ttf"/>
 
     <ImageView
         android:layout_width="match_parent"

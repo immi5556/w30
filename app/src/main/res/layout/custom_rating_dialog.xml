@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@android:color/transparent"
     android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-   >
+    android:layout_marginRight="2dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/llmain"
         android:layout_width="match_parent"
@@ -24,45 +23,52 @@
         android:paddingTop="5dp"
         android:background="@drawable/rounded_bg_filter">
 
-            <TextView
+            <within30.com.lib.TypeFaceTextView
                 android:id="@+id/tvComapanyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rating_txt"
+                android:text=""
                 android:layout_alignParentTop="true"
                 android:layout_margin="20dp"
                 android:textColor="#333333"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:layout_gravity="center_horizontal|center"
                 android:gravity="center_horizontal|center"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                app:customTypeface="fonts/DroidSerif_Bold.ttf"
+                />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/tv_floating_rating"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentTop="true"
-                android:layout_margin="10dp"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                android:layout_gravity="center_horizontal|center"
-                android:gravity="center_horizontal|center"
-                android:layout_centerHorizontal="true"/>
-            <SeekBar
-                android:id="@+id/seek_rating"
-                android:layout_width="fill_parent"
+                android:layout_marginLeft="2dp"
+
+               />
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:progressDrawable="@drawable/seekbar_rating_backgroung"
-                android:thumb="@mipmap/icon_distance"
-                android:max="4"
-                android:progress="3"
-                />
+                android:background="@mipmap/bg_rating_seekbar"
+                android:layout_marginTop="10dp">
+                <SeekBar
+                    android:id="@+id/seek_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:progressDrawable="@android:color/transparent"
+                    android:thumb="@drawable/tuhmb"
+                    android:alpha="0"
+                    android:max="4"/>
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +77,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:weightSum="5">
-                <TextView
+                <within30.com.lib.TypeFaceTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -79,38 +85,46 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_gravity="left"
-                    android:gravity="left|center|center_horizontal"/>
-                <TextView
+                    android:layout_marginRight="1dp"
+                    android:gravity="left|center|center_horizontal"
+                    app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+                <within30.com.lib.TypeFaceTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="2"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginLeft="0dp"
                     android:layout_gravity="center_horizontal|center"
-                    android:gravity="center|center_horizontal"/>
-                <TextView
+                    android:gravity="center|center_horizontal"
+                    app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+                <within30.com.lib.TypeFaceTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="3"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="7dp"
                     android:layout_gravity="center_horizontal|center"
-                    android:gravity="center|center_horizontal"/>
-                <TextView
+                    android:gravity="center|center_horizontal"
+                    app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+                <within30.com.lib.TypeFaceTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="4"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginLeft="9dp"
                     android:layout_gravity="center_horizontal|center"
-                    android:gravity="right|center|center_horizontal"/>
-                <TextView
+                    android:gravity="center|center_horizontal"
+                    app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+                <within30.com.lib.TypeFaceTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -118,45 +132,45 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_gravity="center_horizontal|center"
-                    android:gravity="right|center|center_horizontal"/>
+                    android:gravity="right|center|center_horizontal"
+                    app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
                 </LinearLayout>
             </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:weightSum="2">
-            <Button
+            <within30.com.lib.TypeFaceButton
                 android:id="@+id/bt_submit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/submit"
+                android:text="Rate Now"
                 android:textAllCaps="false"
+                android:textSize="16sp"
                 android:textColor="@color/white"
-                android:background="@drawable/customised_apply_button"
-                android:layout_weight="1"/>
-            <Button
+                android:background="@drawable/customised_ratenow_button"
+                android:layout_weight="1"
+                android:padding="10dp"
+                app:customTypeface="fonts/DroidSerif_Bold.ttf"
+                android:gravity="center" />
+            <within30.com.lib.TypeFaceButton
                 android:id="@+id/bt_later"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/later"
+                android:textSize="16sp"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:background="@drawable/customised_reset_button"
-                />
+                android:padding="10dp"
+                android:textColor="@color/gray_light"
+                android:background="@drawable/customised_may_be_later_button"
+                app:customTypeface="fonts/DroidSerif_Bold.ttf"
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
-    <ImageView
-        android:id="@+id/img_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/popup_close_button"
-        android:layout_gravity="right"
-        android:layout_marginTop="-10dp"
-        android:layout_alignTop="@+id/llmain"
-        android:layout_alignParentRight="true" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- my firt item with 4 corners radius(8dp)
+     -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid
+
+                android:color="@color/rating_later" />
+
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+    <!--  To keep the top-left corner UNROUNDED set both OPPOSITE offsets (bottom+right):-->
+    <item
+        android:bottom="10dp"
+        android:right="10dp">
+        <shape>
+            <solid android:color="@color/rating_later" />
+        </shape>
+    </item>
+    <!--  To keep the top-right corner UNROUNDED set both OPPOSITE offsets (bottom+left):-->
+    <item
+        android:bottom="10dp"
+        android:left="10dp">
+        <shape>
+            <solid android:color="@color/rating_later" />
+        </shape>
+    </item>
+    <!--  To keep the bottom-left corner UNROUNDED set both OPPOSITE offsets (top+right):-->
+    <item
+        android:top="10dp"
+        android:right="10dp">
+        <shape>
+            <solid android:color="@color/rating_later" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,47 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
+    android:layout_alignParentBottom="true"
      >
-
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-
+            android:layout_alignParentBottom="true"
             android:background="@android:color/transparent">
-
-<!--<FrameLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/slide_details_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/icon_slideup"
-        android:layout_gravity="right"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true"
-
-        android:visibility="visible"/>
-</FrameLayout>
-              -->
-
-
             <RelativeLayout
                 android:id="@+id/rlmain"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="-20dp"
-
                 android:background="@android:color/transparent">
                 <LinearLayout
                     android:id="@+id/llmain"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="40dp"
                     android:background="@android:color/white">
@@ -50,43 +35,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:layout_alignParentBottom="true">
-                        <TextView
+                        <within30.com.lib.TypeFaceTextView
                             android:id="@+id/tvComapanyName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Lakshmi Dental Services"
                             android:layout_alignParentTop="true"
-                            android:layout_margin="5dp"
-                            android:textColor="@android:color/black"
+
+                            android:textColor="@color/w30_blue"
                             android:textSize="@dimen/text_size_20"
                             android:inputType="textCapSentences"
-                            android:layout_gravity="center_horizontal|center"
-                            android:gravity="center_horizontal|center"
-                            android:layout_centerHorizontal="true" />
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:gravity="center_horizontal|center_vertical|left"
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_below="@+id/tvComapanyName"
                             android:layout_centerHorizontal="true">
 
 
-
                             <RatingBar
                                 android:id="@+id/ratingbar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-
                                 style="?android:attr/ratingBarStyleSmall"
-                                android:stepSize="1.0"
+                                android:stepSize="0.5"
                                 android:numStars="5"
                                 android:clickable="false"
+                                android:layout_marginLeft="50dp"
                                 android:progressTint="@color/rating_bar_star_filled"
-                                android:progressBackgroundTint="@color/rating_bar_star_filled"
-                                android:secondaryProgressTint="@color/rating_bar_star_filled"
+                                android:progressBackgroundTint="@color/gray_light"
+                                android:secondaryProgressTint="@color/gray_light"
                                 />
                             <TextView
                                 android:id="@+id/tvcount"
@@ -96,42 +82,43 @@
                                 android:layout_toRightOf="@+id/ratingbar"
                                 android:color="@color/black"
                                 android:textSize="12sp"
-
-                                android:layout_below="@+id/tvComapanyName"
                                 android:layout_toEndOf="@+id/ratingbar" />
 
-                            <TextView
+                            <within30.com.lib.TypeFaceTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 Miles"
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/size12"
-                                android:layout_gravity="center"
-                                android:layout_toRightOf="@+id/tvcount"
-                                android:id="@+id/tvmiles"
-                                android:paddingLeft="5dp"
-                                android:layout_alignTop="@+id/tvcount"
+                                android:layout_gravity="center|right"
 
+                                android:id="@+id/tvmiles"
+                                android:paddingLeft="0dp"
+                                android:layout_marginRight="70dp"
+                                android:layout_alignTop="@+id/tvcount"
+android:layout_alignParentRight="true"
+                                app:customTypeface="fonts/DroidSerif.ttf"
                                 android:gravity="right" />
-                        </LinearLayout>
+                        </RelativeLayout>
                     </RelativeLayout>
 
 
-                    <TextView
+                    <within30.com.lib.TypeFaceTextView
                         android:id="@+id/tvtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="Estimated time: 0 min"
-                        android:textColor="@color/estimated_time"
+                        android:textColor="@color/w30_red"
                         android:textSize="16sp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        app:customTypeface="fonts/DroidSerif.ttf"/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_margin="10dp"
-                        android:background="#333333">
+                        android:background="#cecece">
 
                     </View>
                     <LinearLayout
@@ -144,23 +131,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3">
-                            <TextView
+                            android:weightSum="2">
+                            <within30.com.lib.TypeFaceTextView
                                 android:id="@+id/tvcall"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:text="Call"
                                 android:layout_margin="5dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/text_size_20"
+                                android:textSize="18sp"
                                 android:drawablePadding="5dp"
                                 android:drawableTop="@mipmap/icon_phone2"
                                 android:inputType="textCapSentences"
                                 android:layout_gravity="center_horizontal|center"
                                 android:layout_weight="1"
                                 android:layout_centerHorizontal="true"
-                                android:gravity="center_vertical|center_horizontal" />
-                            <TextView
+                                android:gravity="center_vertical|center_horizontal"
+                                app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+                            <within30.com.lib.TypeFaceTextView
                                 android:id="@+id/tvsave"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -168,14 +156,16 @@
                                 android:layout_margin="5dp"
                                 android:drawablePadding="5dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/text_size_20"
+                                android:textSize="18sp"
                                 android:inputType="textCapSentences"
                                 android:layout_gravity="center_horizontal|center"
                                 android:layout_weight="1"
                                 android:drawableTop="@mipmap/icon_star"
                                 android:layout_centerHorizontal="true"
-                                android:gravity="center_vertical|center_horizontal"/>
-                            <TextView
+                                android:gravity="center_vertical|center_horizontal"
+                                app:customTypeface="fonts/DroidSerif_Bold.ttf"
+                                android:visibility="gone"/>
+                            <within30.com.lib.TypeFaceTextView
                                 android:id="@+id/tvwebsite"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -183,13 +173,14 @@
                                 android:layout_margin="5dp"
                                 android:drawableTop="@mipmap/icon_web"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/text_size_20"
+                                android:textSize="18sp"
                                 android:drawablePadding="5dp"
                                 android:inputType="textCapSentences"
                                 android:layout_gravity="center_horizontal|center"
                                 android:layout_weight="1"
                                 android:layout_centerHorizontal="true"
-                                android:gravity="center_vertical|center_horizontal"/>
+                                android:gravity="center_vertical|center_horizontal"
+                                app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -197,19 +188,20 @@
                             android:orientation="vertical"
                             android:layout_margin="10dp">
 
-                            <TextView
+                            <within30.com.lib.TypeFaceTextView
                                 android:id="@+id/tvaddress1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:drawableLeft="@mipmap/address"
                                 android:layout_margin="5dp"
-                                android:textColor="@android:color/black"
+                                android:textColor="#2d2d2d"
                                 android:textSize="@dimen/size16"
                                 android:lines="1"
                                 android:gravity="left"
-                                android:drawablePadding="5dp"
-                                android:layout_gravity="left" />
+                                android:drawablePadding="10dp"
+                                android:layout_gravity="left"
+                                app:customTypeface="fonts/DroidSerif.ttf"/>
 
                             <!-- <TextView
                                  android:id="@+id/tvaddress2"
@@ -232,7 +224,8 @@
                                 android:textSize="16sp"
                                 android:drawablePadding="5dp"
                                 android:gravity="left"
-                                android:layout_gravity="left" />
+                                android:layout_gravity="left"
+                                android:visibility="gone"/>
                             <TextView
                                 android:id="@+id/tv_web_show"
                                 android:layout_width="wrap_content"
@@ -244,48 +237,40 @@
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:gravity="left"
-                                android:layout_gravity="left" />
-                            <TextView
+                                android:layout_gravity="left"
+                                android:visibility="gone"/>
+                            <within30.com.lib.TypeFaceTextView
                                 android:id="@+id/tvTimings"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:text=""
-                                android:textColor="@color/black"
+                                android:textColor="#2d2d2d"
                                 android:textSize="16sp"
                                 android:gravity="left"
-                                android:drawablePadding="5dp"
+                                android:drawablePadding="10dp"
                                 android:drawableLeft="@mipmap/icon_time"
-                                android:layout_gravity="left" />
+                                android:layout_gravity="left"
+                                app:customTypeface="fonts/DroidSerif.ttf"/>
                         </LinearLayout>
-                        <TextView
+                        <within30.com.lib.TypeFaceTextView
                             android:id="@+id/bt_book"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/book"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
-                            android:layout_margin="5dp"
+                            android:layout_margin="15dp"
                             android:textSize="@dimen/size16"
                             android:background="@drawable/customised_book_button"
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="center_horizontal"
                             android:padding="10dp"
-                            />
+                            app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
                     </LinearLayout>
 
                 </LinearLayout>
-                <!--<ImageView
-                    android:id="@+id/slide_details_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_slideup"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="-20dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignTop="@+id/llmain"
-                    android:layout_alignParentRight="true"
-                    android:visibility="visible"/>-->
+
             </RelativeLayout>
             <FrameLayout
                 android:id="@+id/frame_slide_details_view"
@@ -307,7 +292,7 @@
 
         </RelativeLayout>
 
-
+</ScrollView>
 
 
 </RelativeLayout>

@@ -107,7 +107,7 @@
         </attr>
     </declare-styleable>
     <!-- floating_action_button -->
-    <declare-styleable name="FloatingActionButton">
+    <!--<declare-styleable name="FloatingActionButton">
         <attr name="fab_colorPressed" format="color" />
         <attr name="fab_colorDisabled" format="color" />
         <attr name="fab_colorNormal" format="color" />
@@ -118,11 +118,11 @@
         </attr>
         <attr name="fab_title" format="string" />
         <attr name="fab_stroke_visible" format="boolean" />
-    </declare-styleable>
-    <declare-styleable name="AddFloatingActionButton">
+    </declare-styleable>-->
+    <!--<declare-styleable name="AddFloatingActionButton">
         <attr name="fab_plusIconColor" format="color" />
-    </declare-styleable>
-    <declare-styleable name="FloatingActionsMenu">
+    </declare-styleable>-->
+   <!-- <declare-styleable name="FloatingActionsMenu">
         <attr name="fab_addButtonColorPressed" format="color" />
         <attr name="fab_addButtonColorNormal" format="color" />
         <attr name="fab_addButtonSize" format="enum">
@@ -142,10 +142,10 @@
             <enum name="left" value="2" />
             <enum name="right" value="3" />
         </attr>
-    </declare-styleable>
+    </declare-styleable>-->
     
-    <attr name="arc_origin">
-    <!-- Value same as the android:gravity -->
+   <!-- <attr name="arc_origin">
+    &lt;!&ndash; Value same as the android:gravity &ndash;&gt;
     <flag name="top" value="0x30"/>
     <flag name="bottom" value="0x50"/>
     <flag name="left" value="0x03"/>
@@ -155,9 +155,9 @@
     <flag name="center" value="0x11"/>
     <flag name="start" value="0x00800003"/>
     <flag name="end" value="0x00800005"/>
-  </attr>
+  </attr>-->
 
-  <declare-styleable name="arc_ArcLayout">
+  <!--<declare-styleable name="arc_ArcLayout">
     <attr name="arc_origin"/>
     <attr name="arc_color" format="color"/>
     <attr name="arc_radius" format="dimension"/>
@@ -169,7 +169,7 @@
   <declare-styleable name="arc_ArcLayout_Layout">
     <attr name="arc_origin"/>
     <attr name="arc_angle" format="float"/>
-  </declare-styleable>
+  </declare-styleable>-->
     <declare-styleable name="FloatLabeledEditText">
         <attr name="fletTextAppearance" format="reference" />
         <attr name="fletPadding" format="reference|dimension" />
@@ -214,12 +214,7 @@
         </attr>
         <attr name="wheelPadding" format="dimension"/>
     </declare-styleable>
-    <declare-styleable name="CircleImageView">
-        <attr name="civ_border_width" format="dimension" />
-        <attr name="civ_border_color" format="color" />
-        <attr name="civ_border_overlay" format="boolean" />
-        <attr name="civ_fill_color" format="color" />
-    </declare-styleable>
+
 
     <!--Maps sliding panel -->
     <declare-styleable name="SlidingUpPanelLayout">
@@ -231,6 +226,12 @@
         <attr name="dragView" format="reference" />
         <attr name="overlay" format="boolean"/>
     </declare-styleable>
-
+<!-- text view type face -->
+    <declare-styleable name="TypeFaceTextView">
+        <attr name="customTypeface" format="string" />
+    </declare-styleable>
+    <declare-styleable name="TypeFaceButton">
+        <attr name="customTypefaceButton" format="string" />
+    </declare-styleable>
 
 </resources>

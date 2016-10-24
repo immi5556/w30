@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,41 +12,45 @@
           android:layout_height="match_parent"
           android:orientation="vertical"
           android:background="@color/white"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp">
+          android:layout_marginLeft="15dp"
+          android:layout_marginRight="15dp"
+          android:layout_marginTop="20dp"
+          android:layout_marginBottom="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             android:background="@color/use_gps">
-              <TextView
+              <within30.com.lib.TypeFaceTextView
                  android:id="@+id/tv_currentLocation"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Current Location"
-                  android:textSize="@dimen/size20"
-                  android:textColor="@color/black"
+                  android:textSize="20sp"
+                  android:textColor="#868585"
                   android:gravity="left"
                   android:layout_gravity="left"
-                  android:layout_margin="10dp"/>
+                  android:layout_margin="10dp"
+                  app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
               <View
                   android:layout_width="match_parent"
                   android:layout_height="1dp"
-                  android:background="#ebe8e8"
-                  android:layout_margin="10dp"
-                  />
-              <TextView
-                    android:id="@+id/tvusegps"
+                  android:background="#ffffff"
+                  android:layout_margin="0dp"/>
+              <within30.com.lib.TypeFaceTextView
+                  android:id="@+id/tvusegps"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Use GPS"
-                  android:textSize="@dimen/size20"
-                  android:textColor="@color/black"
+                  android:textSize="22sp"
+                  android:textColor="@color/w30_blue"
                   android:gravity="center|center_horizontal"
                   android:layout_gravity="left"
                   android:drawablePadding="10dp"
                   android:drawableLeft="@mipmap/icon_usegps"
-                  android:layout_margin="5dp"/>
+                  android:layout_margin="15dp"
+                  app:customTypeface="fonts/DroidSerif.ttf"/>
           </LinearLayout>
 
           <LinearLayout
@@ -56,27 +59,44 @@
               android:orientation="vertical"
               android:background="@color/use_gps"
               android:layout_marginTop="20dp">
-              <TextView
-
+              <within30.com.lib.TypeFaceTextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Recent Searches "
-                  android:textSize="@dimen/size20"
-                  android:textColor="@color/black"
+                  android:textSize="20sp"
+                  android:textColor="#868585"
                   android:gravity="left"
                   android:layout_gravity="left"
-                  android:layout_margin="10dp"/>
+                  android:layout_margin="10dp"
+                  app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
               <View
                   android:layout_width="match_parent"
                   android:layout_height="1dp"
-                  android:background="#ebe8e8"
-                  android:layout_margin="10dp"
+                  android:background="#ffffff"
+                  android:layout_margin="0dp"
                   />
               <ListView
                   android:id="@+id/lv_locationhistory"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content" />
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  android:visibility="gone"
+                  android:listSelector="@color/use_gps"/>
+              <within30.com.lib.TypeFaceTextView
+                  android:id="@+id/tv_norecentsearches"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="No recent searches"
+                  android:textSize="12sp"
+                  android:textColor="#868585"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:background="@color/use_gps"
+                  android:layout_margin="10dp"
+                  app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
           </LinearLayout>
+
+
       </LinearLayout>
 
 

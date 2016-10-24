@@ -3,18 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutDrawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <com.sms.within30.sidemenu.animation.RevealFrameLayout
-
-    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <within30.com.sidemenu.animation.RevealFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-           <!-- <com.sms.within30.lib.SlidingUpPanelLayout
+           <!-- <within30.com.lib.SlidingUpPanelLayout
                 android:id="@+id/slidingLayout"
                 android:gravity="bottom"
                 app:shadowHeight="0dp"
@@ -28,17 +27,16 @@
                         android:background="@color/backgroung_actionbar"
                         android:minHeight="@dimen/abc_action_bar_default_height_material"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
-
-
-                        <TextView
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                        <within30.com.lib.TypeFaceTextView
                             android:id="@+id/tvTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            app:customTypeface="fonts/DroidSerif.ttf"/>
                     </android.support.v7.widget.Toolbar>
 
                     <LinearLayout
@@ -56,11 +54,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/navigation_bar_height"
                     android:visibility="gone" />
-           <!-- </com.sms.within30.lib.SlidingUpPanelLayout>-->
+           <!-- </within30.com.lib.SlidingUpPanelLayout>-->
         </LinearLayout>
 
 
-    </com.sms.within30.sidemenu.animation.RevealFrameLayout>
+    </within30.com.sidemenu.animation.RevealFrameLayout>
 
     <ScrollView
         android:id="@+id/scrollView"

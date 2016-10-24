@@ -5,6 +5,7 @@
     <color name="circle_map">#646464</color>
     <color name="map_circle_fill">#f3f1ee</color>
     <color name="reset">#d9d6d6</color>
+    <color name="rating_later">#e9e9ea</color>
     <color name="rating_bar_star_filled">#faca51</color>
     <color name="backgroung_map_marker">#79cdd2</color>
     <color name="backgroung_map_markaer_click">#384260</color>
@@ -14,6 +15,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#1b2a30</color>
     <color name="gray_light">#808080</color>
+    <color name="noservice_grey">#8c8b8b</color>
     <color name="use_gps">#f8f7f7</color>
     <color name="grey_light">#EBEBEB</color>
     <color name="brown_dark">#595959</color>
@@ -69,4 +71,5 @@
   <color name="path_purple">#49098A</color>
     <color name="im_looking_for">#e19345</color>
 <color name="estimated_time">#f49878</color>
+    <color name="serach_action_bar">#6a728c</color>
 </resources>

@@ -3,18 +3,35 @@
     <item
         android:id="@android:id/background"
          >
-        <shape>
-            <corners android:radius="10dip" />
-            <gradient
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp"/>
+            <solid android:color="#ebebeb"/>
+           <!-- <gradient
                 android:startColor="#ff9d9e9d"
                 android:centerColor="#ffffff"
-                android:centerY="0.50"
+                android:type="linear"
                 android:endColor="#ff9d9e9d"
-                android:angle="270"
-                />
+                android:angle="180"
+                />-->
+           <!-- <gradient
+                android:startColor="#ffffff"
+                android:centerColor="#ffffff"
+                android:centerY="0.50"
+                android:endColor="#ffffff"
+                android:angle="90"
+                />-->
         </shape>
         </item>
-
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="1dp"
+        android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
     <item android:id="@android:id/progress">
         <clip android:drawable="@color/red" />
        <!-- <scale android:scaleWidth="100%"

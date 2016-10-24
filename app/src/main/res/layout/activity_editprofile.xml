@@ -14,9 +14,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:orientation="vertical">
-<!-- <com.sms.within30.lib.CircleImageView
- app:civ_border_width="1dp"
-              app:civ_border_color="@color/red"-->
+
 
           <RelativeLayout
               android:layout_width="wrap_content"
@@ -27,7 +25,7 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:src="@mipmap/default_profilepic"
-              android:layout_marginTop="30dp"
+              android:layout_marginTop="15dp"
               android:id="@+id/img_profile"/>
           <TextView
               android:layout_width="wrap_content"
@@ -39,116 +37,178 @@
               android:layout_margin="5dp"/>
           </RelativeLayout>
           <!---->
-          <com.sms.within30.lib.CleanableEditText
-              android:id="@+id/et_firstname"
-              android:layout_width="wrap_content"
+          <TableLayout
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:textColorHint="#cecece"
-              android:background="@mipmap/input_editprofile"
-              android:drawableLeft="@mipmap/icon_name"
-              android:layout_marginTop="30dp"
-              android:ems="2"
-              android:textSize="@dimen/text_size_large"
-              android:lines="1"
-              android:hint="@string/first_name"
-              android:paddingLeft="25dp"
-              android:drawablePadding="5dp"
-              android:paddingRight="15dp"
-              android:inputType="textCapSentences|textPersonName"
-              android:imeOptions="actionNext"
-              android:drawableRight="@mipmap/cross_input"
-              android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal"
-              android:focusable="true"
-              android:focusableInTouchMode="true"/>
-          <com.sms.within30.lib.CleanableEditText
-              android:id="@+id/et_lastname"
-              android:layout_width="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginLeft="30dp"
+              android:layout_marginRight="30dp">
+              <TableRow
+                  android:layout_marginTop="12dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+                  <within30.com.lib.CleanableEditText
+                      android:id="@+id/et_firstname"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:textColorHint="#cecece"
+                      android:background="@mipmap/input_editprofile"
+                      android:drawableLeft="@mipmap/icon_name"
+                      android:ems="2"
+                      android:textSize="@dimen/text_size_large"
+                      android:lines="1"
+                      android:hint="@string/first_name"
+                      android:paddingLeft="25dp"
+                      android:drawablePadding="5dp"
+                      android:paddingRight="15dp"
+                      android:inputType="textCapSentences|textCapWords|textPersonName"
+                      android:imeOptions="actionNext"
+                      android:drawableRight="@mipmap/cross_input"
+                      android:gravity="center|center_horizontal"
+                      android:layout_gravity="center_horizontal"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"/>
+              </TableRow>
+              <TableRow
+                  android:layout_marginTop="12dp"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+                  <within30.com.lib.CleanableEditText
+                      android:id="@+id/et_lastname"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:textColorHint="#cecece"
+                      android:background="@mipmap/input_editprofile"
+                      android:drawableLeft="@mipmap/icon_name"
+                      android:lines="1"
+                      android:textSize="@dimen/text_size_large"
+                      android:hint="@string/last_name"
+                      android:paddingLeft="25dp"
+                      android:drawablePadding="5dp"
+                      android:paddingRight="15dp"
+                      android:inputType="textCapSentences|textCapWords|textPersonName"
+                      android:imeOptions="actionNext"
+                      android:drawableRight="@mipmap/cross_input"
+                      android:gravity="center|center_horizontal"
+                      android:layout_gravity="center_horizontal"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"/>
+              </TableRow>
+              <TableRow
+                  android:layout_marginTop="12dp"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+                  <within30.com.lib.TypeFaceTextView
+                      android:id="@+id/et_email"
+                      android:layout_width="0dp"
+                      android:layout_weight="1"
+                      android:layout_height="wrap_content"
+                      android:textColorHint="#cecece"
+                      android:background="@mipmap/input_editprofile"
+                      android:drawableLeft="@mipmap/icon_email"
+                      android:layout_marginTop="12dp"
+                      android:lines="1"
+                      android:textSize="@dimen/text_size_large"
+                      android:inputType="textEmailAddress"
+                      android:imeOptions="actionNext"
+                      android:hint="@string/email"
+                      android:paddingLeft="25dp"
+                      android:drawablePadding="5dp"
+                      android:paddingRight="15dp"
+                      android:gravity="center|center_horizontal"
+                      android:layout_gravity="center_horizontal"
+                      app:customTypeface="fonts/DroidSerif.ttf"/>
+              </TableRow>
+              <TableRow
+                  android:layout_marginTop="12dp"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+                  <within30.com.lib.CleanableEditText
+                      android:id="@+id/et_mobileno"
+                      android:layout_weight="1"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:textColorHint="#cecece"
+                      android:background="@mipmap/input_editprofile"
+                      android:drawableLeft="@mipmap/icon_phone"
+                      android:textSize="@dimen/text_size_large"
+                      android:inputType="phone"
+                      android:imeOptions="actionDone"
+                      android:hint="@string/mobile_no"
+                      android:paddingLeft="25dp"
+                      android:drawablePadding="5dp"
+                      android:paddingRight="15dp"
+                      android:drawableRight="@mipmap/cross_input"
+                      android:gravity="center|center_horizontal"
+                      android:layout_gravity="center_horizontal"
+                      android:lines="1"
+                      android:maxLength="13"
+                      android:focusable="true"
+                      android:digits="1234567890"
+                      android:focusableInTouchMode="true"
+                      android:cursorVisible="false"/>
+              </TableRow>
+          </TableLayout>
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="#f7f7f7"
+              android:layout_marginTop="20dp"
+              android:layout_marginLeft="30dp"
+              android:layout_marginRight="30dp"/>
+       <!--   <LinearLayout
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textColorHint="#cecece"
-              android:background="@mipmap/input_editprofile"
-              android:drawableLeft="@mipmap/icon_name"
-              android:layout_marginTop="15dp"
-              android:lines="1"
-              android:textSize="@dimen/text_size_large"
-              android:hint="@string/last_name"
-              android:paddingLeft="25dp"
-              android:drawablePadding="5dp"
-              android:paddingRight="15dp"
-              android:inputType="textCapSentences|textPersonName"
-              android:imeOptions="actionNext"
-              android:drawableRight="@mipmap/cross_input"
-              android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal"
-              android:focusable="true"
-              android:focusableInTouchMode="true"/>
-          <TextView
-              android:id="@+id/et_email"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColorHint="#cecece"
-              android:background="@mipmap/input_editprofile"
-              android:drawableLeft="@mipmap/icon_email"
+              android:orientation="horizontal"
               android:layout_marginTop="10dp"
-              android:lines="1"
-              android:textSize="@dimen/text_size_large"
-              android:inputType="textEmailAddress"
-              android:imeOptions="actionNext"
-              android:hint="@string/email"
-              android:paddingLeft="25dp"
-              android:drawablePadding="5dp"
-              android:paddingRight="15dp"
+              android:weightSum="2"
+              android:gravity="center|center_vertical|center_horizontal"
+              android:layout_gravity="center_horizontal|center_vertical|center">
+              <within30.com.lib.TypeFaceTextView
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:text="Notifications"
+                  android:layout_gravity="center"
+                  android:visibility="visible"
+                  android:textSize="18sp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_weight="1"
+                  app:customTypeface="fonts/DroidSerif_Bold.ttf"
+                  android:gravity="center_vertical|right|center_horizontal" />
+              <ToggleButton
+                  android:id="@+id/switch_notifications"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textOff=""
+                  android:textOn=""
+                  android:background="@android:color/transparent"
+                  android:button="@drawable/notifications_switch_thumb"
+                  android:layout_marginLeft="30dp"
+                  android:layout_gravity="center"
+                  android:layout_marginRight="0dp"
+                  android:visibility="visible"
+                  android:gravity="center_vertical|center_horizontal" />
 
-              android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal" />
-          <com.sms.within30.lib.CleanableEditText
-              android:id="@+id/et_mobileno"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColorHint="#cecece"
-              android:background="@mipmap/input_editprofile"
-              android:drawableLeft="@mipmap/icon_phone"
-              android:layout_marginTop="15dp"
-              android:textSize="@dimen/text_size_large"
-              android:inputType="phone"
-              android:imeOptions="actionDone"
-              android:hint="@string/mobile_no"
-              android:paddingLeft="25dp"
-              android:drawablePadding="5dp"
-              android:paddingRight="15dp"
-              android:drawableRight="@mipmap/cross_input"
-              android:gravity="center|center_horizontal"
-              android:layout_gravity="center_horizontal"
-              android:lines="1"
-              android:maxLength="13"
-              android:focusable="true"
-              android:focusableInTouchMode="true"/>
-          <Switch
-              android:id="@+id/switch_notifications"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textOff=""
-              android:textOn=""
-              android:thumb="@drawable/notifications_switch_thumb"
-              android:track="@drawable/notifications_switch_track"
-              android:layout_marginTop="40dp"
-              android:text="Notifications"
-              android:layout_gravity="center"
-              android:visibility="invisible"/>
-          <Button
+          </LinearLayout>-->
+
+          <within30.com.lib.TypeFaceButton
               android:id="@+id/btupdateprofile"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="Update"
-              android:layout_margin="20dp"
-              android:textSize="13sp"
+              android:layout_marginTop="20dp"
+              android:textSize="16sp"
               android:textColor="@color/white"
               android:textStyle="bold"
               android:textAllCaps="false"
+              android:layout_marginBottom="10dp"
               android:gravity="center_vertical|center_horizontal"
-
               android:background="@mipmap/submit_update_profile"
-              android:layout_gravity="center" />
+              android:layout_gravity="center"
+              app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
       </LinearLayout>
   </ScrollView>
 

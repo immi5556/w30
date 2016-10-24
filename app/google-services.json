@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "841587965302",
+    "project_id": "within30-1334"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841587965302:android:f9e1ec5ed7e8f735",
+        "android_client_info": {
+          "package_name": "within30.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZMSOJ8scFOy2I3xS-Ah-l0aGztuwV20s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

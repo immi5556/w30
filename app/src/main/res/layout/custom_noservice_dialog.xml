@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+    <LinearLayout
+        android:id="@+id/llmain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:background="@drawable/rounded_bg_filter">
+        <!--<within30.com.lib.TypeFaceTextView
+            android:id="@+id/bt_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sorry"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:padding="12dp"
+            android:textColor="@color/white"
+            android:background="@drawable/customised_sorry_button"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            app:customTypeface="fonts/DroidSerif_Bold.ttf"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@drawable/customised_sorry_button"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/img_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/menu_car_maintainence"
+                android:padding="3dp"
+                android:layout_margin="5dp"/>
+            <within30.com.lib.TypeFaceTextView
+                android:id="@+id/tvservicename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Car Services"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentTop="true"
+                android:textColor="#ffffff"
+                android:textSize="23sp"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center_horizontal|center"
+                android:layout_centerHorizontal="true"
+                app:customTypeface="fonts/DroidSerif.ttf"/>
+
+        </LinearLayout>
+        <within30.com.lib.TypeFaceTextView
+            android:id="@+id/tverrortxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Currently not Available."
+            android:textColor="@color/w30_blue"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center_horizontal|center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="8dp"
+            app:customTypeface="fonts/DroidSerif.ttf"/>
+        <within30.com.lib.TypeFaceTextView
+            android:id="@+id/tverrortxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Launching Soon!"
+            android:textColor="#39425f"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center_horizontal|center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="10dp"
+            app:customTypeface="fonts/DroidSerif_Bold.ttf"/>
+    </LinearLayout>
+
+
+</LinearLayout>
